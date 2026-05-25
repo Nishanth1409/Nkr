@@ -1,6 +1,12 @@
 /** @type {import('next').NextConfig} */
 
+const path = require('path')
+
 const nextConfig = {
+  // Pin workspace root so Turbopack doesn't pick up parent lockfiles (D:\...\project\)
+  turbopack: {
+    root: path.join(__dirname),
+  },
   // Enable experimental features
   experimental: {
     optimizePackageImports: [

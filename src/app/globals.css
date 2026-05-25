@@ -35,14 +35,23 @@
     box-sizing: border-box;
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   html,
   body {
     -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
     user-select: none;
-    scroll-behavior: smooth;
     /* cursor: none; */
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
   }
 }
 

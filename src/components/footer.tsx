@@ -2,15 +2,15 @@ import React from 'react'
 
 const footer = () => {
   return (
-    <div className="flex items-center justify-center bg-white">
-      <div className="container flex flex-col items-center justify-center gap-8 bg-white px-8 py-4 md:px-24">
-        <span className="text-center text-base text-black">
+    <div className="flex items-center justify-center bg-transparent">
+      <div className="container flex flex-col items-center justify-center gap-8 bg-transparent px-8 py-4 md:px-24">
+        <span className="no-grunge text-center text-base text-black">
           Loosely designed in{' '}
           <a
             href="https://figma.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             Figma
           </a>
@@ -19,7 +19,7 @@ const footer = () => {
             href="https://nextjs.org/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             Next.js
           </a>{' '}
@@ -28,7 +28,7 @@ const footer = () => {
             href="https://tailwindcss.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             Tailwind CSS
           </a>{' '}
@@ -37,7 +37,7 @@ const footer = () => {
             href="https://react-icons.github.io/react-icons/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             React Icons
           </a>
@@ -46,7 +46,7 @@ const footer = () => {
             href="https://fonts.google.com/specimen/Lora"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             Lora
           </a>
@@ -55,7 +55,7 @@ const footer = () => {
             href="https://vercel.com/"
             target="_blank"
             rel="noopener noreferrer"
-            className="underline"
+            className="text-link-hover underline"
           >
             Vercel
           </a>

@@ -9,15 +9,15 @@ const contactLinks = [
   {
     icon: FaLinkedin,
     name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/manjumadhav-va',
+    href: 'https://www.linkedin.com/in/nishanth-k-r-107895258',
   },
-  { icon: FaGithub, name: 'GitHub', href: 'https://github.com/Violetto-rose' },
+  { icon: FaGithub, name: 'GitHub', href: 'https://github.com/Nishanth1409' },
   {
     icon: SiLinktree,
     name: 'Linktree',
-    href: 'https://linktr.ee/manjumadhav.va',
+    href: 'https://linktr.ee/Nkr14',
   },
-  { icon: MdEmail, name: 'Email', href: 'mailto:manjumadhav.va@gmail.com' },
+  { icon: MdEmail, name: 'Email', href: 'mailto:nishanthkr1409@gmail.com' },
 ]
 
 const archiveLinks = [
@@ -30,9 +30,9 @@ const archiveLinks = [
 
 const Contact = () => {
   return (
-    <div className="flex justify-center items-center bg-white">
-      <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
-        <span className="text-5xl text-black">Contact Me</span>
+    <div className="contact-section-inner flex min-h-screen w-full items-center justify-center bg-transparent">
+      <div className="container flex flex-col items-start justify-center gap-8 bg-transparent px-8 py-16 md:px-24 md:py-32">
+        <span className="no-grunge text-5xl text-black">Contact Me</span>
 
         <div className="flex flex-col gap-8">
           <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
@@ -43,20 +43,20 @@ const Contact = () => {
                 target="_blank"
                 rel="noopener noreferrer"
                 size="md"
-                className="gap-2"
+                className="gap-2 no-grunge"
               >
-                <link.icon className="w-6 h-6" />
-                <span>{link.name}</span>
+                <link.icon className="no-grunge h-6 w-6" />
+                <span className="no-grunge">{link.name}</span>
               </Button>
             ))}
           </div>
 
           <div className="flex flex-col gap-4">
-            <span className="text-2xl text-black">Archive</span>
+            <span className="no-grunge text-2xl text-black">Archive</span>
             <div className="flex flex-wrap gap-3">
               {archiveLinks.map((link, index) => (
-                <Button key={index} href={link.href} size="sm">
-                  <span>{link.name}</span>
+                <Button key={index} href={link.href} size="sm" className="no-grunge">
+                  <span className="no-grunge">{link.name}</span>
                 </Button>
               ))}
             </div>

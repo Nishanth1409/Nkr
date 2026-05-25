@@ -1,26 +1,37 @@
 import React from 'react'
+import type { IconType } from 'react-icons'
 import { FaFigma, FaReact } from 'react-icons/fa'
+import { FaCss3Alt } from 'react-icons/fa6'
 import { IoLogoJavascript } from 'react-icons/io5'
 import { RiTailwindCssFill } from 'react-icons/ri'
-import { SiFirebase, SiSupabase } from 'react-icons/si'
+import { SiCanva, SiFirebase, SiHtml5, SiNextdotjs, SiSupabase } from 'react-icons/si'
 
-const technologies = [
+type Technology = {
+  name: string
+  icon?: IconType
+  icons?: IconType[]
+}
+
+const technologies: Technology[] = [
+  { icon: SiCanva, name: 'Canva' },
+  { icon: FaFigma, name: 'Figma' },
+  { icons: [SiHtml5, FaCss3Alt], name: 'HTML & CSS' },
   { icon: IoLogoJavascript, name: 'JavaScript' },
   { icon: FaReact, name: 'React' },
+  { icon: SiNextdotjs, name: 'Next.js' },
   { icon: SiFirebase, name: 'Firebase' },
   { icon: SiSupabase, name: 'Supabase' },
   { icon: RiTailwindCssFill, name: 'Tailwind' },
-  { icon: FaFigma, name: 'Figma' },
 ]
 
 const Introduction = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-white">
-      <div className="container flex flex-col items-start justify-center gap-8 bg-white px-8 py-16 md:px-24 md:py-32">
+    <div className="flex justify-center items-center min-h-screen bg-white">
+      <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
         <div className="flex flex-col gap-4">
           <span className="text-5xl text-black">NISHANTH K R</span>
           <span className="text-2xl text-black">
-            A developer who builds webapps and enjoys good design.
+            A creator who captures moments and admires good design 📸✨
           </span>
         </div>
 
@@ -30,12 +41,11 @@ const Introduction = () => {
             India.
           </span>
           <span className="text-xl text-black">
-            Currently, I&apos;m focused on <strong>frontend development</strong>{' '}
+          Passionate about <strong>photography</strong>, <strong>UI/UX design</strong> , <strong>frontend development</strong> and creating clean digital experiences {' '} 
             with React and Next.js and am also learning backend development.
           </span>
           <span className="text-xl text-black">
-            When I&apos;m not coding, I enjoy reading comics and listening to
-            music.
+            When I&apos;m not designing or coding, I enjoy photography, music and capturing moments that tell stories.
           </span>
         </div>
 
@@ -43,12 +53,19 @@ const Introduction = () => {
           <span className="text-xl text-black">Technologies I work with</span>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
             {technologies.map((tech, index) => (
-              <div
-                key={index}
-                className="flex items-center gap-2 rounded-lg border border-solid border-black p-2.5"
-              >
-                <tech.icon className="h-6 w-6" />
-                <span className="text-base text-black">{tech.name}</span>
+              <div key={index} className="tech-card-border">
+                <div className="tech-card-inner flex items-center gap-2 p-2.5">
+                  {tech.icons ? (
+                    <div className="no-grunge flex shrink-0 items-center gap-1">
+                      {tech.icons.map((Icon, iconIndex) => (
+                        <Icon key={iconIndex} className="h-6 w-6 shrink-0" />
+                      ))}
+                    </div>
+                  ) : (
+                    tech.icon && <tech.icon className="no-grunge h-6 w-6 shrink-0" />
+                  )}
+                  <span className="no-grunge text-base text-black">{tech.name}</span>
+                </div>
               </div>
             ))}
           </div>

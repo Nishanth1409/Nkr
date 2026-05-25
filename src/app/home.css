@@ -1,3 +1,412 @@
+/* Smooth section-to-section scroll (proximity snap — not sticky/mandatory) */
+html {
+  scroll-snap-type: y proximity;
+}
+
+.home-section {
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+.designs-section-snap {
+  scroll-snap-align: none;
+}
+
+/* Photography — own snap section (kept separate from GSAP-pinned My Designs) */
+.photography-section {
+  position: relative;
+  z-index: 10;
+  isolation: isolate;
+}
+
+/* My Designs — own section after Photography (no divider between them) */
+.my-designs-home-section {
+  position: relative;
+  isolation: isolate;
+  scroll-snap-align: none;
+  overflow-anchor: none;
+}
+
+.contact-home-section {
+  position: relative;
+  z-index: 30;
+  scroll-snap-align: start;
+  background: transparent;
+}
+
+/* No grunge overlay patches on Contact / Footer */
+.contact-home-section span::after,
+.contact-section-inner span::after {
+  content: none;
+  display: none;
+}
+
+/* GSAP pin spacers — avoid black gaps from layout html background */
+.pin-spacer {
+  background: transparent !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-snap-type: none;
+  }
+}
+
+/* Interactive hover — buttons, links, tech cards */
+@layer components {
+  .btn-interactive {
+    cursor: pointer;
+    transition:
+      transform 300ms ease,
+      box-shadow 300ms ease;
+  }
+
+  @media (hover: hover) {
+    .btn-interactive:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 5px 5px 0 0 #000;
+    }
+  }
+
+  .btn-interactive.is-pressed {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+  }
+
+  .text-link-hover {
+    cursor: pointer;
+    text-underline-offset: 3px;
+    transition:
+      color 200ms ease,
+      opacity 200ms ease;
+  }
+
+  @media (hover: hover) {
+    .text-link-hover:hover {
+      color: #333;
+      opacity: 0.75;
+    }
+  }
+
+  /* Tech chips: rotating gradient ring on border only (text/icons stay clean) */
+  @property --tech-gradient-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+  }
+
+  .tech-card-border {
+    position: relative;
+    isolation: isolate;
+    border-radius: 0.5rem;
+    padding: 2px;
+    background: #000;
+    cursor: default;
+  }
+
+  .tech-card-border::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    border-radius: inherit;
+    padding: 2px;
+    background: conic-gradient(
+      from var(--tech-gradient-angle),
+      #000,
+      #fff,
+      #000,
+      #fff,
+      #000
+    );
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 250ms ease;
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+
+  @media (hover: hover) {
+    .tech-card-border:hover::before {
+      opacity: 1;
+      animation: tech-border-spin 2.5s linear infinite;
+    }
+  }
+
+  @keyframes tech-border-spin {
+    to {
+      --tech-gradient-angle: 360deg;
+    }
+  }
+
+  .tech-card-inner {
+    position: relative;
+    z-index: 1;
+    border-radius: calc(0.5rem - 2px);
+    background: #fff;
+  }
+
+  /* Full-width gallery within the section (no 100vw shift — avoids side black bars) */
+  .photo-carousel-bleed {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    background: transparent;
+  }
+
+  /* Photography carousel — fan stack (supah-style 3D scroll) */
+  .photo-carousel-stage {
+    pointer-events: none;
+    overflow: visible;
+    background: transparent;
+    isolation: isolate;
+  }
+
+  .photo-carousel-item {
+    --items: 11;
+    --active: 0;
+    --zIndex: 1;
+    --width: clamp(200px, 34vw, 400px);
+    --height: calc(var(--width) * 4 / 3);
+    --x: calc(var(--active) * 980%);
+    --y: calc(var(--active) * 165%);
+    --rot: calc(var(--active) * 62deg);
+
+    position: absolute;
+    opacity: 1 !important;
+    z-index: var(--zIndex);
+    top: 50%;
+    left: 50%;
+    width: var(--width);
+    height: var(--height);
+    aspect-ratio: 3 / 4;
+    margin: calc(var(--height) * -0.5) 0 0 calc(var(--width) * -0.5);
+    overflow: hidden;
+    border: none;
+    border-radius: 12px;
+    background: #000;
+    cursor: none;
+    pointer-events: all;
+    transform-origin: 50% 100%;
+    box-shadow: 5px 5px 0 0 #000;
+    transform: translate(var(--x), var(--y)) rotate(var(--rot));
+    transition: transform 0.8s cubic-bezier(0, 0.02, 0, 1);
+    isolation: isolate;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+
+  .photo-carousel-box {
+    position: absolute;
+    z-index: 1;
+    inset: 0;
+    background: #000;
+    opacity: 1 !important;
+  }
+
+  .photo-carousel-media {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    background: #000;
+    opacity: 1 !important;
+  }
+
+  .photo-carousel-media img,
+  .photo-carousel-media picture,
+  .photo-carousel-media span,
+  .photo-carousel-media .photo-carousel-img {
+    opacity: 1 !important;
+    filter: none;
+  }
+
+  .photo-carousel-title {
+    position: absolute;
+    z-index: 2;
+    bottom: 20px;
+    left: 20px;
+    font-size: clamp(1.1rem, 3vw, 1.75rem);
+    font-weight: 500;
+    color: #fff;
+    text-shadow: 0 4px 4px rgba(0, 0, 0, 0.15);
+    transition: opacity 0.8s cubic-bezier(0, 0.02, 0, 1);
+  }
+
+  .photo-carousel-img,
+  .photo-carousel-box img {
+    width: 100%;
+    height: 100%;
+    opacity: 1 !important;
+    pointer-events: none;
+  }
+
+  .photo-carousel-box--logo {
+    display: flex;
+    flex-direction: column;
+    background: #000;
+  }
+
+  .photo-carousel-box--logo::before {
+    display: none;
+  }
+
+  .photo-carousel-logo-media {
+    position: relative;
+    flex: 1 1 auto;
+    min-height: 0;
+    width: 100%;
+  }
+
+  .photo-carousel-box--logo .photo-carousel-logo-media {
+    opacity: 1;
+  }
+
+  .photo-carousel-box--logo .photo-carousel-logo-media img {
+    object-fit: contain;
+    opacity: 1 !important;
+  }
+
+  .photo-carousel-cta {
+    position: relative;
+    z-index: 3;
+    flex: 0 0 auto;
+    padding: 12px 16px 18px;
+    text-align: center;
+    font-size: clamp(0.85rem, 2.4vw, 1.2rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: #fff;
+    background: #000;
+    opacity: 1;
+  }
+
+  .photo-carousel-cursor {
+    --size: 40px;
+    top: 0;
+    left: 0;
+    width: var(--size);
+    height: var(--size);
+    margin: calc(var(--size) * -0.5) 0 0 calc(var(--size) * -0.5);
+    border-radius: 50%;
+    border: 1px solid rgba(0, 0, 0, 0.25);
+    transition: transform 0.85s cubic-bezier(0, 0.02, 0, 1);
+  }
+
+  .photo-carousel-cursor--dot {
+    --size: 4px;
+    background: #000;
+    border: none;
+    transition-duration: 0.7s;
+  }
+
+  @media (max-width: 768px) {
+    .photo-carousel-item {
+      --width: clamp(165px, 48vw, 300px);
+      --height: calc(var(--width) * 4 / 3);
+      --x: calc(var(--active) * 720%);
+      --y: calc(var(--active) * 130%);
+      --rot: calc(var(--active) * 52deg);
+    }
+  }
+
+  /* My Designs — Three.js template carousel (scroll-pinned) */
+  .designs-section-snap,
+  .designs-section {
+    scroll-snap-align: none;
+  }
+
+  #my-designs {
+    position: relative;
+    isolation: isolate;
+    background: transparent;
+  }
+
+  .photography-section-inner {
+    isolation: isolate;
+  }
+
+  .designs-animation-root {
+    position: relative;
+    width: 100%;
+  }
+
+  /* My Designs — reference watermark over carousel-wrap (single scroll pin) */
+  .designs-watermark-wrap {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+
+  .designs-watermark-text {
+    display: inline-block;
+    font-family: 'ClashDisplay-Variable', var(--font-lora), sans-serif;
+    font-size: 35vw;
+    font-weight: 900;
+    line-height: 1;
+    text-transform: uppercase;
+    opacity: 0.05;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+
+  .designs-section-copy,
+  .designs-section-copy a {
+    color: #111;
+  }
+
+  .designs-carousel-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    min-height: 100dvh;
+  }
+
+  .designs-canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 100dvh;
+  }
+
+  .designs-more-cta {
+    position: absolute;
+    z-index: 5;
+    bottom: clamp(1.5rem, 6vh, 3.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 0.75rem 1.35rem;
+    border-radius: 8px;
+    border: 1.5px solid #111;
+    background: #000;
+    box-shadow: 4px 4px 0 0 #000;
+    font-size: clamp(0.9rem, 2.2vw, 1.15rem);
+    font-weight: 500;
+    line-height: 1.35;
+    color: #fff;
+    text-align: center;
+    text-decoration: none;
+    white-space: nowrap;
+    transition:
+      transform 300ms ease,
+      box-shadow 300ms ease;
+  }
+
+  @media (hover: hover) {
+    .designs-more-cta:hover {
+      transform: translateX(-50%) translate(-2px, -2px);
+      box-shadow: 6px 6px 0 0 #000;
+    }
+  }
+}
+
 /* Home page specific styles - grunge texture effect */
 
 /* Grunge texture overlay for all text elements on home page */

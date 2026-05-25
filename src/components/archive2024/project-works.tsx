@@ -7,90 +7,21 @@ import {
   faBrain,
   faChevronLeft,
   faChevronRight,
-  faGraduationCap,
   faUtensils,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
+import {
+  ARCHIVE_PROJECTS,
+  type ArchiveCarouselProject,
+} from '../../data/portfolio-content'
 import { useIntersectionObserver } from './lib/hooks/useIntersectionObserver'
 
-interface Project {
-  id: number
-  title: string
-  description: string
-  image: string[]
-  link: string
-  technologies: string[]
-}
+const PROJECTS: ArchiveCarouselProject[] = ARCHIVE_PROJECTS
 
-// Move static project data outside component
-const PROJECTS: Project[] = [
-  {
-    id: 1,
-    title: 'Swaad Sanchalan',
-    description:
-      'Swaad Sanchalan is a comprehensive restaurant management system that streamlines operations including menu management, reservations, billing, and sales reporting.',
-    image: [
-      '/images/Swaad-Sanchalan.webp',
-      '/images/swaad-sanchalan-hero.webp',
-      '/images/swaad-sanchalan-dash.webp',
-    ],
-    link: 'https://github.com/violetto-rose/RestaurantManagementSystem.git',
-    technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript', 'PHP', 'MySQL'],
-  },
-  {
-    id: 2,
-    title: 'BhaavChitra',
-    description:
-      'BhaavChitra is a sentiment analysis system for feedback analysis, typically for SMEs, and provides key highlights on how a product or service is performing.',
-    image: [
-      '/images/BhaavChitra.webp',
-      '/images/bhaavchitra-hero.webp',
-      '/images/bhaavchitra-service.webp',
-    ],
-    link: 'https://github.com/violetto-rose/BhaavChitra.git',
-    technologies: [
-      'HTML',
-      'CSS',
-      'JavaScript',
-      'Python',
-      'Flask',
-      'Transformers',
-      'MongoDB',
-    ],
-  },
-  {
-    id: 3,
-    title: 'OBE Tracker',
-    description:
-      'The OBE Tracker is designed to facilitate Outcome-Based Education (OBE) by providing a comprehensive system for tracking Course and Program outcomes.',
-    image: [
-      '/images/OBE-Tracker.webp',
-      '/images/obe-hero.webp',
-      '/images/obe-co-po.webp',
-    ],
-    link: 'https://github.com/violetto-rose/OBE-DBMS-Project.git',
-    technologies: ['HTML', 'CSS', 'JavaScript', 'PHP', 'MySQL'],
-  },
-] as const
-
-// Memoized project icon mapping
 const PROJECT_ICONS = [
-  <FontAwesomeIcon
-    key="utensils"
-    icon={faUtensils}
-    className="h-5 w-5 text-violet-400"
-  />,
-  <FontAwesomeIcon
-    key="brain"
-    icon={faBrain}
-    className="h-5 w-5 text-violet-400"
-  />,
-  <FontAwesomeIcon
-    key="graduation"
-    icon={faGraduationCap}
-    className="h-5 w-5 text-violet-400"
-  />,
+  <FontAwesomeIcon key="brain" icon={faBrain} className="h-5 w-5 text-violet-400" />,
+  <FontAwesomeIcon key="utensils" icon={faUtensils} className="h-5 w-5 text-violet-400" />,
 ] as const
 
 // Memoized navigation button component
@@ -135,7 +66,7 @@ const ProjectSelector = memo(
     onProjectChange,
     getProjectIcon,
   }: {
-    projects: readonly Project[]
+    projects: readonly ArchiveCarouselProject[]
     activeProject: number
     onProjectChange: (index: number) => void
     getProjectIcon: (index: number) => React.ReactNode

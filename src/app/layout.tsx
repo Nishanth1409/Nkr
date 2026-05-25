@@ -79,10 +79,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${lora.variable} ${rocksalt.variable} ${unbounded.variable} ${berkshireSwash.variable} bg-black text-violet-100`}
     >
       <head>
-        <link rel="preload" as="image" href="/images/paper-texture.webp" />
+        <link rel="preload" as="video" href="/images/paper-texture.mp4" />
         <link
           rel="preload"
           as="style"
@@ -102,7 +103,7 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="font-lora">
+      <body className="font-lora" suppressHydrationWarning>
         {children}
         <Analytics />
       </body>

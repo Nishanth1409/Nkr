@@ -6,6 +6,10 @@ import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
 
+import {
+  ARCHIVE_PORTFOLIO_LINKS,
+  CONTACT_LINKS as SHARED_CONTACT,
+} from '../../data/portfolio-content'
 import HoverBorderGradient from './ui/hover-border-gradient'
 import { WavyBackground } from './ui/wavy-background'
 
@@ -24,53 +28,44 @@ interface ContactLink {
   color: string
 }
 
-const CONTACT_LINKS: ContactLink[] = [
-  {
-    id: 'linkedin',
-    name: 'LinkedIn',
-    href: 'https://www.linkedin.com/in/manjumadhav-va',
-    icon: <FontAwesomeIcon icon={faLinkedin} size="lg" />,
-    color: '#0A66C2',
-  },
-  {
-    id: 'github',
-    name: 'GitHub',
-    href: 'https://github.com/Violetto-rose',
-    icon: <FontAwesomeIcon icon={faGithub} size="lg" />,
-    color: '#24292e',
-  },
-  {
-    id: 'linktree',
-    name: 'Linktree',
-    href: 'https://linktr.ee/manjumadhav.va',
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        width="20"
-        height="20"
-        viewBox="0 0 417 512.238"
-        fill="currentColor"
-      >
-        <path
-          fill="#43E660"
-          fillRule="nonzero"
-          d="M171.274 344.942h74.09v167.296h-74.09V344.942zM0 173.468h126.068l-89.622-85.44 49.591-50.985 85.439 87.829V0h74.086v124.872L331 37.243l49.552 50.785-89.58 85.24H417v70.502H290.252l90.183 87.629L331 381.192 208.519 258.11 86.037 381.192l-49.591-49.591 90.218-87.631H0v-70.502z"
-        />
-      </svg>
-    ),
-    color: '#1a1a1a',
-  },
-  {
-    id: 'email',
-    name: 'Email',
-    href: 'mailto:manjumadhav.va@gmail.com',
-    icon: <FontAwesomeIcon icon={faEnvelope} size="lg" />,
-    color: '#ea4335',
-  },
-] as const
+const LINK_COLORS: Record<string, string> = {
+  LinkedIn: '#0A66C2',
+  GitHub: '#24292e',
+  Linktree: '#1a1a1a',
+  Email: '#ea4335',
+}
+
+const LINK_ICONS: Record<string, React.ReactNode> = {
+  LinkedIn: <FontAwesomeIcon icon={faLinkedin} size="lg" />,
+  GitHub: <FontAwesomeIcon icon={faGithub} size="lg" />,
+  Linktree: (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="20"
+      height="20"
+      viewBox="0 0 417 512"
+      fill="currentColor"
+    >
+      <path
+        fill="#43E660"
+        fillRule="nonzero"
+        d="M171.274 344.942h74.09v167.296h-74.09V344.942zM0 173.468h126.068l-89.622-85.44 49.591-50.985 85.439 87.829V0h74.086v124.872L331 37.243l49.552 50.785-89.58 85.24H417v70.502H290.252l90.183 87.629L331 381.192 208.519 258.11 86.037 381.192l-49.591-49.591 90.218-87.631H0v-70.502z"
+      />
+    </svg>
+  ),
+  Email: <FontAwesomeIcon icon={faEnvelope} size="lg" />,
+}
+
+const CONTACT_LINKS: ContactLink[] = SHARED_CONTACT.map((link) => ({
+  id: link.name.toLowerCase(),
+  name: link.name,
+  href: link.href,
+  icon: LINK_ICONS[link.name],
+  color: LINK_COLORS[link.name] ?? '#7c3aed',
+}))
 
 const Footer = memo(() => (
-  <StyledFooter className="absolute right-0 bottom-0 left-0 py-8 text-center text-sm">
+  <StyledFooter className="absolute right-0 bottom-0 left-0 py-8 text-sm text-center">
     <span>
       Loosely designed in <FigmaPopup />. Built with Next.js, Tailwind CSS,
       Aceternity UI, Font Awesome, and Vercel.
@@ -87,7 +82,7 @@ const ContactLinkButton = memo(({ link }: { link: ContactLink }) => (
       href={link.href}
       target="_blank"
       rel="noopener noreferrer"
-      className="flex w-full items-center justify-center gap-3 px-8 py-4 font-medium"
+      className="flex gap-3 justify-center items-center px-8 py-4 w-full font-medium"
       style={{
         backgroundColor: link.color,
       }}
@@ -103,17 +98,38 @@ const Contact = memo(() => {
   return (
     <section
       id="contact"
-      className="relative flex min-h-screen snap-start flex-col items-center justify-center overflow-hidden"
+      className="flex overflow-hidden relative flex-col justify-center items-center min-h-screen snap-start"
     >
-      <WavyBackground className="mx-auto flex flex-col items-center">
+      <WavyBackground className="flex flex-col items-center mx-auto">
         <h1 className="mb-12 text-3xl font-semibold text-violet-400 sm:text-4xl md:text-5xl">
           Contact Me
         </h1>
 
-        <div className="mx-auto grid w-full grid-cols-1 gap-6 p-6 sm:w-auto sm:p-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 p-6 mx-auto w-full sm:w-auto sm:p-8 md:grid-cols-2 lg:grid-cols-4">
           {CONTACT_LINKS.map((link) => (
             <ContactLinkButton key={link.id} link={link} />
           ))}
+        </div>
+
+        <div className="mt-10 flex flex-col items-center gap-4 px-6">
+          <h2 className="text-xl font-semibold text-violet-300">Archive</h2>
+          <div className="flex flex-wrap justify-center gap-4">
+            {ARCHIVE_PORTFOLIO_LINKS.map((link) => (
+              <HoverBorderGradient
+                key={link.href}
+                as="a"
+                href={link.href}
+                target={link.href.startsWith('http') ? '_blank' : undefined}
+                rel={
+                  link.href.startsWith('http') ? 'noopener noreferrer' : undefined
+                }
+                containerClassName="rounded-full"
+                className="bg-violet-900/40 px-5 py-2 text-sm text-violet-100"
+              >
+                {link.name}
+              </HoverBorderGradient>
+            ))}
+          </div>
         </div>
       </WavyBackground>
       <Footer />
@@ -137,7 +153,7 @@ const FigmaPopup = memo(() => {
   }
 
   return (
-    <span className="relative inline-block">
+    <span className="inline-block relative">
       <a
         href="https://figma.com"
         target="_blank"
@@ -157,14 +173,14 @@ const FigmaPopup = memo(() => {
         >
           {!iframeLoaded ? (
             <button
-              className="rounded-full bg-violet-600 px-6 py-3 text-xs font-bold text-white uppercase"
+              className="px-6 py-3 text-xs font-bold text-white uppercase bg-violet-600 rounded-full"
               onClick={() => setIframeLoaded(true)}
             >
               Load Preview
             </button>
           ) : (
             <iframe
-              className="h-full w-full border-0"
+              className="w-full h-full border-0"
               src="https://embed.figma.com/proto/TfkFcaZhPUUSXKt5Hy5fez/Untitled?embed-host=share"
               allowFullScreen
               title="Figma Preview"

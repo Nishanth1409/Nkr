@@ -10,6 +10,9 @@ import Starfield, {
 
 // Lazy load heavy components that aren't immediately visible
 const About = lazy(() => import('../../components/archive2024/about-me'))
+const Experience = lazy(
+  () => import('../../components/archive2024/experience-section'),
+)
 const Projects = lazy(
   () => import('../../components/archive2024/project-works'),
 )
@@ -45,6 +48,9 @@ export default function Archive2024() {
           <Intro starfieldRef={starfieldRef} />
           <Suspense fallback={<SectionLoader />}>
             <About />
+          </Suspense>
+          <Suspense fallback={<SectionLoader />}>
+            <Experience />
           </Suspense>
           <Suspense fallback={<SectionLoader />}>
             <Projects />

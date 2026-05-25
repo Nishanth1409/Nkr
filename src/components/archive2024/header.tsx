@@ -22,12 +22,20 @@ interface HeaderProps {
 
 const NAV_LINKS = [
   { href: '#about', label: 'About' },
+  { href: '#experience', label: 'Experience' },
   { href: '#projects', label: 'Projects' },
-  { href: '#myworks', label: 'My Works' },
+  { href: '#myworks', label: 'Other Works' },
   { href: '#contact', label: 'Contact' },
 ] as const
 
-const SECTIONS = ['intro', 'about', 'projects', 'myworks', 'contact'] as const
+const SECTIONS = [
+  'intro',
+  'about',
+  'experience',
+  'projects',
+  'myworks',
+  'contact',
+] as const
 
 // *************************
 // Navigation link component

@@ -1,0 +1,131 @@
+/** Shared copy and links — home + archive2024 (archive keeps its own UI theme). */
+
+export const PORTFOLIO_NAME = 'NISHANTH K R'
+
+export const PORTFOLIO_TAGLINE =
+  'A creator who captures moments and admires good design 📸✨'
+
+export const PORTFOLIO_INTRO_PARAGRAPHS = [
+  "I'm a Computer Science student from Karnataka, India.",
+  'Passionate about photography, UI/UX design, frontend development and creating clean digital experiences with React and Next.js and am also learning backend development.',
+  "When I'm not designing or coding, I enjoy photography, music and capturing moments that tell stories.",
+] as const
+
+export const PORTFOLIO_TECHNOLOGIES = [
+  'Canva',
+  'Figma',
+  'HTML & CSS',
+  'JavaScript',
+  'React',
+  'Next.js',
+  'Firebase',
+  'Supabase',
+  'Tailwind',
+] as const
+
+export const INSTAGRAM_URL = 'https://www.instagram.com/_n.k.r_creation'
+
+export const MY_DESIGNS_DRIVE_URL =
+  'https://drive.google.com/drive/folders/1qB1l4XnyGl3gSpLZq3BM7o1pzGNs0DRQ?usp=sharing'
+
+/** Public repos (collaborative — under violetto-rose, not Nishanth1409/*) */
+export const BHAAVCHITRA_GITHUB_URL = 'https://github.com/violetto-rose/bhaavchitra'
+export const SWAAD_SANCHALAN_GITHUB_URL =
+  'https://github.com/violetto-rose/swaad-sanchalan'
+
+export const EXPERIENCE_SECTION = {
+  heading: 'Experience',
+  meta: 'Remote · 2025 - Present',
+  title: 'ProtoRev Digital & ProtoRev 3D',
+  subtitle: 'Frontend Design · Branding · Social Media',
+  time: '2025 - Present',
+  category: 'Design & Frontend',
+  description:
+    'Contributing to two related brands—ProtoRev Digital and ProtoRev 3D—across web presence, visual identity, and social content. Work spans frontend layout planning, logo and template design, and consistent brand execution for digital services and 3D printing.',
+  details: [
+    'Plan and design frontend layouts for protorevdigital.com and protorev3d.com, aligning structure, typography, and UI flow with each brand’s goals.',
+    'Create logos, reusable social templates, and marketing visuals used across Instagram and other channels.',
+    'Handle social media planning and posting—coordinating content calendars, captions, and on-brand graphics for both companies.',
+    'Produce design templates and asset kits so the teams can ship campaigns and web updates faster with a unified look.',
+  ],
+  stack: {
+    design: ['Figma', 'Canva'],
+    frontend: ['Next.js', 'Tailwind CSS'],
+  },
+  links: [
+    { label: 'ProtoRev Digital', href: 'https://www.protorevdigital.com/' },
+    { label: 'ProtoRev 3D', href: 'https://www.protorev3d.com/' },
+  ],
+} as const
+
+export type ArchiveCarouselProject = {
+  id: number
+  title: string
+  description: string
+  image: string[]
+  link: string
+  technologies: string[]
+}
+
+/** Archive2024 projects carousel only — main site keeps full project list separately */
+export const ARCHIVE_PROJECTS: ArchiveCarouselProject[] = [
+  {
+    id: 1,
+    title: 'BhaavChitra',
+    description:
+      'BhaavChitra is a sentiment analysis system designed for feedback analysis, primarily for SMEs, providing key insights into how a product or service is performing.',
+    image: [
+      '/images/BhaavChitra.webp',
+      '/images/bhaavchitra-hero.webp',
+      '/images/bhaavchitra-service.webp',
+    ],
+    link: BHAAVCHITRA_GITHUB_URL,
+    technologies: ['HTML', 'CSS', 'JavaScript', 'Python', 'Flask', 'MongoDB'],
+  },
+  {
+    id: 2,
+    title: 'Swaad Sanchalan',
+    description:
+      'Swaad Sanchalan is a comprehensive restaurant management system that streamlines operations, including menu management, reservations, billing, and sales reporting.',
+    image: [
+      '/images/Swaad-Sanchalan.webp',
+      '/images/swaad-sanchalan-hero.webp',
+      '/images/swaad-sanchalan-dash.webp',
+    ],
+    link: SWAAD_SANCHALAN_GITHUB_URL,
+    technologies: ['HTML', 'CSS', 'Bootstrap', 'JavaScript', 'PHP', 'MySQL'],
+  },
+]
+
+export const PHOTOGRAPHY_ARCHIVE_FILES = [
+  'IMG_20210918_182748.jpg',
+  'IMG_20250531_101435.jpg',
+  'IMG_20230920_093152.jpg',
+  'ZVE04401.jpg',
+  'ZVE04450.jpg',
+  '2.jpg',
+] as const
+
+export const DESIGN_ARCHIVE_FILES = [
+  'AI tool Exhibition invitations.png',
+  'CSD 2026.png',
+  'CSD 2027.png',
+  'BhaavChitra .png',
+  'Radiant Tournament.png',
+  'tug of war.png',
+] as const
+
+export const CONTACT_LINKS = [
+  {
+    name: 'LinkedIn',
+    href: 'https://www.linkedin.com/in/nishanth-k-r-107895258',
+  },
+  { name: 'GitHub', href: 'https://github.com/Nishanth1409' },
+  { name: 'Linktree', href: 'https://linktr.ee/Nkr14' },
+  { name: 'Email', href: 'mailto:nishanthkr1409@gmail.com' },
+] as const
+
+export const ARCHIVE_PORTFOLIO_LINKS = [
+  { name: 'Current Portfolio', href: '/' },
+  { name: '2023 Portfolio', href: 'https://nkr14.vercel.app/' },
+] as const

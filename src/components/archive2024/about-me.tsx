@@ -1,83 +1,72 @@
 'use client'
 
 import React, { memo } from 'react'
-import { FaJava } from 'react-icons/fa'
+import { FaFigma, FaReact } from 'react-icons/fa'
+import { FaCss3Alt } from 'react-icons/fa6'
+import { IoLogoJavascript } from 'react-icons/io5'
+import { RiTailwindCssFill } from 'react-icons/ri'
 import {
-  SiFigma,
+  SiCanva,
   SiFirebase,
-  SiGit,
-  SiJavascript,
-  SiMysql,
+  SiHtml5,
   SiNextdotjs,
-  SiReact,
-  SiTailwindcss,
-  SiTypescript,
+  SiSupabase,
 } from 'react-icons/si'
 
-// ***************
-// Tech stack data
-// ***************
+import { PORTFOLIO_INTRO_PARAGRAPHS } from '../../data/portfolio-content'
 
 const TECH_STACK = [
   {
-    name: 'JavaScript',
-    desc: 'The language that powers your nightmares.',
-    icon: <SiJavascript className="text-violet-400" />,
-  },
-  {
-    name: 'React',
-    desc: (
-      <>
-        A <em>delightful</em> JavaScript library for building UIs.
-      </>
-    ),
-    icon: <SiReact className="text-violet-400" />,
-  },
-  {
-    name: 'Next.js',
-    desc: 'React, but with superpowers.',
-    icon: <SiNextdotjs className="text-violet-400" />,
-  },
-  {
-    name: 'TypeScript',
-    desc: 'JavaScript, but with types and fewer surprises.',
-    icon: <SiTypescript className="text-violet-400" />,
-  },
-  {
-    name: 'Tailwind CSS',
-    desc: 'Fun-first CSS framework',
-    icon: <SiTailwindcss className="text-violet-400" />,
-  },
-  {
-    name: 'Firebase',
-    desc: "Google's all-in-one app development platform.",
-    icon: <SiFirebase className="text-violet-400" />,
-  },
-  {
-    name: 'Java',
-    desc: 'Write once, debug everywhere.',
-    icon: <FaJava className="text-violet-400" />,
-  },
-  {
-    name: 'MySQL',
-    desc: 'SQL, but friendlier.',
-    icon: <SiMysql className="text-violet-400" />,
-  },
-  {
-    name: 'Git',
-    desc: 'The reason you can undo your mistakes.',
-    icon: <SiGit className="text-violet-400" />,
+    name: 'Canva',
+    desc: 'Social templates and quick campaign visuals.',
+    icon: <SiCanva className="text-violet-400" />,
   },
   {
     name: 'Figma',
-    desc: 'Design tool for people who like to move rectangles around.',
-    icon: <SiFigma className="text-violet-400" />,
+    desc: 'UI/UX layouts and design systems.',
+    icon: <FaFigma className="text-violet-400" />,
+  },
+  {
+    name: 'HTML & CSS',
+    desc: 'Semantic markup and responsive styling.',
+    icon: (
+      <>
+        <SiHtml5 className="text-violet-400" />
+        <FaCss3Alt className="text-violet-400" />
+      </>
+    ),
+  },
+  {
+    name: 'JavaScript',
+    desc: 'Interactive interfaces and app logic.',
+    icon: <IoLogoJavascript className="text-violet-400" />,
+  },
+  {
+    name: 'React',
+    desc: 'Component-driven UIs.',
+    icon: <FaReact className="text-violet-400" />,
+  },
+  {
+    name: 'Next.js',
+    desc: 'Full-stack React with routing and APIs.',
+    icon: <SiNextdotjs className="text-violet-400" />,
+  },
+  {
+    name: 'Firebase',
+    desc: 'Auth, Firestore, and hosting.',
+    icon: <SiFirebase className="text-violet-400" />,
+  },
+  {
+    name: 'Supabase',
+    desc: 'Postgres, auth, and edge functions.',
+    icon: <SiSupabase className="text-violet-400" />,
+  },
+  {
+    name: 'Tailwind',
+    desc: 'Utility-first styling.',
+    icon: <RiTailwindCssFill className="text-violet-400" />,
   },
 ] as const
-
-// ******************
-// About me component
-// ******************
 
 const About = memo(() => {
   return (
@@ -91,20 +80,9 @@ const About = memo(() => {
 
       <div className="font-lora flex flex-col items-center gap-6 text-base sm:gap-8 sm:text-lg md:text-xl lg:items-start">
         <div className="space-y-4 text-center text-gray-200 lg:text-left">
-          <p>
-            I&apos;m a <strong>Computer Science student</strong> from Karnataka,
-            India. I build web applications and work on projects that solve real
-            problems.
-          </p>
-          <p>
-            Currently focused on <strong>frontend development</strong> with
-            React and Next.js, and learning backend too.
-          </p>
-          <p>
-            When I&apos;m not coding, I&apos;m reading <strong>comics</strong>,
-            listen to <strong>music</strong>, or participate in{' '}
-            <strong>CSS battles</strong> (recently got into competitive CSS!).
-          </p>
+          {PORTFOLIO_INTRO_PARAGRAPHS.map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
         </div>
 
         <div className="font-redhatdisplay w-full">
@@ -118,7 +96,7 @@ const About = memo(() => {
                 className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 backdrop-blur-sm"
               >
                 <div className="mb-1 flex items-center gap-2">
-                  <span className="text-lg">{tech.icon}</span>
+                  <span className="flex gap-1 text-lg">{tech.icon}</span>
                   <span className="text-sm font-medium text-gray-200">
                     {tech.name}
                   </span>
