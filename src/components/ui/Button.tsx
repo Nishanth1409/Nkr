@@ -107,7 +107,12 @@ const Button = ({
     }
 
     return (
-      <Link href={href} className={pressedClassName} onClick={() => runPressAnimation()}>
+      <Link
+        href={href}
+        scroll
+        className={pressedClassName}
+        onClick={() => runPressAnimation()}
+      >
         {children}
       </Link>
     )
