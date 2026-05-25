@@ -1,0 +1,45 @@
+/* Home page specific styles - grunge texture effect */
+
+/* Grunge texture overlay for all text elements on home page */
+.grunge-text h1,
+.grunge-text h2,
+.grunge-text h3,
+.grunge-text h4,
+.grunge-text h5,
+.grunge-text h6,
+.grunge-text p,
+.grunge-text label,
+.grunge-text li,
+.grunge-text span {
+  position: relative;
+}
+
+.grunge-text h1::after,
+.grunge-text h2::after,
+.grunge-text h3::after,
+.grunge-text h4::after,
+.grunge-text h5::after,
+.grunge-text h6::after,
+.grunge-text p::after,
+.grunge-text label::after,
+.grunge-text li::after,
+.grunge-text span:not(.no-grunge)::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url('/images/grunge-texture.webp');
+  background-size: contain;
+  background-position: center;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+/* Extended version with CSS variable support for custom inset values */
+.grunge-text-extended {
+  --grunge-inset-y: -0.25em;
+  --grunge-inset-x: -0.1em;
+}
+
+.grunge-text-extended::after {
+  inset: var(--grunge-inset-y) var(--grunge-inset-x) !important;
+}

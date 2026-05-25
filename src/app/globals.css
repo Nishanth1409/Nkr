@@ -1,0 +1,87 @@
+@layer theme, base, components, utilities;
+
+@import 'tailwindcss';
+
+@font-face {
+  font-family: 'ClashDisplay-Variable';
+  src:
+    url('/resources/fonts/ClashDisplay-Variable.woff2') format('woff2'),
+    url('/resources/fonts/ClashDisplay-Variable.woff') format('woff'),
+    url('/resources/fonts/ClashDisplay-Variable.ttf') format('truetype');
+  font-weight: 200 700;
+  font-display: swap;
+  font-style: normal;
+}
+
+@theme {
+  /* Font families using Next.js font variables */
+  --font-redhatdisplay: var(--font-red-hat-display);
+  --font-lora: var(--font-lora);
+  --font-rocksalt: var(--font-rocksalt);
+  --font-unbounded: var(--font-unbounded);
+  --font-berkshireswash: var(--font-berkshireswash);
+  --font-beyonders: 'Beyonders', sans-serif;
+  --font-amsterdamone: 'Amsterdam 1', sans-serif;
+  --font-clashdisplay: 'ClashDisplay-Variable', sans-serif;
+  /* Custom breakpoint for xs */
+  --breakpoint-xs: 475px;
+}
+
+/* Base styles reset */
+@layer base {
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+  }
+
+  html,
+  body {
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    user-select: none;
+    scroll-behavior: smooth;
+    /* cursor: none; */
+  }
+}
+
+/* Custom components */
+@layer components {
+  .name-text {
+    background-image: url('/resources/static-squarespace.gif');
+    background-size: cover;
+    background-position: center;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+}
+
+/* Custom Scrollbar - Only for archive2024 */
+.archive-scrollbar,
+html:has([data-archive-layout]) {
+  /* For Webkit browsers (Chrome, Safari, Edge) */
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, #a78bfa 0%, #7c3aed 100%);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient(135deg, #c4b5fd 0%, #a78bfa 100%);
+  }
+  &::-webkit-scrollbar-corner {
+    background: transparent;
+  }
+
+  /* For Firefox */
+  & {
+    scrollbar-width: thin;
+    scrollbar-color: #a78bfa #0000;
+  }
+}
