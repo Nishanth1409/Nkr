@@ -22,9 +22,8 @@ import {
   faUsers,
 } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { FaAws } from 'react-icons/fa6'
+import { FaAws, FaCss3Alt } from 'react-icons/fa6'
 import {
-  SiCss,
   SiFirebase,
   SiGithub,
   SiHtml5,
@@ -205,7 +204,7 @@ const TechIcon = memo(({ tech }: { tech: string }) => {
     case 'html5':
       return <SiHtml5 className="text-violet-400" />
     case 'css3':
-      return <SiCss className="text-violet-400" />
+      return <FaCss3Alt className="text-violet-400" />
     case 'javascript':
       return <SiJavascript className="text-violet-400" />
     case 'markdown':
