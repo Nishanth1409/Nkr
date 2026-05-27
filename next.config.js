@@ -29,6 +29,10 @@ const nextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
+        hostname: 'api-cdn.figma.com',
+      },
+      {
+        protocol: 'https',
         hostname: '**',
       },
     ],

@@ -1,0 +1,217 @@
+/* Figma cube — solid flush faces, single copy block (no overlap) */
+
+.figma-cube-section {
+  position: relative;
+  isolation: isolate;
+  background: transparent;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+/* Grunge overrides — copy/intro only; never cube 3D nodes */
+.figma-cube-section-copy .figma-cube-intro,
+.figma-cube-section-copy .figma-cube-active-copy,
+.figma-cube-section-copy .figma-cube-active-copy * {
+  position: relative;
+}
+
+.figma-cube-section-copy ::after,
+.figma-cube-section-copy ::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+}
+
+.figma-cube-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  height: 100dvh;
+  pointer-events: none;
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
+.figma-cube-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) min(420px, 42vw) minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  height: 100%;
+  padding: 0 clamp(1.5rem, 5vw, 5rem);
+}
+
+.figma-cube-active-copy {
+  grid-column: 1;
+  grid-row: 1;
+  align-self: center;
+  max-width: 21rem;
+  pointer-events: auto;
+  transition: opacity 0.2s ease;
+}
+
+.figma-cube-active-copy.right {
+  grid-column: 3;
+  justify-self: end;
+  text-align: right;
+}
+
+.figma-cube-figma-link {
+  margin-top: 1rem;
+  opacity: 0;
+  transform: translateY(0.3rem);
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
+  pointer-events: none;
+}
+
+.figma-cube-figma-link.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.figma-cube-scene {
+  grid-column: 2;
+  grid-row: 1;
+  justify-self: center;
+  align-self: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: min(60vh, 500px);
+  perspective: 1100px;
+  perspective-origin: 50% 50%;
+}
+
+.figma-cube-pivot {
+  position: relative;
+  transform-style: preserve-3d;
+  filter: drop-shadow(0 22px 44px rgba(15, 23, 42, 0.16));
+}
+
+.figma-cube {
+  --figma-cube-s: min(46vw, 50vh, 400px);
+  --figma-cube-r: 12px;
+  --figma-cube-half: calc(var(--figma-cube-s) / 2);
+  width: var(--figma-cube-s);
+  height: var(--figma-cube-s);
+  position: relative;
+  transform-style: preserve-3d;
+  transform: rotateX(90deg) rotateY(0deg);
+  will-change: transform;
+}
+
+.figma-cube--interactive {
+  cursor: pointer;
+}
+
+.figma-cube-hit {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: var(--figma-cube-r);
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: none;
+  color: transparent;
+}
+
+.figma-cube-face {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: var(--figma-cube-s);
+  height: var(--figma-cube-s);
+  margin-left: calc(var(--figma-cube-half) * -1);
+  margin-top: calc(var(--figma-cube-half) * -1);
+  border-radius: var(--figma-cube-r);
+  backface-visibility: hidden;
+  overflow: hidden;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.08);
+}
+
+.figma-cube-face-media {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+  isolation: isolate;
+}
+
+.figma-cube-face-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  pointer-events: none;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+.figma-cube-face[data-face='front'] {
+  transform: translateZ(var(--figma-cube-half));
+}
+.figma-cube-face[data-face='back'] {
+  transform: rotateY(180deg) translateZ(var(--figma-cube-half));
+}
+.figma-cube-face[data-face='right'] {
+  transform: rotateY(90deg) translateZ(var(--figma-cube-half));
+}
+.figma-cube-face[data-face='left'] {
+  transform: rotateY(-90deg) translateZ(var(--figma-cube-half));
+}
+.figma-cube-face[data-face='top'] {
+  transform: rotateX(-90deg) translateZ(var(--figma-cube-half));
+}
+.figma-cube-face[data-face='bottom'] {
+  transform: rotateX(90deg) translateZ(var(--figma-cube-half));
+}
+
+.figma-cube-scroll {
+  pointer-events: none;
+}
+
+.figma-cube-scroll-lead {
+  pointer-events: none;
+}
+
+.figma-cube-scroll-section {
+  min-height: 100vh;
+  pointer-events: none;
+}
+
+@media (width <= 56.25em) {
+  .figma-cube-stage {
+    display: block;
+    position: relative;
+    height: 100%;
+    padding: 0 1.5rem;
+  }
+
+  .figma-cube-scene {
+    position: absolute;
+    inset: 0;
+    min-height: 0;
+  }
+
+  .figma-cube {
+    --figma-cube-s: min(72vw, 44vh, 300px);
+    --figma-cube-r: 10px;
+  }
+
+  .figma-cube-active-copy,
+  .figma-cube-active-copy.right {
+    position: absolute;
+    z-index: 3;
+    bottom: 1.75rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    max-width: none;
+    text-align: left;
+  }
+}

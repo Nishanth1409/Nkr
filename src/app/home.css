@@ -12,6 +12,15 @@ html {
   scroll-snap-align: none;
 }
 
+/* Figma cube gallery — before Photography */
+.figma-cube-home-section {
+  position: relative;
+  isolation: isolate;
+  scroll-snap-align: none;
+  overflow-anchor: none;
+  overflow-x: clip;
+}
+
 /* Photography — sticky scroll track (no GSAP pin; My Designs keeps the pin) */
 .photography-section {
   position: relative;
@@ -429,7 +438,7 @@ html {
 .grunge-text h4::after,
 .grunge-text h5::after,
 .grunge-text h6::after,
-.grunge-text p::after,
+.grunge-text p:not(.no-grunge)::after,
 .grunge-text label::after,
 .grunge-text li::after,
 .grunge-text span:not(.no-grunge)::after {

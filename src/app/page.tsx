@@ -12,6 +12,7 @@ import './home.css'
 // Lazy load heavy components that aren't immediately visible
 const Experience = lazy(() => import('../components/experience'))
 const Projects = lazy(() => import('../components/projects'))
+const FigmaWorks = lazy(() => import('../components/figma-works'))
 const OtherWorks = lazy(() => import('../components/other-works'))
 const Contact = lazy(() => import('../components/contact'))
 const Footer = lazy(() => import('../components/footer'))
@@ -43,6 +44,12 @@ export default function Home() {
           <div className="home-section">
             <Suspense fallback={<SectionLoader />}>
               <Projects />
+            </Suspense>
+          </div>
+          <SectionDivider />
+          <div className="home-section figma-cube-home-section">
+            <Suspense fallback={<SectionLoader />}>
+              <FigmaWorks />
             </Suspense>
           </div>
           <SectionDivider />

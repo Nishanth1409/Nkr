@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Dashboard">
+  <rect width="512" height="512" fill="#2563EB"/>
+  <g fill="#fff" transform="translate(96 96)">
+    <rect x="0" y="0" width="128" height="128" rx="16"/>
+    <rect x="160" y="0" width="128" height="128" rx="16"/>
+    <rect x="0" y="160" width="128" height="128" rx="16"/>
+    <rect x="160" y="160" width="128" height="128" rx="16" opacity="0.85"/>
+  </g>
+</svg>
