@@ -12,14 +12,15 @@ html {
   scroll-snap-align: none;
 }
 
-/* Photography — own snap section (kept separate from GSAP-pinned My Designs) */
+/* Photography — sticky scroll track (no GSAP pin; My Designs keeps the pin) */
 .photography-section {
   position: relative;
-  z-index: 10;
   isolation: isolate;
+  scroll-snap-align: none;
+  overflow-anchor: none;
 }
 
-/* My Designs — own section after Photography (no divider between them) */
+/* My Designs — scroll-pinned Three.js carousel */
 .my-designs-home-section {
   position: relative;
   isolation: isolate;
@@ -160,6 +161,24 @@ html {
     background: transparent;
   }
 
+  /* Photography — sticky scroll runway (scroll advances photos, no fixed pin) */
+  .photo-carousel-scroll-track {
+    position: relative;
+    width: 100%;
+  }
+
+  .photo-carousel-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    display: flex;
+    width: 100%;
+    height: 100dvh;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+  }
+
   /* Photography carousel — fan stack (supah-style 3D scroll) */
   .photo-carousel-stage {
     pointer-events: none;
@@ -191,7 +210,7 @@ html {
     border: none;
     border-radius: 12px;
     background: #000;
-    cursor: none;
+    cursor: pointer;
     pointer-events: all;
     transform-origin: 50% 100%;
     box-shadow: 5px 5px 0 0 #000;
@@ -284,25 +303,6 @@ html {
     color: #fff;
     background: #000;
     opacity: 1;
-  }
-
-  .photo-carousel-cursor {
-    --size: 40px;
-    top: 0;
-    left: 0;
-    width: var(--size);
-    height: var(--size);
-    margin: calc(var(--size) * -0.5) 0 0 calc(var(--size) * -0.5);
-    border-radius: 50%;
-    border: 1px solid rgba(0, 0, 0, 0.25);
-    transition: transform 0.85s cubic-bezier(0, 0.02, 0, 1);
-  }
-
-  .photo-carousel-cursor--dot {
-    --size: 4px;
-    background: #000;
-    border: none;
-    transition-duration: 0.7s;
   }
 
   @media (max-width: 768px) {

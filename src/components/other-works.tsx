@@ -43,13 +43,14 @@ const OtherWorks = () => {
   return (
     <section
       id="other-works"
-      className="photography-section-inner relative z-10 flex w-full min-h-screen flex-col items-center justify-center gap-8 overflow-x-clip bg-white py-16 pb-24 md:gap-12 md:py-32 md:pb-36"
+      className="flex relative flex-col gap-8 justify-center items-center py-16 pb-24 w-full min-h-screen bg-white photography-section-inner overflow-x-clip md:gap-12 md:py-32 md:pb-36"
     >
       <div className="container flex relative z-20 flex-col gap-2 items-start px-8 pb-4 w-full md:px-24">
-        <span className="text-5xl text-black no-grunge">My Works</span>
-        <span className="text-2xl text-black no-grunge">Photography clicks</span>
+        <span className="text-5xl text-black no-grunge">Photography</span>
+        <span className="text-2xl text-black no-grunge">Seeing the world through my lens.
+        </span>
         <span className="max-w-2xl text-xl text-black no-grunge">
-          Moments captured off the screen. Full gallery on{' '}
+          Scroll to move through photos — last card opens the full gallery on{' '}
           <a
             href={INSTAGRAM_URL}
             target="_blank"
