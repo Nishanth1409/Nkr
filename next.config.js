@@ -26,6 +26,8 @@ const nextConfig = {
   // Image optimization
   images: {
     formats: ['image/webp', 'image/avif'],
+    // Allow higher quality for Photography without disabling optimization
+    qualities: [75, 90, 95],
     remotePatterns: [
       {
         protocol: 'https',
