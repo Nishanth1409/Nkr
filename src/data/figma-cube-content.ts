@@ -165,8 +165,8 @@ const FRONT_FACE = 1
 /**
  * Per-frame face logos.
  * Front face is shared by WhatsApp (stop 1) and Dashboard (stop 6).
- * Keep WhatsApp on front while it is hidden (stops 2–5); switch to Dashboard
- * only when turning from Zepto → Dashboard.
+ * WhatsApp only at stop 1; Dashboard when turning Zepto→Dashboard and when
+ * TripAdvisor→Zepto (front face peeks during the tilt).
  */
 export const faceImagesForSegment = (segmentT: number): string[] => {
   const maxStop = FIGMA_CUBE_SCENES.length - 1
@@ -190,7 +190,10 @@ export const faceImagesForSegment = (segmentT: number): string[] => {
   const turningToDashboard =
     settled === maxStop || segmentT >= 5.02 || (base === 5 && frac > 0.04)
 
-  if (turningToDashboard) {
+  // TripAdvisor → Zepto: front face peeks in — show Dashboard, not WhatsApp
+  const tripadvisorToZepto = segmentT > 4 && segmentT < 5.02
+
+  if (turningToDashboard || tripadvisorToZepto) {
     images[FRONT_FACE] = FIGMA_PROJECT_IMAGES.dashboard
   } else if (settled === 1 || (base === 0 && frac > 0.04)) {
     images[FRONT_FACE] = FIGMA_PROJECT_IMAGES.whatsapp
