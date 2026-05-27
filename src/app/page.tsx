@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react'
 import Introduction from '../components/introduction'
 import MyDesigns from '../components/my-designs'
 import { PaperTextureBackground } from '../components/paper-texture-background'
+import { ScrollToTop } from '../components/scroll-to-top'
 import { SectionDivider } from '../components/ui/section-divider'
 
 import './home.css'
@@ -31,7 +32,7 @@ export default function Home() {
 
       <div className="relative">
         <main>
-          <div className="home-section">
+          <div id="home-intro" className="home-section">
             <Introduction />
           </div>
           <SectionDivider />
@@ -73,6 +74,8 @@ export default function Home() {
           </Suspense>
         </main>
       </div>
+
+      <ScrollToTop />
     </div>
   )
 }
