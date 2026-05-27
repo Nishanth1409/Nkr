@@ -188,8 +188,7 @@ export function PhotographyCarousel({ slides }: PhotographyCarouselProps) {
                           sizes="(max-width: 768px) 48vw, 400px"
                           className="photo-carousel-img object-contain"
                           draggable={false}
-                          priority
-                          unoptimized
+                          quality={95}
                         />
                       </div>
                       <span className="photo-carousel-cta no-grunge">
@@ -222,8 +221,9 @@ export function PhotographyCarousel({ slides }: PhotographyCarouselProps) {
                           objectPosition: slide.objectPosition ?? 'center',
                         }}
                         draggable={false}
-                        priority={index <= 2}
-                        unoptimized
+                        quality={95}
+                        priority={index === 0}
+                        fetchPriority={index === 0 ? 'high' : 'auto'}
                       />
                     </div>
                   </div>
