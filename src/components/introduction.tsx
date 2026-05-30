@@ -29,29 +29,29 @@ const Introduction = () => {
     <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
         <div className="flex flex-col gap-4">
-          <span className="text-5xl text-black">NISHANTH K R</span>
-          <span className="text-2xl text-black">
+          <span className="text-3xl text-black sm:text-4xl md:text-5xl">NISHANTH K R</span>
+          <span className="text-xl text-black sm:text-2xl">
             A creator who captures moments and admires good design 📸✨
           </span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-xl text-black">
+          <span className="text-lg text-black md:text-xl">
             I&apos;m a <strong>Computer Science</strong> student from Karnataka,
             India.
           </span>
-          <span className="text-xl text-black">
+          <span className="text-lg text-black md:text-xl">
           Passionate about <strong>photography</strong>, <strong>UI/UX design</strong> , <strong>frontend development</strong> and creating clean digital experiences {' '} 
             with React and Next.js and am also learning backend development.
           </span>
-          <span className="text-xl text-black">
+          <span className="text-lg text-black md:text-xl">
             When I&apos;m not designing or coding, I enjoy photography, music and capturing moments that tell stories.
           </span>
         </div>
 
         <div className="flex flex-col items-start gap-[9px] self-stretch">
-          <span className="text-xl text-black">Technologies I work with</span>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3">
+          <span className="text-lg text-black md:text-xl">Technologies I work with</span>
+          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:grid-cols-3">
             {technologies.map((tech, index) => (
               <div key={index} className="tech-card-border">
                 <div className="tech-card-inner flex items-center gap-2 p-2.5">

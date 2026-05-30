@@ -162,9 +162,9 @@ export function FigmaCubeGallery() {
         ref={introRef}
         className="figma-cube-intro container relative z-30 flex w-full flex-col items-start gap-2 px-8 pb-4 pt-16 md:px-24 md:pt-24"
       >
-        <span className="no-grunge text-5xl">{FIGMA_SECTION_INTRO.title}</span>
-        <span className="no-grunge text-2xl">{FIGMA_SECTION_INTRO.subtitle}</span>
-        <span className="no-grunge max-w-2xl text-xl">
+        <span className="no-grunge text-3xl sm:text-4xl md:text-5xl">{FIGMA_SECTION_INTRO.title}</span>
+        <span className="no-grunge text-xl sm:text-2xl">{FIGMA_SECTION_INTRO.subtitle}</span>
+        <span className="no-grunge max-w-2xl text-lg md:text-xl">
           {FIGMA_SECTION_INTRO.description}
         </span>
       </div>
@@ -175,13 +175,13 @@ export function FigmaCubeGallery() {
             className={`figma-cube-active-copy ${activeScene.cardAlign === 'right' ? 'right' : ''}`}
             style={{ opacity: copyOpacity }}
           >
-            <span className="figma-cube-copy-title no-grunge block text-2xl">
+            <span className="figma-cube-copy-title no-grunge block text-xl md:text-2xl">
               {activeScene.name}
             </span>
-            <span className="figma-cube-copy-sub no-grunge mt-1 block text-xl opacity-80">
+            <span className="figma-cube-copy-sub no-grunge mt-1 block text-lg opacity-80 md:text-xl">
               {activeScene.subtitle}
             </span>
-            <p className="figma-cube-copy-body no-grunge mt-3 max-w-md text-xl">
+            <p className="figma-cube-copy-body no-grunge mt-3 max-w-md text-lg md:text-xl">
               {activeScene.body}
             </p>
             {activeLink ? (

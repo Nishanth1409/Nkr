@@ -46,10 +46,10 @@ const OtherWorks = () => {
       className="flex relative flex-col gap-8 justify-center items-center py-16 pb-24 w-full min-h-screen bg-white photography-section-inner overflow-x-clip md:gap-12 md:py-32 md:pb-36"
     >
       <div className="container flex relative z-20 flex-col gap-2 items-start px-8 pb-4 w-full md:px-24">
-        <span className="text-5xl text-black no-grunge">Photography</span>
-        <span className="text-2xl text-black no-grunge">Seeing the world through my lens.
+        <span className="no-grunge text-3xl text-black sm:text-4xl md:text-5xl">Photography</span>
+        <span className="no-grunge text-xl text-black sm:text-2xl">Seeing the world through my lens.
         </span>
-        <span className="max-w-2xl text-xl text-black no-grunge">
+        <span className="no-grunge max-w-2xl text-lg text-black md:text-xl">
           Scroll to move through photos — last card opens the full gallery on{' '}
           <a
             href={INSTAGRAM_URL}
@@ -69,7 +69,7 @@ const OtherWorks = () => {
 
       <a
         href="#my-designs"
-        className="btn-interactive no-grunge relative z-20 mx-8 mt-4 inline-flex rounded-lg border border-black bg-white px-4 py-2 text-lg text-black shadow-[3px_3px_0_0_#000] md:mx-24"
+        className="btn-interactive no-grunge relative z-20 mx-8 mt-4 inline-flex rounded-lg border border-black bg-white px-4 py-2 text-base text-black shadow-[3px_3px_0_0_#000] sm:text-lg md:mx-24"
       >
         My template designs ↓
       </a>

@@ -133,10 +133,10 @@ const experienceData: ExperienceEntry[] = [
 
 const ExperienceCard = ({ experience }: { experience: ExperienceEntry }) => (
   <div className="flex flex-col gap-4">
-    <div className="flex justify-between items-center">
-      <div className="flex flex-col items-start">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex min-w-0 flex-col items-start">
         <span
-          className={`grunge-text-extended text-black ${experience.fontSize} ${experience.fontClass}`}
+          className={`grunge-text-extended max-w-full break-words text-black ${experience.fontSize} ${experience.fontClass}`}
         >
           {experience.title}
         </span>
@@ -154,9 +154,9 @@ const ExperienceCard = ({ experience }: { experience: ExperienceEntry }) => (
     </div>
 
     <div className="flex flex-col gap-2">
-      <span className="text-xl text-black">{experience.description}</span>
+      <span className="text-lg text-black md:text-xl">{experience.description}</span>
       {experience.details.length > 0 && (
-        <ul className="list-inside list-disc pl-4 text-xl text-black">
+        <ul className="list-inside list-disc pl-4 text-lg text-black md:text-xl">
           {experience.details.map((detail, idx) => (
             <li key={idx}>{detail}</li>
           ))}
@@ -196,8 +196,8 @@ const Experience = () => {
     <div className="flex min-h-screen items-center justify-center bg-white">
       <div className="container flex flex-col items-start justify-center gap-8 bg-white px-8 py-16 md:px-24 md:py-32">
         <div className="flex w-full flex-col items-start justify-between gap-x-4 md:flex-row md:items-center">
-          <span className="text-5xl text-black">Experience</span>
-          <span className="text-xl text-black">Remote · 2025 - Present</span>
+          <span className="text-3xl text-black sm:text-4xl md:text-5xl">Experience</span>
+          <span className="text-lg text-black md:text-xl">Remote · 2025 - Present</span>
         </div>
 
         <div className="flex flex-col">

@@ -13,9 +13,9 @@ const MyDesigns = () => {
       className="flex relative z-20 flex-col w-full bg-transparent designs-section scroll-mt-4"
     >
       <div className="container flex relative z-20 flex-col gap-2 items-start px-8 py-16 w-full designs-section-copy md:px-24 md:pb-8">
-        <span className="text-5xl no-grunge">Designs</span>
-        <span className="text-2xl no-grunge">Creative templates and visual concepts.</span>
-        <span className="max-w-2xl text-xl no-grunge">
+        <span className="no-grunge text-3xl sm:text-4xl md:text-5xl">Designs</span>
+        <span className="no-grunge text-xl sm:text-2xl">Creative templates and visual concepts.</span>
+        <span className="no-grunge max-w-2xl text-lg md:text-xl">
           Scroll to move through posters and invites — last card opens the full{' '}
           <a
             href={MY_DESIGNS_DRIVE_URL}

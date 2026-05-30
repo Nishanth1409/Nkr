@@ -244,10 +244,10 @@ const projectsByTimeline = [...projectsData].sort(
 
 const ProjectCard = ({ project }: { project: Project }) => (
   <div className="flex flex-col gap-4">
-    <div className="flex justify-between items-center">
-      <div className="flex flex-col items-start">
+    <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+      <div className="flex min-w-0 flex-col items-start">
         <span
-          className={`grunge-text-extended text-black ${project.fontSize} ${project.fontClass}`}
+          className={`grunge-text-extended max-w-full break-words text-black ${project.fontSize} ${project.fontClass}`}
           style={project.extraStyle}
         >
           {project.title}
@@ -266,11 +266,11 @@ const ProjectCard = ({ project }: { project: Project }) => (
     </div>
 
     <div className="flex flex-col gap-2">
-      <span className="text-xl text-black">{project.description}</span>
+      <span className="text-lg text-black md:text-xl">{project.description}</span>
       {project.details &&
         Array.isArray(project.details) &&
         project.details.length > 0 && (
-          <ul className="pl-4 text-xl list-disc list-inside text-black">
+          <ul className="list-inside list-disc pl-4 text-lg text-black md:text-xl">
             {project.details.map((detail: string, idx: number) => (
               <li key={idx}>{detail}</li>
             ))}
@@ -302,7 +302,7 @@ const Projects = () => {
   return (
     <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
-        <span className="no-grunge text-5xl text-black">Projects</span>
+        <span className="no-grunge text-3xl text-black sm:text-4xl md:text-5xl">Projects</span>
 
         <div className="flex flex-col">
           {projectsByTimeline.map((project, index) => (

@@ -32,10 +32,10 @@ const Contact = () => {
   return (
     <div className="contact-section-inner flex min-h-screen w-full items-center justify-center bg-transparent">
       <div className="container flex flex-col items-start justify-center gap-8 bg-transparent px-8 py-16 md:px-24 md:py-32">
-        <span className="no-grunge text-5xl text-black">Contact Me</span>
+        <span className="no-grunge text-3xl text-black sm:text-4xl md:text-5xl">Contact Me</span>
 
         <div className="flex flex-col gap-8">
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-4">
+          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:grid-cols-4">
             {contactLinks.map((link, index) => (
               <Button
                 key={index}

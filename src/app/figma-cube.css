@@ -185,6 +185,17 @@
   pointer-events: none;
 }
 
+@media (width <= 64em) and (width > 56.25em) {
+  .figma-cube-stage {
+    grid-template-columns: minmax(0, 1fr) min(360px, 38vw) minmax(0, 1fr);
+    gap: clamp(1.25rem, 3vw, 2.5rem);
+  }
+
+  .figma-cube {
+    --figma-cube-s: min(38vw, 44vh, 340px);
+  }
+}
+
 @media (width <= 56.25em) {
   .figma-cube-stage {
     display: block;
