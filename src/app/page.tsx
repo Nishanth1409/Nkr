@@ -3,12 +3,14 @@
 import { lazy, Suspense } from 'react'
 
 import Introduction from '../components/introduction'
+import { LoadingSplash } from '../components/loading-splash'
 import MyDesigns from '../components/my-designs'
 import { PaperTextureBackground } from '../components/paper-texture-background'
 import { ScrollToTop } from '../components/scroll-to-top'
 import { SectionDivider } from '../components/ui/section-divider'
 
 import './home.css'
+import './loading-splash.css'
 
 // Lazy load heavy components that aren't immediately visible
 const Experience = lazy(() => import('../components/experience'))
@@ -27,7 +29,8 @@ const SectionLoader = () => (
 
 export default function Home() {
   return (
-    <div className="font-lora grunge-text relative min-h-screen overflow-x-clip bg-white text-black select-none">
+    <LoadingSplash>
+      <div className="font-lora grunge-text relative min-h-screen overflow-x-clip bg-white text-black select-none">
       <PaperTextureBackground />
 
       <div className="relative">
@@ -75,7 +78,8 @@ export default function Home() {
         </main>
       </div>
 
-      <ScrollToTop />
-    </div>
+        <ScrollToTop />
+      </div>
+    </LoadingSplash>
   )
 }

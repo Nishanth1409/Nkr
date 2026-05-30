@@ -32,7 +32,7 @@ const berkshireSwash = Berkshire_Swash({
 })
 
 export const metadata: Metadata = {
-  title: 'NISHANTH K R | Web Developer Portfolio',
+  title: 'NKR · Portfolio',
   description:
     'NISHANTH K R - Computer Science and Design student specializing in web development. Portfolio showcasing projects in full-stack development, and software engineering.',
   keywords: [
@@ -53,7 +53,7 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   openGraph: {
-    title: 'NISHANTH K R - Web Developer Portfolio',
+    title: 'NKR · Portfolio — Nishanth K R',
     description:
       'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
     type: 'website',
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NISHANTH K R - Web Developer Portfolio',
+    title: 'NKR · Portfolio — Nishanth K R',
     description:
       'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
   },
@@ -83,6 +83,7 @@ export default function RootLayout({
       className={`${lora.variable} ${rocksalt.variable} ${unbounded.variable} ${berkshireSwash.variable} bg-black text-violet-100`}
     >
       <head>
+        <link rel="preload" as="video" href="/loadingpage.mp4" />
         <link rel="preload" as="video" href="/images/paper-texture.mp4" />
         <link
           rel="preload"
