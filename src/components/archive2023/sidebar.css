@@ -1,0 +1,72 @@
+@keyframes cosmicGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text-desktop,
+.gradient-text-mobile {
+  background: linear-gradient(
+    270deg,
+    #ff5f6d,
+    #ffc371,
+    #6a5acd,
+    #8a2be2,
+    #ff6f61,
+    #ff7f50,
+    #ffd700
+  );
+  background-size: 1600% 1600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: cosmicGradient 25s ease infinite;
+}
+
+.fade-wrapper {
+  transition: opacity 0.5s ease;
+  opacity: 1;
+}
+.fade-wrapper.hide {
+  opacity: 0;
+}
+
+@keyframes gradientMove {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.gradient-text-mobile,
+.gradient-text-desktop {
+  background: linear-gradient(
+    270deg,
+    #ff5f6d,
+    #ffc371,
+    #6a5acd,
+    #8a2be2,
+    #ff6f61,
+    #ff7f50,
+    #ffd700
+  );
+  background-size: 1600% 1600%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientMove 25s ease infinite;
+}
+
+@keyframes rotateOnce {
+  from {
+    transform: rotateY(0deg);
+  }
+  to {
+    transform: rotateY(360deg);
+  }
+}
+
+.logo-rotate {
+  transform-style: preserve-3d;
+}
+
+.logo-rotate:hover {
+  animation: rotateOnce 4s ease forwards;
+}

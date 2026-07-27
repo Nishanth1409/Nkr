@@ -22,10 +22,7 @@ const contactLinks = [
 
 const archiveLinks = [
   { name: '2024 Portfolio', href: '/archive2024' },
-  {
-    name: '2023 Portfolio',
-    href: 'https://nkr14.vercel.app/',
-  },
+  { name: '2023 Portfolio', href: '/archive2023' },
 ]
 
 const Contact = () => {

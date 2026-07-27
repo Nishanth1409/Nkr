@@ -1,4 +1,4 @@
-/** Shared copy and links — home + archive2024 (archive keeps its own UI theme). */
+/** Shared copy and links — home + archive routes (archives keep their own UI themes). */
 
 export const PORTFOLIO_NAME = 'NISHANTH K R'
 
@@ -127,5 +127,5 @@ export const CONTACT_LINKS = [
 
 export const ARCHIVE_PORTFOLIO_LINKS = [
   { name: 'Current Portfolio', href: '/' },
-  { name: '2023 Portfolio', href: 'https://nkr14.vercel.app/' },
+  { name: '2023 Portfolio', href: '/archive2023' },
 ] as const

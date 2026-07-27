@@ -40,6 +40,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# local IDE / nested archives (not part of the app source publish)
+# local IDE
 .cursor/
-src/components/archive2023/
