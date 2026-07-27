@@ -60,6 +60,32 @@ const socialLinks = [
   },
 ]
 
+const archiveLinks = [
+  { name: 'Current Portfolio', href: '/' },
+  { name: '2024 Portfolio', href: '/archive2024' },
+]
+
+function ArchiveLinks() {
+  return (
+    <div className="flex flex-col items-center gap-4 mt-10 mb-4">
+      <h3 className="text-2xl md:text-3xl uppercase font-bold bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] bg-clip-text text-transparent">
+        Archive
+      </h3>
+      <div className="flex flex-wrap justify-center gap-3">
+        {archiveLinks.map((link) => (
+          <a
+            key={link.href}
+            href={link.href}
+            className="px-5 py-2 text-sm font-medium text-white rounded-full shadow-md transition-transform hover:scale-105 bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]"
+          >
+            {link.name}
+          </a>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function ContactSection() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
@@ -115,6 +141,10 @@ export default function ContactSection() {
           ))}
         </div>
 
+        <div className="hidden md:block">
+          <ArchiveLinks />
+        </div>
+
         <div className="flex flex-col gap-4 mb-32 md:hidden">
           {contactCards.map((card) => (
             <a
@@ -133,6 +163,8 @@ export default function ContactSection() {
               <span className="text-gray-500">{card.type}</span>
             </a>
           ))}
+
+          <ArchiveLinks />
 
           <div className="flex justify-center mt-4 space-x-3">
             {socialLinks.map((s, idx) => {
