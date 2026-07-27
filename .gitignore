@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local IDE / nested archives (not part of the app source publish)
+.cursor/
+src/components/archive2023/

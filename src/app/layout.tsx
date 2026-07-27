@@ -34,18 +34,18 @@ const berkshireSwash = Berkshire_Swash({
 export const metadata: Metadata = {
   title: 'NKR · Portfolio',
   description:
-    'NISHANTH K R - Computer Science and Design student specializing in web development. Portfolio showcasing projects in full-stack development, and software engineering.',
+    'Nishanth K R — M.Des User Experience Design (JAIN) · B.E. Computer Science & Design (PESITM). UI/UX, frontend, and creative digital work.',
   keywords: [
-    'NISHANTH K R',
-    'web developer',
-    'computer science',
+    'Nishanth K R',
+    'Nkr',
     'UI/UX design',
+    'frontend developer',
+    'M.Des UX',
     'portfolio',
     'Karnataka',
     'India',
-    'full-stack developer',
   ],
-  authors: [{ name: 'NISHANTH K R' }],
+  authors: [{ name: 'Nishanth K R' }],
   icons: {
     icon: [{ url: '/favicon.ico', sizes: 'any' }],
     shortcut: '/favicon.ico',
@@ -55,15 +55,15 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
+      'M.Des UX Design · UI/UX, frontend, and creative digital products. View projects and get in touch.',
     type: 'website',
-    url: 'https://manjumadhav.vercel.app',
+    url: 'https://nkrportfolio.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
+      'M.Des UX Design · UI/UX, frontend, and creative digital products. View projects and get in touch.',
   },
 }
 
