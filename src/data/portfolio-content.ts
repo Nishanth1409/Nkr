@@ -6,9 +6,9 @@ export const PORTFOLIO_TAGLINE =
   'A creator who captures moments and admires good design 📸✨'
 
 export const PORTFOLIO_INTRO_PARAGRAPHS = [
-  "I'm Nishanth K R from Karnataka, India — B.E. Computer Science & Design (PESITM Shivamogga) and currently pursuing M.Des User Experience Design at JAIN (Deemed-to-be University).",
-  'Passionate about photography, UI/UX design, frontend development, and creating clean digital experiences with React and Next.js — also growing skills in backend and product craft.',
-  "When I'm not designing or coding, I enjoy photography, music, and capturing moments that tell stories.",
+  "I'm a Computer Science student from Karnataka, India.",
+  'Passionate about photography, UI/UX design, frontend development and creating clean digital experiences with React and Next.js and am also learning backend development.',
+  "When I'm not designing or coding, I enjoy photography, music and capturing moments that tell stories.",
 ] as const
 
 export const PORTFOLIO_TECHNOLOGIES = [
