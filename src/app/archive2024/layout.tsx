@@ -33,7 +33,7 @@ export const metadata: Metadata = {
     description:
       'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
     type: 'website',
-    url: 'https://nishanthkr.vercel.app/archive2024',
+    url: 'https://nkrportfolio.vercel.app/archive2024',
   },
   twitter: {
     card: 'summary_large_image',
