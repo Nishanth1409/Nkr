@@ -11,6 +11,7 @@
   --p26-sky-bottom: #ffc878;
   --p26-warmth: 0.55;
   --p26-night: 0;
+  --p26-aber: 0;
   position: relative;
   min-height: 100vh;
   color: var(--p26-cream);
@@ -46,6 +47,23 @@
 }
 
 /* Film grade wash — follows 3D day cycle without labeling it */
+.p26-chroma {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background: transparent;
+  box-shadow:
+    inset calc(var(--p26-aber) * -80px) 0 40px rgba(255, 60, 60, 0.08),
+    inset calc(var(--p26-aber) * 80px) 0 40px rgba(60, 120, 255, 0.08);
+  mix-blend-mode: screen;
+}
+
+.p26-char {
+  display: inline-block;
+  will-change: transform, opacity;
+}
+
 .p26-grade {
   position: fixed;
   inset: 0;

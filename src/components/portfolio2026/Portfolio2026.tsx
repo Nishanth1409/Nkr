@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
+import { CustomEase } from 'gsap/CustomEase'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import dynamic from 'next/dynamic'
 import Link from 'next/link'
@@ -17,6 +18,7 @@ import {
   P26_PROJECTS,
   P26_STACK,
 } from './data'
+import { useLenisScroll } from './useLenisScroll'
 import './portfolio2026.css'
 
 const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false })
@@ -29,12 +31,28 @@ type Grade = {
   night: number
 }
 
+function splitChars(el: HTMLElement | null) {
+  if (!el || el.dataset.split === '1') return []
+  const text = el.textContent ?? ''
+  el.textContent = ''
+  el.dataset.split = '1'
+  return text.split('').map((ch) => {
+    const span = document.createElement('span')
+    span.className = 'p26-char'
+    span.textContent = ch === ' ' ? '\u00a0' : ch
+    el.appendChild(span)
+    return span
+  })
+}
+
 export default function Portfolio2026() {
   const trackRef = useRef<HTMLDivElement>(null)
   const progressFillRef = useRef<HTMLDivElement>(null)
   const progressLabelRef = useRef<HTMLSpanElement>(null)
   const rootRef = useRef<HTMLDivElement>(null)
+  const titleRefs = useRef<(HTMLElement | null)[]>([])
   const progressRef = useRef(0)
+  const velocityRef = useRef(0)
   const chapterIndexRef = useRef(0)
   const [active, setActive] = useState(0)
   const [mounted, setMounted] = useState(false)
@@ -42,6 +60,8 @@ export default function Portfolio2026() {
   useEffect(() => {
     setMounted(true)
   }, [])
+
+  useLenisScroll(mounted)
 
   const onGrade = (g: Grade) => {
     const root = rootRef.current
@@ -51,20 +71,36 @@ export default function Portfolio2026() {
     root.style.setProperty('--p26-sky-bottom', g.bottom)
     root.style.setProperty('--p26-warmth', String(g.warmth))
     root.style.setProperty('--p26-night', String(g.night))
+    root.style.setProperty(
+      '--p26-aber',
+      String(Math.min(0.012, Math.abs(velocityRef.current) * 0.8)),
+    )
   }
 
   useEffect(() => {
     if (!mounted) return
-    gsap.registerPlugin(ScrollTrigger)
+    gsap.registerPlugin(ScrollTrigger, CustomEase)
+    CustomEase.create('cinematicSilk', '0.45,0.05,0.55,0.95')
+    CustomEase.create('cinematicFlow', '0.33,0,0.2,1')
 
     const track = trackRef.current
     if (!track) return
+
+    const setWidth = progressFillRef.current
+      ? gsap.quickSetter(progressFillRef.current, 'width', '%')
+      : null
+    const setLabel = progressLabelRef.current
+      ? gsap.quickSetter(progressLabelRef.current, 'textContent')
+      : null
+
+    // Split titles once
+    titleRefs.current.forEach((el) => splitChars(el))
 
     const st = ScrollTrigger.create({
       trigger: track,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 1.25,
+      scrub: 1.4,
       onUpdate: (self) => {
         const p = self.progress
         progressRef.current = p
@@ -76,20 +112,14 @@ export default function Portfolio2026() {
           chapterIndexRef.current = idx
           setActive(idx)
         }
-        if (progressFillRef.current) {
-          progressFillRef.current.style.width = `${Math.round(p * 100)}%`
-        }
-        if (progressLabelRef.current) {
-          progressLabelRef.current.textContent = String(
-            Math.round(p * 100),
-          ).padStart(2, '0')
-        }
+        setWidth?.(Math.round(p * 100))
+        setLabel?.(String(Math.round(p * 100)).padStart(2, '0'))
       },
     })
 
     const refresh = () => ScrollTrigger.refresh()
     window.addEventListener('resize', refresh)
-    const t = window.setTimeout(refresh, 300)
+    const t = window.setTimeout(refresh, 400)
 
     return () => {
       window.clearTimeout(t)
@@ -97,6 +127,39 @@ export default function Portfolio2026() {
       st.kill()
     }
   }, [mounted])
+
+  // Chapter title char stagger — CodePen / Codrops SplitText pattern
+  useEffect(() => {
+    if (!mounted) return
+    titleRefs.current.forEach((el, i) => {
+      if (!el) return
+      const chars = el.querySelectorAll('.p26-char')
+      if (!chars.length) return
+      if (i === active) {
+        gsap.fromTo(
+          chars,
+          { y: 28, opacity: 0 },
+          {
+            y: 0,
+            opacity: 1,
+            duration: 0.55,
+            stagger: 0.018,
+            ease: 'cinematicFlow',
+            overwrite: true,
+          },
+        )
+      } else {
+        gsap.to(chars, {
+          y: -18,
+          opacity: 0,
+          duration: 0.28,
+          stagger: 0.01,
+          ease: 'power2.in',
+          overwrite: true,
+        })
+      }
+    })
+  }, [active, mounted])
 
   const scrollToChapter = (i: number) => {
     const track = trackRef.current
@@ -116,6 +179,7 @@ export default function Portfolio2026() {
       {mounted ? (
         <Scene3D
           progressRef={progressRef}
+          velocityRef={velocityRef}
           chapterIndexRef={chapterIndexRef}
           onGrade={onGrade}
         />
@@ -123,6 +187,7 @@ export default function Portfolio2026() {
 
       <div className="p26-grade" aria-hidden />
       <div className="p26-grade-night" aria-hidden />
+      <div className="p26-chroma" aria-hidden />
       <div className="p26-grain" aria-hidden />
       <div className="p26-letterbox p26-letterbox--top" aria-hidden />
       <div className="p26-letterbox p26-letterbox--bottom" aria-hidden />
@@ -187,7 +252,14 @@ export default function Portfolio2026() {
             {c.id === 'intro' ? (
               <>
                 <p className="p26-hero-name">{P26_NAME}</p>
-                <h1 className="p26-title">{c.title}</h1>
+                <h1
+                  className="p26-title"
+                  ref={(el) => {
+                    titleRefs.current[i] = el
+                  }}
+                >
+                  {c.title}
+                </h1>
                 <p className="p26-body">{P26_LINE}</p>
                 <p className="p26-body mt-3">{c.body}</p>
               </>
@@ -195,7 +267,14 @@ export default function Portfolio2026() {
 
             {c.id === 'work' ? (
               <>
-                <h2 className="p26-title">{c.title}</h2>
+                <h2
+                  className="p26-title"
+                  ref={(el) => {
+                    titleRefs.current[i] = el
+                  }}
+                >
+                  {c.title}
+                </h2>
                 <p className="p26-body">{c.body}</p>
                 <div className="p26-glass">
                   <div className="p26-projects">
@@ -219,7 +298,14 @@ export default function Portfolio2026() {
 
             {c.id === 'craft' ? (
               <>
-                <h2 className="p26-title">{c.title}</h2>
+                <h2
+                  className="p26-title"
+                  ref={(el) => {
+                    titleRefs.current[i] = el
+                  }}
+                >
+                  {c.title}
+                </h2>
                 <p className="p26-body">{c.body}</p>
                 <div className="p26-glass">
                   <div className="p26-stack">
@@ -261,7 +347,14 @@ export default function Portfolio2026() {
 
             {c.id === 'lens' ? (
               <>
-                <h2 className="p26-title">{c.title}</h2>
+                <h2
+                  className="p26-title"
+                  ref={(el) => {
+                    titleRefs.current[i] = el
+                  }}
+                >
+                  {c.title}
+                </h2>
                 <p className="p26-body">{c.body}</p>
                 <div className="p26-glass">
                   <div className="p26-rail" aria-label="Photography">
@@ -295,7 +388,14 @@ export default function Portfolio2026() {
 
             {c.id === 'connect' ? (
               <>
-                <h2 className="p26-title">{c.title}</h2>
+                <h2
+                  className="p26-title"
+                  ref={(el) => {
+                    titleRefs.current[i] = el
+                  }}
+                >
+                  {c.title}
+                </h2>
                 <p className="p26-body">{c.body}</p>
                 <div className="p26-connect-links">
                   <a href={P26_LINKS.email}>Email</a>
