@@ -1,14 +1,14 @@
-/** 2026 cinematic portfolio — nature cycle · craft · lens · builds */
+/** NKR 2026 — portfolio content from GitHub + uploaded public assets only */
 
 export const P26_NAME = 'NISHANTH K R'
-export const P26_HANDLE = 'NKR'
+export const P26_MARK = 'NKR'
 export const P26_YEAR = '2026'
 
-export const P26_TAGLINE =
-  'Son of a farmer · Always a farmer · Creative thinker · Brand · UI/UX · Lens · Frontend'
+export const P26_LINE =
+  'UI/UX · Brand · Frontend · Photography — Karnataka'
 
-export const P26_MISSION =
-  'I watch light the way farmers watch seasons — then turn that honesty into brands, interfaces, photographs, and products.'
+export const P26_INTRO =
+  'I design brands and build products — from invitation systems to full-stack apps. Open for commissions and collaborations.'
 
 export const P26_LINKS = {
   linkedin: 'https://www.linkedin.com/in/nishanth-k-r-107895258',
@@ -21,170 +21,93 @@ export const P26_LINKS = {
   drive: 'https://drive.google.com/drive/folders/1qB1l4XnyGl3gSpLZq3BM7o1pzGNs0DRQ?usp=sharing',
   protorevDigital: 'https://www.protorevdigital.com/',
   protorev3d: 'https://www.protorev3d.com/',
-  happyJourney: 'https://happy-journy.vercel.app/',
-  nyayaSakhi: 'https://nyayasakhi-ai.vercel.app/',
-  bhaavchitra: 'https://github.com/violetto-rose/bhaavchitra',
-  swaad: 'https://github.com/violetto-rose/swaad-sanchalan',
 } as const
 
 const PHOTO = '/images/Photography'
 const DESIGN = '/images/designs'
+const enc = (f: string) =>
+  `${DESIGN}/${f.split('/').map((p) => encodeURIComponent(p)).join('/')}`
 
-/** Real photography — Instagram / field eye */
+/** Uploaded photography only — no generated placeholders */
 export const P26_PHOTOS = [
-  {
-    src: `${PHOTO}/IMG_20210918_182748.jpg`,
-    alt: 'Evening light — Karnataka',
-    phase: 'sunrise',
-  },
-  {
-    src: `${PHOTO}/IMG_20210918_183701.jpg`,
-    alt: 'Portrait study',
-    phase: 'day',
-  },
-  {
-    src: `${PHOTO}/IMG_20211021_205036.jpg`,
-    alt: 'Wide landscape',
-    phase: 'sunset',
-  },
-  {
-    src: `${PHOTO}/IMG_20230920_093152.jpg`,
-    alt: 'Morning outdoor',
-    phase: 'sunrise',
-  },
-  {
-    src: `${PHOTO}/IMG_20250531_100841.jpg`,
-    alt: 'Vertical composition',
-    phase: 'moonrise',
-  },
-  {
-    src: `${PHOTO}/IMG_20250531_101435.jpg`,
-    alt: 'Street moment',
-    phase: 'day',
-  },
-  {
-    src: `${PHOTO}/redmi10promax.jpg`,
-    alt: 'Sky and horizon',
-    phase: 'sunset',
-  },
-  {
-    src: `${PHOTO}/ZVE04401.jpg`,
-    alt: 'Natural light portrait',
-    phase: 'moonrise',
-  },
-  {
-    src: `${PHOTO}/ZVE04450.jpg`,
-    alt: 'Soft portrait',
-    phase: 'night',
-  },
-  {
-    src: `${PHOTO}/2.jpg`,
-    alt: 'Candid frame',
-    phase: 'moonset',
-  },
-  {
-    src: `${PHOTO}/ZVE06018-2.jpg`,
-    alt: 'Field study',
-    phase: 'day',
-  },
+  { src: `${PHOTO}/IMG_20210918_182748.jpg`, alt: 'Evening light' },
+  { src: `${PHOTO}/IMG_20211021_205036.jpg`, alt: 'Landscape' },
+  { src: `${PHOTO}/IMG_20230920_093152.jpg`, alt: 'Outdoor' },
+  { src: `${PHOTO}/IMG_20250531_100841.jpg`, alt: 'Composition' },
+  { src: `${PHOTO}/IMG_20250531_101435.jpg`, alt: 'Street' },
+  { src: `${PHOTO}/redmi10promax.jpg`, alt: 'Horizon' },
+  { src: `${PHOTO}/ZVE04401.jpg`, alt: 'Portrait' },
+  { src: `${PHOTO}/ZVE04450.jpg`, alt: 'Natural light' },
+  { src: `${PHOTO}/2.jpg`, alt: 'Candid' },
+  { src: `${PHOTO}/ZVE06018-2.jpg`, alt: 'Field study' },
 ] as const
 
-/** Design / invite work — Instagram craft + Drive */
+/** Uploaded design / invite work (Drive + Instagram craft) */
 export const P26_DESIGNS = [
-  {
-    src: `${DESIGN}/${encodeURIComponent('AI tool Exhibition invitations.png')}`,
-    title: 'AI Exhibition Invite',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('CSD 2026.png')}`,
-    title: 'CSD 2026',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('CSD 2027.png')}`,
-    title: 'CSD 2027',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('BhaavChitra .png')}`,
-    title: 'BhaavChitra Visual',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('Radiant Tournament.png')}`,
-    title: 'Radiant Tournament',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('tug of war.png')}`,
-    title: 'Tug of War',
-  },
-  {
-    src: `${DESIGN}/${encodeURIComponent('invitation.png')}`,
-    title: 'Invitation system',
-  },
-  {
-    src: `${DESIGN}/1.jpg`,
-    title: 'Brand frame',
-  },
+  { src: enc('AI tool Exhibition invitations.png'), title: 'AI Exhibition Invite' },
+  { src: enc('CSD 2026.png'), title: 'CSD 2026' },
+  { src: enc('CSD 2027.png'), title: 'CSD 2027' },
+  { src: enc('BhaavChitra .png'), title: 'BhaavChitra' },
+  { src: enc('Radiant Tournament.png'), title: 'Radiant Tournament' },
+  { src: enc('tug of war.png'), title: 'Tug of War' },
+  { src: enc('invitation.png'), title: 'Invitation' },
+  { src: enc('1.jpg'), title: 'Brand frame' },
+  { src: enc('1 (2).jpg'), title: 'Visual' },
+  { src: enc('et.png'), title: 'Event graphic' },
 ] as const
 
 /**
- * Celestial chapters — scroll = a day in nature.
- * Sunrise → Day → Golden → Sunset → Moonrise → Night → Moonset
+ * Hero media for 3D — max 4 uploaded images (smooth, not cluttered).
+ * One focal plane at a time in the scene.
  */
+export const P26_SCENE_IMAGES = [
+  P26_PHOTOS[0].src,
+  P26_PHOTOS[1].src,
+  P26_DESIGNS[0].src,
+  P26_PHOTOS[6].src,
+] as const
+
+/** Portfolio chapters — what clients expect, not sky poetry */
 export const P26_CHAPTERS = [
   {
-    id: 'sunrise',
+    id: 'intro',
     index: '01',
-    sky: 'Sunrise',
-    title: 'Sunrise',
-    kicker: 'The field wakes',
-    body: 'Light finds the soil first. I grew up watching that — then learned to chase the same honesty in design and code.',
+    title: 'NKR',
+    nav: 'Intro',
+    kicker: 'Portfolio 2026',
+    body: P26_INTRO,
   },
   {
-    id: 'day',
+    id: 'work',
     index: '02',
-    sky: 'Daylight',
-    title: 'Roots',
-    kicker: 'Who I am under the sun',
-    body: 'Computer Science & Design · PESITM · Karnataka. A farmer’s son building brand systems, UI/UX, and frontend — still reading the land for rhythm.',
+    title: 'Work',
+    nav: 'Work',
+    kicker: 'Selected projects',
+    body: 'Products and systems shipped across travel, legal aid, agriculture, brand, and tools — from GitHub and the live web.',
   },
   {
-    id: 'golden',
+    id: 'craft',
     index: '03',
-    sky: 'Golden hour',
     title: 'Craft',
-    kicker: 'When light turns warm',
-    body: 'Logos, templates, invitation systems, social kits — Figma & Canva to React & Next.js. Affordable commissions, careful craft.',
+    nav: 'Craft',
+    kicker: 'Design systems',
+    body: 'Logos, templates, invitation cards, UI kits — Figma, Canva, and frontend execution. More on Drive and Instagram.',
   },
   {
-    id: 'sunset',
+    id: 'lens',
     index: '04',
-    sky: 'Sunset',
-    title: 'Builds',
-    kicker: 'Work that lands',
-    body: 'Happy Journey, NyayaSakhi AI, BhaavChitra, Swaad Sanchalan, ProtoRev Digital & 3D — products where design meets engineering.',
-  },
-  {
-    id: 'moonrise',
-    index: '05',
-    sky: 'Moonrise',
     title: 'Lens',
-    kicker: 'Seeing after the sun',
-    body: 'Photography keeps my eye honest. Scroll my frames — then open Instagram for the full gallery and daily craft.',
+    nav: 'Lens',
+    kicker: 'Photography',
+    body: 'Frames from the field and the street — the same eye that shapes brand and product.',
   },
   {
-    id: 'night',
-    index: '06',
-    sky: 'Night',
-    title: 'Bloom',
-    kicker: 'Where it settles',
-    body: 'Remote design & frontend with ProtoRev. Open for edits, commissions, collaborations — brands that feel rooted and modern.',
-  },
-  {
-    id: 'moonset',
-    index: '07',
-    sky: 'Moonset',
+    id: 'connect',
+    index: '05',
     title: 'Connect',
-    kicker: 'Before the next dawn',
-    body: 'Let’s build something that lasts — a brand, a product, a photograph, or one invitation that feels unforgettable.',
+    nav: 'Connect',
+    kicker: 'Next',
+    body: 'Remote design & frontend · ProtoRev Digital & 3D · open for edits and commissions.',
   },
 ] as const
 
@@ -198,115 +121,101 @@ export const P26_STACK = [
   'Firebase',
   'Supabase',
   'Three.js',
-  'Photography',
 ] as const
 
+/** Curated from Nishanth1409 GitHub + collab repos — portfolio-facing only */
 export const P26_PROJECTS = [
-  {
-    title: 'ProtoRev Digital & 3D',
-    role: 'Frontend · Brand · Social',
-    href: P26_LINKS.protorevDigital,
-    blurb: 'Web presence, identity, and social systems for digital & 3D printing brands.',
-  },
   {
     title: 'Happy Journey',
     role: 'AI Travel · Full-stack',
-    href: P26_LINKS.happyJourney,
-    blurb: 'AI itineraries, budget logic, maps — travel planning for Indian destinations.',
+    href: 'https://happy-journy.vercel.app/',
+    repo: 'https://github.com/Nishanth1409/happy-journy',
+    blurb: 'AI itineraries, budget planning, maps — Next.js, Clerk, Firebase.',
   },
   {
     title: 'NyayaSakhi AI',
     role: 'Legal aid · Multilingual',
-    href: P26_LINKS.nyayaSakhi,
-    blurb: 'Generative legal guidance for rural women — voice, chat, document clarity.',
+    href: 'https://nyayasakhi-ai.vercel.app/',
+    repo: 'https://github.com/Nishanth1409/nyayasakhi-ai',
+    blurb: 'Accessible legal guidance for rural women — chat, voice, documents.',
+  },
+  {
+    title: 'Areca ERP',
+    role: 'ERP · Agriculture',
+    href: 'https://github.com/Nishanth1409/Areca-ERP',
+    repo: 'https://github.com/Nishanth1409/Areca-ERP',
+    blurb: 'SRYN arecanut ERP — employees, attendance, loans, finance, PDF reports.',
+  },
+  {
+    title: 'Sryn Mandi',
+    role: 'Rates · Live data',
+    href: 'https://sryn-mandi.vercel.app',
+    repo: 'https://github.com/Nishanth1409/sryn-mandi',
+    blurb: 'Live arecanut mandi rates and local agent averages.',
+  },
+  {
+    title: 'ProtoRev Digital & 3D',
+    role: 'Frontend · Brand · Social',
+    href: P26_LINKS.protorevDigital,
+    repo: 'https://github.com/manoj633/protorev3d-ui',
+    blurb: 'Web presence, identity, and social systems for ProtoRev brands.',
+  },
+  {
+    title: 'GymWeb',
+    role: 'Fitness · Next.js',
+    href: 'https://gymweb-sand.vercel.app',
+    repo: 'https://github.com/Nishanth1409/gymweb',
+    blurb: 'Fitness / gym website built with Next.js.',
   },
   {
     title: 'BhaavChitra',
-    role: 'Sentiment · SME insights',
-    href: P26_LINKS.bhaavchitra,
-    blurb: 'Feedback sentiment analysis that turns emotion into actionable insight.',
+    role: 'Sentiment · NLP',
+    href: 'https://github.com/violetto-rose/bhaavchitra',
+    repo: 'https://github.com/violetto-rose/bhaavchitra',
+    blurb: 'Sentiment analysis for SME feedback — BERT & VADER.',
   },
   {
     title: 'Swaad Sanchalan',
     role: 'Restaurant systems',
-    href: P26_LINKS.swaad,
-    blurb: 'Menus, reservations, billing, and sales — operations in one flow.',
+    href: 'https://github.com/violetto-rose/swaad-sanchalan',
+    repo: 'https://github.com/violetto-rose/swaad-sanchalan',
+    blurb: 'Menus, reservations, billing, and sales reporting.',
+  },
+  {
+    title: 'College Event Management',
+    role: 'Events · PHP',
+    href: 'https://github.com/Nishanth1409/College-event-management-System',
+    repo: 'https://github.com/Nishanth1409/College-event-management-System',
+    blurb: 'Student profiles, event discovery, and organizer registration tools.',
+  },
+  {
+    title: 'YouTube Music Float Dock',
+    role: 'Chrome extension',
+    href: 'https://github.com/Nishanth1409/youtube-music-float-dock',
+    repo: 'https://github.com/Nishanth1409/youtube-music-float-dock',
+    blurb: 'Float dock, PiP, HQ playback, random play for YouTube Music.',
+  },
+  {
+    title: 'Windhawk Mods',
+    role: 'Windows 11',
+    href: 'https://windhawk.net/',
+    repo: 'https://github.com/Nishanth1409/windhawk-mods',
+    blurb: 'Lock screen & wallpaper, tray audio, fullscreen taskbar peek.',
+  },
+  {
+    title: 'BookMyShow UI',
+    role: 'React practice',
+    href: 'https://bokmyshow1409.vercel.app',
+    repo: 'https://github.com/Nishanth1409/REACT-TO-INTOR',
+    blurb: 'Movie booking UI practice in React.',
   },
 ] as const
 
-/** Sky color keyframes for DOM + Three fog (progress 0→1) */
-export type SkyStop = {
-  t: number
-  top: string
-  mid: string
-  bottom: string
-  fog: number
-  glow: string
-  label: string
-}
-
-export const P26_SKY_STOPS: SkyStop[] = [
-  {
-    t: 0,
-    top: '#1b1438',
-    mid: '#ff7a45',
-    bottom: '#ffd29a',
-    fog: 0x3a2040,
-    glow: 'rgba(255, 140, 70, 0.45)',
-    label: 'Sunrise',
-  },
-  {
-    t: 0.14,
-    top: '#3d7eb8',
-    mid: '#9fd4f0',
-    bottom: '#f7e8c8',
-    fog: 0x7aa8c8,
-    glow: 'rgba(255, 220, 140, 0.25)',
-    label: 'Daylight',
-  },
-  {
-    t: 0.32,
-    top: '#2a5688',
-    mid: '#f0a050',
-    bottom: '#e86840',
-    fog: 0xc88858,
-    glow: 'rgba(255, 160, 70, 0.4)',
-    label: 'Golden hour',
-  },
-  {
-    t: 0.48,
-    top: '#1a2048',
-    mid: '#d45a35',
-    bottom: '#4a1e35',
-    fog: 0x582838,
-    glow: 'rgba(220, 90, 50, 0.35)',
-    label: 'Sunset',
-  },
-  {
-    t: 0.62,
-    top: '#080c1c',
-    mid: '#1a2850',
-    bottom: '#2a1845',
-    fog: 0x0c1024,
-    glow: 'rgba(180, 200, 255, 0.18)',
-    label: 'Moonrise',
-  },
-  {
-    t: 0.78,
-    top: '#03050c',
-    mid: '#0a1020',
-    bottom: '#12101c',
-    fog: 0x05070e,
-    glow: 'rgba(140, 160, 220, 0.12)',
-    label: 'Night',
-  },
-  {
-    t: 1,
-    top: '#0a0c1a',
-    mid: '#1a1835',
-    bottom: '#3a2850',
-    fog: 0x140e22,
-    glow: 'rgba(255, 170, 120, 0.15)',
-    label: 'Moonset',
-  },
-]
+/** Soft atmosphere only — no labeled “sunrise / moonset” UI */
+export const P26_SKY_STOPS = [
+  { t: 0, top: '#0c1018', mid: '#2a3548', bottom: '#1a1814', fog: 0x1a2030, glow: 'rgba(200,170,120,0.12)' },
+  { t: 0.25, top: '#101828', mid: '#3a4558', bottom: '#221c18', fog: 0x222838, glow: 'rgba(180,160,130,0.1)' },
+  { t: 0.5, top: '#0a0e18', mid: '#1c2435', bottom: '#181410', fog: 0x121820, glow: 'rgba(160,150,140,0.08)' },
+  { t: 0.75, top: '#080a12', mid: '#141c28', bottom: '#100e0c', fog: 0x0c1018, glow: 'rgba(140,150,180,0.1)' },
+  { t: 1, top: '#06080e', mid: '#10141c', bottom: '#0c0a08', fog: 0x080a10, glow: 'rgba(120,130,160,0.08)' },
+] as const

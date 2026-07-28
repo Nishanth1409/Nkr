@@ -9,14 +9,13 @@ import Link from 'next/link'
 import {
   P26_CHAPTERS,
   P26_DESIGNS,
-  P26_HANDLE,
+  P26_LINE,
   P26_LINKS,
+  P26_MARK,
   P26_NAME,
   P26_PHOTOS,
   P26_PROJECTS,
   P26_STACK,
-  P26_TAGLINE,
-  P26_YEAR,
 } from './data'
 import './portfolio2026.css'
 
@@ -27,7 +26,6 @@ type SkyState = {
   mid: string
   bottom: string
   glow: string
-  label: string
 }
 
 export default function Portfolio2026() {
@@ -39,7 +37,6 @@ export default function Portfolio2026() {
   const chapterIndexRef = useRef(0)
   const [active, setActive] = useState(0)
   const [mounted, setMounted] = useState(false)
-  const [skyLabel, setSkyLabel] = useState('Sunrise')
 
   useEffect(() => {
     setMounted(true)
@@ -52,7 +49,6 @@ export default function Portfolio2026() {
     root.style.setProperty('--p26-sky-mid', sky.mid)
     root.style.setProperty('--p26-sky-bottom', sky.bottom)
     root.style.setProperty('--p26-glow', sky.glow)
-    setSkyLabel((prev) => (prev === sky.label ? prev : sky.label))
   }
 
   useEffect(() => {
@@ -66,7 +62,7 @@ export default function Portfolio2026() {
       trigger: track,
       start: 'top top',
       end: 'bottom bottom',
-      scrub: 0.8,
+      scrub: 1.1,
       onUpdate: (self) => {
         const p = self.progress
         progressRef.current = p
@@ -82,7 +78,7 @@ export default function Portfolio2026() {
           progressFillRef.current.style.width = `${Math.round(p * 100)}%`
         }
         if (progressLabelRef.current) {
-          progressLabelRef.current.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}%`
+          progressLabelRef.current.textContent = `${String(Math.round(p * 100)).padStart(2, '0')}`
         }
       },
     })
@@ -106,16 +102,9 @@ export default function Portfolio2026() {
       window.scrollY +
       rect.top +
       (i / P26_CHAPTERS.length) * track.offsetHeight +
-      8
+      4
     window.scrollTo({ top, behavior: 'smooth' })
   }
-
-  const dawnPhotos = P26_PHOTOS.filter((p) =>
-    ['sunrise', 'day'].includes(p.phase),
-  )
-  const nightPhotos = P26_PHOTOS.filter((p) =>
-    ['moonrise', 'night', 'moonset', 'sunset'].includes(p.phase),
-  )
 
   return (
     <div ref={rootRef} className="p26-root">
@@ -134,26 +123,9 @@ export default function Portfolio2026() {
 
       <header className="p26-hud">
         <div className="p26-topbar">
-          <div className="p26-topbar-row">
-            <div>
-              <div className="p26-mark">
-                {P26_HANDLE} <span className="p26-year">· {P26_YEAR}</span>
-              </div>
-              <div className="mt-2">
-                <span className="p26-sky-chip">{skyLabel}</span>
-              </div>
-            </div>
+          <div className="p26-mark">{P26_MARK}</div>
 
-            <div className="p26-year-links">
-              <Link href="/archive2025" className="is-calm">
-                2025
-              </Link>
-              <Link href="/archive2024">2024</Link>
-              <Link href="/archive2023">2023</Link>
-            </div>
-          </div>
-
-          <nav className="p26-nav" aria-label="Sky chapters">
+          <nav className="p26-nav" aria-label="Sections">
             {P26_CHAPTERS.map((c, i) => (
               <a
                 key={c.id}
@@ -164,20 +136,27 @@ export default function Portfolio2026() {
                   scrollToChapter(i)
                 }}
               >
-                {c.sky}
+                {c.nav}
               </a>
             ))}
           </nav>
+
+          <div className="p26-year-links">
+            <Link href="/archive2025" className="is-calm">
+              2025
+            </Link>
+            <Link href="/archive2024">2024</Link>
+            <Link href="/archive2023">2023</Link>
+          </div>
         </div>
 
-        <div className="p26-footer-bar">
-          <p className="p26-hint">Scroll the day · Sunrise → Moonset</p>
-          <div className="p26-progress">
-            <div className="p26-progress-bar" aria-hidden>
+        <div className="flex justify-end">
+          <div className="p26-progress" aria-hidden>
+            <div className="p26-progress-bar">
               <div ref={progressFillRef} className="p26-progress-fill" />
             </div>
             <span ref={progressLabelRef} className="p26-progress-label">
-              00%
+              00
             </span>
           </div>
         </div>
@@ -199,65 +178,16 @@ export default function Portfolio2026() {
               {c.index} · {c.kicker}
             </p>
 
-            {c.id === 'sunrise' ? (
+            {c.id === 'intro' ? (
               <>
                 <p className="p26-hero-name">{P26_NAME}</p>
                 <h1 className="p26-title">{c.title}</h1>
-                <p className="p26-body">{P26_TAGLINE}</p>
+                <p className="p26-body">{P26_LINE}</p>
                 <p className="p26-body mt-4">{c.body}</p>
-                <div className="p26-rail" aria-label="Dawn photography">
-                  {dawnPhotos.slice(0, 5).map((photo) => (
-                    <figure key={photo.src}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={photo.src} alt={photo.alt} loading="lazy" />
-                      <figcaption>{photo.alt}</figcaption>
-                    </figure>
-                  ))}
-                </div>
               </>
             ) : null}
 
-            {c.id === 'day' ? (
-              <>
-                <h2 className="p26-title">{c.title}</h2>
-                <p className="p26-body">{c.body}</p>
-                <p className="p26-body mt-4">
-                  Nature taught patience. Design taught systems. Code taught
-                  shipping. Photography taught me when to wait for light.
-                </p>
-              </>
-            ) : null}
-
-            {c.id === 'golden' ? (
-              <>
-                <h2 className="p26-title">{c.title}</h2>
-                <p className="p26-body">{c.body}</p>
-                <div className="p26-stack">
-                  {P26_STACK.map((s) => (
-                    <span key={s} className="p26-chip">
-                      {s}
-                    </span>
-                  ))}
-                </div>
-                <div
-                  className="p26-rail p26-rail--wide"
-                  aria-label="Design work"
-                >
-                  {P26_DESIGNS.map((d) => (
-                    <figure key={d.src}>
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img src={d.src} alt={d.title} loading="lazy" />
-                      <figcaption>{d.title}</figcaption>
-                    </figure>
-                  ))}
-                </div>
-                <p className="p26-media-note">
-                  More on Drive · Instagram craft
-                </p>
-              </>
-            ) : null}
-
-            {c.id === 'sunset' ? (
+            {c.id === 'work' ? (
               <>
                 <h2 className="p26-title">{c.title}</h2>
                 <p className="p26-body">{c.body}</p>
@@ -279,12 +209,54 @@ export default function Portfolio2026() {
               </>
             ) : null}
 
-            {c.id === 'moonrise' ? (
+            {c.id === 'craft' ? (
               <>
                 <h2 className="p26-title">{c.title}</h2>
                 <p className="p26-body">{c.body}</p>
-                <div className="p26-rail" aria-label="Night photography">
-                  {nightPhotos.map((photo) => (
+                <div className="p26-stack">
+                  {P26_STACK.map((s) => (
+                    <span key={s} className="p26-chip">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <div className="p26-rail p26-rail--wide" aria-label="Designs">
+                  {P26_DESIGNS.map((d) => (
+                    <figure key={d.src}>
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img src={d.src} alt={d.title} loading="lazy" />
+                      <figcaption>{d.title}</figcaption>
+                    </figure>
+                  ))}
+                </div>
+                <p className="p26-note">
+                  <a
+                    href={P26_LINKS.drive}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[inherit] underline-offset-2 hover:underline"
+                  >
+                    Google Drive
+                  </a>
+                  {' · '}
+                  <a
+                    href={P26_LINKS.instagramCreation}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-[inherit] underline-offset-2 hover:underline"
+                  >
+                    @_n.k.r_creation
+                  </a>
+                </p>
+              </>
+            ) : null}
+
+            {c.id === 'lens' ? (
+              <>
+                <h2 className="p26-title">{c.title}</h2>
+                <p className="p26-body">{c.body}</p>
+                <div className="p26-rail" aria-label="Photography">
+                  {P26_PHOTOS.map((photo) => (
                     <figure key={photo.src}>
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={photo.src} alt={photo.alt} loading="lazy" />
@@ -298,50 +270,20 @@ export default function Portfolio2026() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    @_mr.nishanth.k.r
+                    Instagram
                   </a>
                   <a
                     href={P26_LINKS.instagramCreation}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    @_n.k.r_creation
+                    Creation
                   </a>
                 </div>
               </>
             ) : null}
 
-            {c.id === 'night' ? (
-              <>
-                <h2 className="p26-title">{c.title}</h2>
-                <p className="p26-body">{c.body}</p>
-                <div className="p26-connect-links">
-                  <a
-                    href={P26_LINKS.protorevDigital}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    ProtoRev Digital
-                  </a>
-                  <a
-                    href={P26_LINKS.protorev3d}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    ProtoRev 3D
-                  </a>
-                  <a
-                    href={P26_LINKS.drive}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Design drive
-                  </a>
-                </div>
-              </>
-            ) : null}
-
-            {c.id === 'moonset' ? (
+            {c.id === 'connect' ? (
               <>
                 <h2 className="p26-title">{c.title}</h2>
                 <p className="p26-body">{c.body}</p>
@@ -372,27 +314,27 @@ export default function Portfolio2026() {
                     Instagram
                   </a>
                   <a
-                    href={P26_LINKS.instagramCreation}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    Creation
-                  </a>
-                  <a
                     href={P26_LINKS.linktree}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
                     Linktree
                   </a>
+                  <a
+                    href={P26_LINKS.protorevDigital}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    ProtoRev
+                  </a>
                 </div>
-                <p className="p26-media-note mt-8 mb-3">Archive</p>
+                <p className="p26-note mt-8 mb-3">Archive</p>
                 <div className="p26-connect-links">
                   <a href="/archive2025" className="p26-archive-calm">
-                    2025 Portfolio
+                    2025
                   </a>
-                  <a href="/archive2024">2024 Portfolio</a>
-                  <a href="/archive2023">2023 Portfolio</a>
+                  <a href="/archive2024">2024</a>
+                  <a href="/archive2023">2023</a>
                 </div>
               </>
             ) : null}
