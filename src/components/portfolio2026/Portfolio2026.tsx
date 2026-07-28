@@ -170,7 +170,7 @@ export default function Portfolio2026() {
           </nav>
         </div>
 
-        <div className="flex items-end justify-between gap-4">
+        <div className="p26-footer-bar">
           <p className="p26-hint">Scroll the day · Sunrise → Moonset</p>
           <div className="p26-progress">
             <div className="p26-progress-bar" aria-hidden>
