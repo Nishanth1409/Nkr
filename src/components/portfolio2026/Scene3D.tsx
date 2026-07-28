@@ -20,73 +20,60 @@ type Scene3DProps = {
 const SKY_VERT = /* glsl */ `
   varying vec3 vWorldPosition;
   void main() {
-    vec4 world = modelMatrix * vec4(position, 1.0);
-    vWorldPosition = world.xyz;
-    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    vec4 worldPosition = modelMatrix * vec4(position, 1.0);
+    vWorldPosition = worldPosition.xyz;
+    gl_Position = projectionMatrix * viewMatrix * worldPosition;
   }
 `
 
 const SKY_FRAG = /* glsl */ `
+  precision highp float;
   varying vec3 vWorldPosition;
   uniform float uDay;
   uniform vec3 uSunDir;
 
-  vec3 skyColor(float elev, float day) {
-    // Dawn
-    vec3 dawnZenith = vec3(0.12, 0.10, 0.28);
-    vec3 dawnHorizon = vec3(1.0, 0.45, 0.28);
-    // Day
-    vec3 dayZenith = vec3(0.18, 0.42, 0.78);
-    vec3 dayHorizon = vec3(0.72, 0.86, 0.95);
-    // Golden / dusk
-    vec3 duskZenith = vec3(0.08, 0.10, 0.28);
-    vec3 duskHorizon = vec3(0.95, 0.38, 0.18);
-    // Night
-    vec3 nightZenith = vec3(0.02, 0.03, 0.08);
-    vec3 nightHorizon = vec3(0.06, 0.08, 0.16);
-
-    vec3 zA; vec3 hA; vec3 zB; vec3 hB; float t;
-    if (day < 0.22) {
-      t = day / 0.22;
-      zA = dawnZenith; hA = dawnHorizon;
-      zB = dayZenith; hB = dayHorizon;
-    } else if (day < 0.45) {
-      t = (day - 0.22) / 0.23;
-      zA = dayZenith; hA = dayHorizon;
-      zB = dayZenith; hB = dayHorizon;
-    } else if (day < 0.62) {
-      t = (day - 0.45) / 0.17;
-      zA = dayZenith; hA = dayHorizon;
-      zB = duskZenith; hB = duskHorizon;
-    } else if (day < 0.78) {
-      t = (day - 0.62) / 0.16;
-      zA = duskZenith; hA = duskHorizon;
-      zB = nightZenith; hB = nightHorizon;
-    } else {
-      t = (day - 0.78) / 0.22;
-      zA = nightZenith; hA = nightHorizon;
-      zB = nightZenith; hB = mix(nightHorizon, dawnHorizon, 0.25);
-    }
-
-    vec3 zenith = mix(zA, zB, smoothstep(0.0, 1.0, t));
-    vec3 horizon = mix(hA, hB, smoothstep(0.0, 1.0, t));
-    float h = smoothstep(-0.15, 0.65, elev);
-    vec3 col = mix(horizon, zenith, h);
-
-    // Sun glow on horizon
-    float sunDot = max(dot(normalize(vWorldPosition), uSunDir), 0.0);
-    float glow = pow(sunDot, 24.0) * (1.0 - smoothstep(0.55, 0.85, day));
-    float corona = pow(sunDot, 6.0) * 0.35 * (1.0 - day * 0.5);
-    col += vec3(1.0, 0.72, 0.35) * glow;
-    col += vec3(1.0, 0.55, 0.25) * corona;
-
-    return col;
-  }
-
   void main() {
     vec3 dir = normalize(vWorldPosition);
     float elev = dir.y;
-    vec3 col = skyColor(elev, uDay);
+
+    vec3 dawnZ = vec3(0.18, 0.12, 0.35);
+    vec3 dawnH = vec3(1.0, 0.52, 0.28);
+    vec3 dayZ = vec3(0.25, 0.50, 0.88);
+    vec3 dayH = vec3(0.78, 0.90, 0.98);
+    vec3 duskZ = vec3(0.10, 0.10, 0.32);
+    vec3 duskH = vec3(1.0, 0.42, 0.18);
+    vec3 nightZ = vec3(0.03, 0.04, 0.10);
+    vec3 nightH = vec3(0.08, 0.10, 0.18);
+
+    float d = uDay;
+    vec3 zenith;
+    vec3 horizon;
+    if (d < 0.22) {
+      float t = smoothstep(0.0, 1.0, d / 0.22);
+      zenith = mix(dawnZ, dayZ, t);
+      horizon = mix(dawnH, dayH, t);
+    } else if (d < 0.48) {
+      float t = smoothstep(0.0, 1.0, (d - 0.22) / 0.26);
+      zenith = mix(dayZ, dayZ, t);
+      horizon = mix(dayH, mix(dayH, duskH, 0.25), t);
+    } else if (d < 0.68) {
+      float t = smoothstep(0.0, 1.0, (d - 0.48) / 0.20);
+      zenith = mix(dayZ, duskZ, t);
+      horizon = mix(dayH, duskH, t);
+    } else {
+      float t = smoothstep(0.0, 1.0, (d - 0.68) / 0.32);
+      zenith = mix(duskZ, nightZ, t);
+      horizon = mix(duskH, nightH, t);
+    }
+
+    float h = smoothstep(-0.2, 0.7, elev);
+    vec3 col = mix(horizon, zenith, h);
+
+    float sunDot = max(dot(dir, normalize(uSunDir)), 0.0);
+    float sunVis = 1.0 - smoothstep(0.52, 0.72, d);
+    col += vec3(1.0, 0.75, 0.4) * pow(sunDot, 18.0) * sunVis;
+    col += vec3(1.0, 0.55, 0.25) * pow(sunDot, 5.0) * 0.45 * sunVis;
+
     gl_FragColor = vec4(col, 1.0);
   }
 `
@@ -152,15 +139,14 @@ export default function Scene3D({
 
     const renderer = new THREE.WebGLRenderer({
       antialias: !reduced,
-      alpha: false,
+      alpha: true,
       powerPreference: 'high-performance',
     })
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, reduced ? 1.25 : 2))
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setClearColor(0x0a0c12, 1)
+    renderer.setClearColor(0x000000, 0)
     renderer.outputColorSpace = THREE.SRGBColorSpace
-    renderer.toneMapping = THREE.ACESFilmicToneMapping
-    renderer.toneMappingExposure = 1.05
+    renderer.toneMapping = THREE.NoToneMapping
     wrap.appendChild(renderer.domElement)
 
     // ——— Shader sky dome ———
@@ -169,13 +155,14 @@ export default function Scene3D({
       uSunDir: { value: new THREE.Vector3(0, 1, 0) },
     }
     const sky = new THREE.Mesh(
-      new THREE.SphereGeometry(80, 48, 32),
+      new THREE.SphereGeometry(90, 64, 32),
       new THREE.ShaderMaterial({
         vertexShader: SKY_VERT,
         fragmentShader: SKY_FRAG,
         uniforms: skyUniforms,
         side: THREE.BackSide,
         depthWrite: false,
+        fog: false,
       }),
     )
     scene.add(sky)
@@ -206,7 +193,7 @@ export default function Scene3D({
         opacity: 0.9,
       }),
     )
-    sunCorona.scale.set(6, 6, 1)
+    sunCorona.scale.set(10, 10, 1)
     const sunGroup = new THREE.Group()
     sunGroup.add(sunCore)
     sunGroup.add(sunCorona)

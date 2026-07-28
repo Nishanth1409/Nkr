@@ -112,6 +112,7 @@ export default function Portfolio2026() {
 
   return (
     <div ref={rootRef} className="p26-root">
+      <div className="p26-sky" aria-hidden />
       {mounted ? (
         <Scene3D
           progressRef={progressRef}
