@@ -1,0 +1,335 @@
+/* 2026 portfolio — cinematic scroll experience */
+
+.p26-root {
+  --p26-ink: #070708;
+  --p26-ink-2: #121214;
+  --p26-cream: #f3eee6;
+  --p26-cream-dim: rgba(243, 238, 230, 0.72);
+  --p26-soil: #c4a574;
+  --p26-leaf: #7a9a78;
+  --p26-ember: #d97a4a;
+  --p26-line: rgba(243, 238, 230, 0.14);
+  position: relative;
+  min-height: 100vh;
+  background: var(--p26-ink);
+  color: var(--p26-cream);
+  overflow-x: clip;
+}
+
+.p26-canvas-wrap {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.p26-canvas-wrap canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.p26-grain {
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+.p26-scroll-track {
+  position: relative;
+  z-index: 2;
+  height: 600vh;
+}
+
+.p26-hud {
+  position: fixed;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(1rem, 3vw, 2rem);
+}
+
+.p26-hud a,
+.p26-hud button {
+  pointer-events: auto;
+}
+
+.p26-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.p26-mark {
+  font-family: var(--font-p26-display), system-ui, sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  font-size: clamp(0.85rem, 1.5vw, 1rem);
+  text-transform: uppercase;
+}
+
+.p26-year {
+  color: var(--p26-soil);
+}
+
+.p26-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.75rem;
+  justify-content: flex-end;
+}
+
+.p26-nav a {
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--p26-cream-dim);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.p26-nav a:hover,
+.p26-nav a.is-active {
+  color: var(--p26-cream);
+  border-color: var(--p26-soil);
+}
+
+.p26-stage {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  padding: clamp(4.5rem, 12vh, 7rem) clamp(1.25rem, 5vw, 4rem);
+  pointer-events: none;
+}
+
+.p26-stage > * {
+  pointer-events: auto;
+}
+
+.p26-chapter {
+  width: min(100%, 42rem);
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
+  will-change: opacity, transform;
+}
+
+.p26-chapter.is-active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.p26-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--p26-soil);
+  margin-bottom: 1rem;
+}
+
+.p26-kicker::before {
+  content: '';
+  width: 2rem;
+  height: 1px;
+  background: var(--p26-soil);
+}
+
+.p26-title {
+  font-family: var(--font-p26-serif), Georgia, serif;
+  font-weight: 400;
+  font-size: clamp(3rem, 10vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.03em;
+  margin: 0 0 1.25rem;
+}
+
+.p26-body {
+  font-family: var(--font-p26-sans), system-ui, sans-serif;
+  font-size: clamp(1rem, 2.2vw, 1.25rem);
+  line-height: 1.55;
+  color: var(--p26-cream-dim);
+  max-width: 36rem;
+  text-wrap: pretty;
+}
+
+.p26-hero-name {
+  font-family: var(--font-p26-display), system-ui, sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 3vw, 1.6rem);
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+}
+
+.p26-projects {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 1.75rem;
+}
+
+.p26-project {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--p26-line);
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease, padding-left 0.25s ease;
+}
+
+.p26-project:last-child {
+  border-bottom: 1px solid var(--p26-line);
+}
+
+.p26-project:hover {
+  color: var(--p26-soil);
+  padding-left: 0.35rem;
+}
+
+.p26-project strong {
+  font-family: var(--font-p26-sans), system-ui, sans-serif;
+  font-weight: 500;
+  font-size: clamp(0.95rem, 2vw, 1.1rem);
+}
+
+.p26-project span {
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--p26-cream-dim);
+  white-space: nowrap;
+}
+
+.p26-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+}
+
+.p26-chip {
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.65rem;
+  border: 1px solid var(--p26-line);
+  border-radius: 999px;
+  color: var(--p26-cream-dim);
+}
+
+.p26-media-frame {
+  width: min(100%, 28rem);
+}
+
+.p26-media-frame video {
+  display: block;
+  border: 1px solid var(--p26-line);
+}
+
+.p26-connect-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.p26-connect-links a {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.45rem 0.85rem;
+  border: 1px solid var(--p26-line);
+  border-radius: 999px;
+  color: var(--p26-cream);
+  text-decoration: none;
+  font-size: 0.8rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.p26-connect-links a:hover {
+  background: var(--p26-cream);
+  color: var(--p26-ink);
+  border-color: var(--p26-cream);
+}
+
+.p26-progress {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.p26-progress-bar {
+  flex: 1;
+  max-width: 12rem;
+  height: 1px;
+  background: var(--p26-line);
+  position: relative;
+  overflow: hidden;
+}
+
+.p26-progress-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: var(--p26-soil);
+}
+
+.p26-progress-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--p26-cream-dim);
+  min-width: 4.5rem;
+}
+
+.p26-hint {
+  font-size: 0.65rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--p26-cream-dim);
+  opacity: 0.8;
+}
+
+@media (max-width: 640px) {
+  .p26-nav {
+    display: none;
+  }
+
+  .p26-project {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+
+  .p26-project span {
+    white-space: normal;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .p26-chapter {
+    transition: none;
+  }
+}

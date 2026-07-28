@@ -133,5 +133,6 @@ export const CONTACT_AVAILABILITY =
 
 export const ARCHIVE_PORTFOLIO_LINKS = [
   { name: 'Current Portfolio', href: '/' },
+  { name: '2026 Portfolio', href: '/2026' },
   { name: '2023 Portfolio', href: '/archive2023' },
 ] as const
