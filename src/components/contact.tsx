@@ -19,9 +19,9 @@ const iconByName: Record<string, React.ComponentType<{ className?: string }>> = 
 }
 
 const archiveLinks = [
-  { name: '2026 Portfolio', href: '/2026' },
-  { name: '2024 Portfolio', href: '/archive2024' },
-  { name: '2023 Portfolio', href: '/archive2023' },
+  { name: 'Current · 2026', href: '/', calm: false },
+  { name: '2024 Portfolio', href: '/archive2024', calm: false },
+  { name: '2023 Portfolio', href: '/archive2023', calm: false },
 ]
 
 const Contact = () => {
@@ -64,7 +64,11 @@ const Contact = () => {
                   key={link.name}
                   href={link.href}
                   size="sm"
-                  className="no-grunge"
+                  className={
+                    link.calm
+                      ? 'no-grunge !border-black/25 !bg-transparent !text-black/55 !shadow-none hover:!border-black/40 hover:!text-black/75'
+                      : 'no-grunge'
+                  }
                 >
                   <span className="no-grunge">{link.name}</span>
                 </Button>

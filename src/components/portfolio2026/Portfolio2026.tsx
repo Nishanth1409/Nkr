@@ -116,8 +116,8 @@ export default function Portfolio2026() {
           </nav>
           <div className="flex items-center gap-3">
             <Link
-              href="/"
-              className="text-[0.65rem] tracking-[0.14em] text-[rgba(243,238,230,0.65)] uppercase no-underline transition-colors hover:text-[#f3eee6]"
+              href="/archive2025"
+              className="text-[0.65rem] tracking-[0.14em] text-[rgba(243,238,230,0.38)] uppercase no-underline transition-colors hover:text-[rgba(243,238,230,0.62)]"
             >
               2025
             </Link>
@@ -296,6 +296,14 @@ export default function Portfolio2026() {
                   >
                     Linktree
                   </a>
+                </div>
+                <p className="p26-media-note mt-8 mb-3">Archive</p>
+                <div className="p26-connect-links">
+                  <a href="/archive2025" className="p26-archive-calm">
+                    2025 Portfolio
+                  </a>
+                  <a href="/archive2024">2024 Portfolio</a>
+                  <a href="/archive2023">2023 Portfolio</a>
                 </div>
               </>
             ) : null}

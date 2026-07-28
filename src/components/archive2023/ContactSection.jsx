@@ -61,9 +61,9 @@ const socialLinks = [
 ]
 
 const archiveLinks = [
-  { name: 'Current Portfolio', href: '/' },
-  { name: '2026 Portfolio', href: '/2026' },
-  { name: '2024 Portfolio', href: '/archive2024' },
+  { name: 'Current Portfolio', href: '/', calm: false },
+  { name: '2025 Portfolio', href: '/archive2025', calm: true },
+  { name: '2024 Portfolio', href: '/archive2024', calm: false },
 ]
 
 function ArchiveLinks() {
@@ -77,7 +77,11 @@ function ArchiveLinks() {
           <a
             key={link.href}
             href={link.href}
-            className="px-3.5 py-1.5 text-sm font-medium text-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.18)] transition-transform hover:scale-[1.03] bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]"
+            className={
+              link.calm
+                ? 'px-3.5 py-1.5 text-sm font-medium text-neutral-500 rounded-full border border-neutral-300/80 bg-transparent shadow-none transition-colors hover:text-neutral-700 hover:border-neutral-400'
+                : 'px-3.5 py-1.5 text-sm font-medium text-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.18)] transition-transform hover:scale-[1.03] bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]'
+            }
           >
             {link.name}
           </a>

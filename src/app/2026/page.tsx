@@ -1,5 +1,6 @@
-import Portfolio2026 from '../../components/portfolio2026/Portfolio2026'
+import { redirect } from 'next/navigation'
 
-export default function Page2026() {
-  return <Portfolio2026 />
+/** Legacy path — 2026 lives at `/` now. */
+export default function Legacy2026Redirect() {
+  redirect('/')
 }
