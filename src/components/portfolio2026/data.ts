@@ -1,4 +1,4 @@
-/** NKR 2026 — portfolio content from GitHub + uploaded public assets only */
+/** NKR 2026 — cinematic film universe (uploaded media + GitHub work) */
 
 export const P26_NAME = 'NISHANTH K R'
 export const P26_MARK = 'NKR'
@@ -28,7 +28,6 @@ const DESIGN = '/images/designs'
 const enc = (f: string) =>
   `${DESIGN}/${f.split('/').map((p) => encodeURIComponent(p)).join('/')}`
 
-/** Uploaded photography only — no generated placeholders */
 export const P26_PHOTOS = [
   { src: `${PHOTO}/IMG_20210918_182748.jpg`, alt: 'Evening light' },
   { src: `${PHOTO}/IMG_20211021_205036.jpg`, alt: 'Landscape' },
@@ -42,7 +41,6 @@ export const P26_PHOTOS = [
   { src: `${PHOTO}/ZVE06018-2.jpg`, alt: 'Field study' },
 ] as const
 
-/** Uploaded design / invite work (Drive + Instagram craft) */
 export const P26_DESIGNS = [
   { src: enc('AI tool Exhibition invitations.png'), title: 'AI Exhibition Invite' },
   { src: enc('CSD 2026.png'), title: 'CSD 2026' },
@@ -56,25 +54,22 @@ export const P26_DESIGNS = [
   { src: enc('et.png'), title: 'Event graphic' },
 ] as const
 
-/**
- * Hero media for 3D — max 4 uploaded images (smooth, not cluttered).
- * One focal plane at a time in the scene.
- */
-export const P26_SCENE_IMAGES = [
+/** Film plates in the 3D set — curated uploaded stills only */
+export const P26_FILM_PLATES = [
   P26_PHOTOS[0].src,
-  P26_PHOTOS[1].src,
-  P26_DESIGNS[0].src,
+  P26_PHOTOS[5].src,
   P26_PHOTOS[6].src,
+  P26_DESIGNS[1].src,
+  P26_PHOTOS[1].src,
 ] as const
 
-/** Portfolio chapters — what clients expect, not sky poetry */
 export const P26_CHAPTERS = [
   {
     id: 'intro',
     index: '01',
     title: 'NKR',
     nav: 'Intro',
-    kicker: 'Portfolio 2026',
+    kicker: '2026',
     body: P26_INTRO,
   },
   {
@@ -83,7 +78,7 @@ export const P26_CHAPTERS = [
     title: 'Work',
     nav: 'Work',
     kicker: 'Selected projects',
-    body: 'Products and systems shipped across travel, legal aid, agriculture, brand, and tools — from GitHub and the live web.',
+    body: 'Products and systems across travel, legal aid, agriculture, brand, and tools.',
   },
   {
     id: 'craft',
@@ -91,7 +86,7 @@ export const P26_CHAPTERS = [
     title: 'Craft',
     nav: 'Craft',
     kicker: 'Design systems',
-    body: 'Logos, templates, invitation cards, UI kits — Figma, Canva, and frontend execution. More on Drive and Instagram.',
+    body: 'Logos, templates, invitation cards, UI kits — Figma, Canva, frontend.',
   },
   {
     id: 'lens',
@@ -99,7 +94,7 @@ export const P26_CHAPTERS = [
     title: 'Lens',
     nav: 'Lens',
     kicker: 'Photography',
-    body: 'Frames from the field and the street — the same eye that shapes brand and product.',
+    body: 'Frames from the field and the street — the same eye that shapes product.',
   },
   {
     id: 'connect',
@@ -107,7 +102,7 @@ export const P26_CHAPTERS = [
     title: 'Connect',
     nav: 'Connect',
     kicker: 'Next',
-    body: 'Remote design & frontend · ProtoRev Digital & 3D · open for edits and commissions.',
+    body: 'Remote design & frontend · ProtoRev · open for commissions.',
   },
 ] as const
 
@@ -123,99 +118,77 @@ export const P26_STACK = [
   'Three.js',
 ] as const
 
-/** Curated from Nishanth1409 GitHub + collab repos — portfolio-facing only */
 export const P26_PROJECTS = [
   {
     title: 'Happy Journey',
     role: 'AI Travel · Full-stack',
     href: 'https://happy-journy.vercel.app/',
-    repo: 'https://github.com/Nishanth1409/happy-journy',
     blurb: 'AI itineraries, budget planning, maps — Next.js, Clerk, Firebase.',
   },
   {
     title: 'NyayaSakhi AI',
     role: 'Legal aid · Multilingual',
     href: 'https://nyayasakhi-ai.vercel.app/',
-    repo: 'https://github.com/Nishanth1409/nyayasakhi-ai',
     blurb: 'Accessible legal guidance for rural women — chat, voice, documents.',
   },
   {
     title: 'Areca ERP',
     role: 'ERP · Agriculture',
     href: 'https://github.com/Nishanth1409/Areca-ERP',
-    repo: 'https://github.com/Nishanth1409/Areca-ERP',
-    blurb: 'SRYN arecanut ERP — employees, attendance, loans, finance, PDF reports.',
+    blurb: 'SRYN arecanut ERP — employees, attendance, loans, finance, PDFs.',
   },
   {
     title: 'Sryn Mandi',
     role: 'Rates · Live data',
     href: 'https://sryn-mandi.vercel.app',
-    repo: 'https://github.com/Nishanth1409/sryn-mandi',
     blurb: 'Live arecanut mandi rates and local agent averages.',
   },
   {
     title: 'ProtoRev Digital & 3D',
-    role: 'Frontend · Brand · Social',
+    role: 'Frontend · Brand',
     href: P26_LINKS.protorevDigital,
-    repo: 'https://github.com/manoj633/protorev3d-ui',
     blurb: 'Web presence, identity, and social systems for ProtoRev brands.',
   },
   {
     title: 'GymWeb',
     role: 'Fitness · Next.js',
     href: 'https://gymweb-sand.vercel.app',
-    repo: 'https://github.com/Nishanth1409/gymweb',
     blurb: 'Fitness / gym website built with Next.js.',
   },
   {
     title: 'BhaavChitra',
     role: 'Sentiment · NLP',
     href: 'https://github.com/violetto-rose/bhaavchitra',
-    repo: 'https://github.com/violetto-rose/bhaavchitra',
     blurb: 'Sentiment analysis for SME feedback — BERT & VADER.',
   },
   {
     title: 'Swaad Sanchalan',
     role: 'Restaurant systems',
     href: 'https://github.com/violetto-rose/swaad-sanchalan',
-    repo: 'https://github.com/violetto-rose/swaad-sanchalan',
     blurb: 'Menus, reservations, billing, and sales reporting.',
   },
   {
     title: 'College Event Management',
     role: 'Events · PHP',
     href: 'https://github.com/Nishanth1409/College-event-management-System',
-    repo: 'https://github.com/Nishanth1409/College-event-management-System',
-    blurb: 'Student profiles, event discovery, and organizer registration tools.',
+    blurb: 'Student profiles, event discovery, organizer tools.',
   },
   {
     title: 'YouTube Music Float Dock',
     role: 'Chrome extension',
     href: 'https://github.com/Nishanth1409/youtube-music-float-dock',
-    repo: 'https://github.com/Nishanth1409/youtube-music-float-dock',
-    blurb: 'Float dock, PiP, HQ playback, random play for YouTube Music.',
+    blurb: 'Float dock, PiP, HQ playback for YouTube Music.',
   },
   {
     title: 'Windhawk Mods',
     role: 'Windows 11',
     href: 'https://windhawk.net/',
-    repo: 'https://github.com/Nishanth1409/windhawk-mods',
-    blurb: 'Lock screen & wallpaper, tray audio, fullscreen taskbar peek.',
+    blurb: 'Lock screen wallpaper, tray audio, fullscreen taskbar peek.',
   },
   {
     title: 'BookMyShow UI',
     role: 'React practice',
     href: 'https://bokmyshow1409.vercel.app',
-    repo: 'https://github.com/Nishanth1409/REACT-TO-INTOR',
     blurb: 'Movie booking UI practice in React.',
   },
-] as const
-
-/** Soft atmosphere only — no labeled “sunrise / moonset” UI */
-export const P26_SKY_STOPS = [
-  { t: 0, top: '#0c1018', mid: '#2a3548', bottom: '#1a1814', fog: 0x1a2030, glow: 'rgba(200,170,120,0.12)' },
-  { t: 0.25, top: '#101828', mid: '#3a4558', bottom: '#221c18', fog: 0x222838, glow: 'rgba(180,160,130,0.1)' },
-  { t: 0.5, top: '#0a0e18', mid: '#1c2435', bottom: '#181410', fog: 0x121820, glow: 'rgba(160,150,140,0.08)' },
-  { t: 0.75, top: '#080a12', mid: '#141c28', bottom: '#100e0c', fog: 0x0c1018, glow: 'rgba(140,150,180,0.1)' },
-  { t: 1, top: '#06080e', mid: '#10141c', bottom: '#0c0a08', fog: 0x080a10, glow: 'rgba(120,130,160,0.08)' },
 ] as const

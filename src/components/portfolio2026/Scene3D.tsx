@@ -3,67 +3,137 @@
 import { useEffect, useRef, type MutableRefObject } from 'react'
 import * as THREE from 'three'
 
-import { P26_SCENE_IMAGES, P26_SKY_STOPS } from './data'
+import { P26_FILM_PLATES } from './data'
 
 type Scene3DProps = {
   progressRef: MutableRefObject<number>
   chapterIndexRef: MutableRefObject<number>
-  onSkyChange?: (sky: {
+  onGrade?: (grade: {
     top: string
     mid: string
     bottom: string
-    glow: string
+    warmth: number
+    night: number
   }) => void
 }
 
-function lerpHex(a: number, b: number, t: number) {
-  const ar = (a >> 16) & 255
-  const ag = (a >> 8) & 255
-  const ab = a & 255
-  const br = (b >> 16) & 255
-  const bg = (b >> 8) & 255
-  const bb = b & 255
-  return (
-    (Math.round(ar + (br - ar) * t) << 16) |
-    (Math.round(ag + (bg - ag) * t) << 8) |
-    Math.round(ab + (bb - ab) * t)
-  )
+const SKY_VERT = /* glsl */ `
+  varying vec3 vWorldPosition;
+  void main() {
+    vec4 world = modelMatrix * vec4(position, 1.0);
+    vWorldPosition = world.xyz;
+    gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+  }
+`
+
+const SKY_FRAG = /* glsl */ `
+  varying vec3 vWorldPosition;
+  uniform float uDay;
+  uniform vec3 uSunDir;
+
+  vec3 skyColor(float elev, float day) {
+    // Dawn
+    vec3 dawnZenith = vec3(0.12, 0.10, 0.28);
+    vec3 dawnHorizon = vec3(1.0, 0.45, 0.28);
+    // Day
+    vec3 dayZenith = vec3(0.18, 0.42, 0.78);
+    vec3 dayHorizon = vec3(0.72, 0.86, 0.95);
+    // Golden / dusk
+    vec3 duskZenith = vec3(0.08, 0.10, 0.28);
+    vec3 duskHorizon = vec3(0.95, 0.38, 0.18);
+    // Night
+    vec3 nightZenith = vec3(0.02, 0.03, 0.08);
+    vec3 nightHorizon = vec3(0.06, 0.08, 0.16);
+
+    vec3 zA; vec3 hA; vec3 zB; vec3 hB; float t;
+    if (day < 0.22) {
+      t = day / 0.22;
+      zA = dawnZenith; hA = dawnHorizon;
+      zB = dayZenith; hB = dayHorizon;
+    } else if (day < 0.45) {
+      t = (day - 0.22) / 0.23;
+      zA = dayZenith; hA = dayHorizon;
+      zB = dayZenith; hB = dayHorizon;
+    } else if (day < 0.62) {
+      t = (day - 0.45) / 0.17;
+      zA = dayZenith; hA = dayHorizon;
+      zB = duskZenith; hB = duskHorizon;
+    } else if (day < 0.78) {
+      t = (day - 0.62) / 0.16;
+      zA = duskZenith; hA = duskHorizon;
+      zB = nightZenith; hB = nightHorizon;
+    } else {
+      t = (day - 0.78) / 0.22;
+      zA = nightZenith; hA = nightHorizon;
+      zB = nightZenith; hB = mix(nightHorizon, dawnHorizon, 0.25);
+    }
+
+    vec3 zenith = mix(zA, zB, smoothstep(0.0, 1.0, t));
+    vec3 horizon = mix(hA, hB, smoothstep(0.0, 1.0, t));
+    float h = smoothstep(-0.15, 0.65, elev);
+    vec3 col = mix(horizon, zenith, h);
+
+    // Sun glow on horizon
+    float sunDot = max(dot(normalize(vWorldPosition), uSunDir), 0.0);
+    float glow = pow(sunDot, 24.0) * (1.0 - smoothstep(0.55, 0.85, day));
+    float corona = pow(sunDot, 6.0) * 0.35 * (1.0 - day * 0.5);
+    col += vec3(1.0, 0.72, 0.35) * glow;
+    col += vec3(1.0, 0.55, 0.25) * corona;
+
+    return col;
+  }
+
+  void main() {
+    vec3 dir = normalize(vWorldPosition);
+    float elev = dir.y;
+    vec3 col = skyColor(elev, uDay);
+    gl_FragColor = vec4(col, 1.0);
+  }
+`
+
+function makeGlowTexture() {
+  const c = document.createElement('canvas')
+  c.width = 256
+  c.height = 256
+  const ctx = c.getContext('2d')!
+  const g = ctx.createRadialGradient(128, 128, 0, 128, 128, 128)
+  g.addColorStop(0, 'rgba(255,245,220,1)')
+  g.addColorStop(0.2, 'rgba(255,200,120,0.7)')
+  g.addColorStop(0.5, 'rgba(255,120,60,0.25)')
+  g.addColorStop(1, 'rgba(0,0,0,0)')
+  ctx.fillStyle = g
+  ctx.fillRect(0, 0, 256, 256)
+  const tex = new THREE.CanvasTexture(c)
+  tex.colorSpace = THREE.SRGBColorSpace
+  return tex
 }
 
-function sampleSky(progress: number) {
-  const stops = P26_SKY_STOPS
-  let i = 0
-  while (i < stops.length - 1 && progress > stops[i + 1].t) i++
-  const a = stops[i]
-  const b = stops[Math.min(i + 1, stops.length - 1)]
-  const span = b.t - a.t || 1
-  const t = Math.min(1, Math.max(0, (progress - a.t) / span))
-  const mix = (c1: string, c2: string) => {
-    const x = new THREE.Color(c1)
-    const y = new THREE.Color(c2)
-    return `#${x.lerp(y, t).getHexString()}`
-  }
-  return {
-    top: mix(a.top, b.top),
-    mid: mix(a.mid, b.mid),
-    bottom: mix(a.bottom, b.bottom),
-    glow: a.glow,
-    fog: lerpHex(a.fog, b.fog, t),
-  }
+function makeStarTexture() {
+  const c = document.createElement('canvas')
+  c.width = 64
+  c.height = 64
+  const ctx = c.getContext('2d')!
+  const g = ctx.createRadialGradient(32, 32, 0, 32, 32, 32)
+  g.addColorStop(0, 'rgba(255,255,255,1)')
+  g.addColorStop(0.4, 'rgba(220,230,255,0.5)')
+  g.addColorStop(1, 'rgba(0,0,0,0)')
+  ctx.fillStyle = g
+  ctx.fillRect(0, 0, 64, 64)
+  return new THREE.CanvasTexture(c)
 }
 
 /**
- * Calm cinematic field — soft atmosphere + ONE focal uploaded image.
- * No poster grids, no clutter of floating frames.
+ * Film-like 3D FX world — shader sky, sun/moon arcs, god rays,
+ * cinematic camera, uploaded stills as set plates (not wallpaper clutter).
  */
 export default function Scene3D({
   progressRef,
   chapterIndexRef,
-  onSkyChange,
+  onGrade,
 }: Scene3DProps) {
   const wrapRef = useRef<HTMLDivElement>(null)
-  const onSkyRef = useRef(onSkyChange)
-  onSkyRef.current = onSkyChange
+  const onGradeRef = useRef(onGrade)
+  onGradeRef.current = onGrade
 
   useEffect(() => {
     const wrap = wrapRef.current
@@ -73,56 +143,206 @@ export default function Scene3D({
 
     const scene = new THREE.Scene()
     const camera = new THREE.PerspectiveCamera(
-      38,
+      42,
       window.innerWidth / window.innerHeight,
       0.1,
-      100,
+      200,
     )
-    camera.position.set(0, 0.4, 7)
+    camera.position.set(0, 1.4, 9)
 
     const renderer = new THREE.WebGLRenderer({
-      antialias: true,
-      alpha: true,
+      antialias: !reduced,
+      alpha: false,
       powerPreference: 'high-performance',
     })
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75))
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, reduced ? 1.25 : 2))
     renderer.setSize(window.innerWidth, window.innerHeight)
-    renderer.setClearColor(0x000000, 0)
+    renderer.setClearColor(0x0a0c12, 1)
     renderer.outputColorSpace = THREE.SRGBColorSpace
+    renderer.toneMapping = THREE.ACESFilmicToneMapping
+    renderer.toneMappingExposure = 1.05
     wrap.appendChild(renderer.domElement)
 
-    const ambient = new THREE.AmbientLight(0xffffff, 0.65)
-    scene.add(ambient)
-    const key = new THREE.DirectionalLight(0xffe8c8, 0.85)
-    key.position.set(3, 5, 4)
-    scene.add(key)
+    // ——— Shader sky dome ———
+    const skyUniforms = {
+      uDay: { value: 0 },
+      uSunDir: { value: new THREE.Vector3(0, 1, 0) },
+    }
+    const sky = new THREE.Mesh(
+      new THREE.SphereGeometry(80, 48, 32),
+      new THREE.ShaderMaterial({
+        vertexShader: SKY_VERT,
+        fragmentShader: SKY_FRAG,
+        uniforms: skyUniforms,
+        side: THREE.BackSide,
+        depthWrite: false,
+      }),
+    )
+    scene.add(sky)
 
-    // Soft dust — few particles only
-    const dustCount = reduced ? 80 : 220
-    const dustPos = new Float32Array(dustCount * 3)
-    for (let i = 0; i < dustCount; i++) {
-      dustPos[i * 3] = (Math.random() - 0.5) * 16
-      dustPos[i * 3 + 1] = (Math.random() - 0.5) * 8
-      dustPos[i * 3 + 2] = (Math.random() - 0.5) * 12 - 2
+    // ——— Lights ———
+    const hemi = new THREE.HemisphereLight(0xffe8c8, 0x1a1410, 0.55)
+    scene.add(hemi)
+    const sunLight = new THREE.DirectionalLight(0xfff0d0, 1.6)
+    scene.add(sunLight)
+    const moonLight = new THREE.PointLight(0xa8b8ff, 0, 80)
+    scene.add(moonLight)
+    const rim = new THREE.PointLight(0xff8844, 0.4, 40)
+    rim.position.set(-4, 2, 2)
+    scene.add(rim)
+
+    // ——— Sun + corona ———
+    const glowTex = makeGlowTexture()
+    const sunCore = new THREE.Mesh(
+      new THREE.SphereGeometry(0.45, 32, 32),
+      new THREE.MeshBasicMaterial({ color: 0xfff5e0 }),
+    )
+    const sunCorona = new THREE.Sprite(
+      new THREE.SpriteMaterial({
+        map: glowTex,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        opacity: 0.9,
+      }),
+    )
+    sunCorona.scale.set(6, 6, 1)
+    const sunGroup = new THREE.Group()
+    sunGroup.add(sunCore)
+    sunGroup.add(sunCorona)
+    scene.add(sunGroup)
+
+    // God-ray shafts (additive planes)
+    const rayMat = new THREE.MeshBasicMaterial({
+      color: 0xffc080,
+      transparent: true,
+      opacity: 0.07,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      side: THREE.DoubleSide,
+    })
+    const rays: THREE.Mesh[] = []
+    for (let i = 0; i < 5; i++) {
+      const ray = new THREE.Mesh(
+        new THREE.PlaneGeometry(0.35 + i * 0.1, 28),
+        rayMat.clone(),
+      )
+      ray.rotation.z = (i - 2) * 0.08
+      sunGroup.add(ray)
+      rays.push(ray)
+    }
+
+    // ——— Moon ———
+    const moon = new THREE.Mesh(
+      new THREE.SphereGeometry(0.32, 32, 32),
+      new THREE.MeshStandardMaterial({
+        color: 0xe8eef8,
+        emissive: 0x334466,
+        emissiveIntensity: 0.45,
+        roughness: 0.95,
+        metalness: 0,
+      }),
+    )
+    const moonGlow = new THREE.Sprite(
+      new THREE.SpriteMaterial({
+        map: glowTex,
+        color: 0xb0c4ff,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        opacity: 0,
+      }),
+    )
+    moonGlow.scale.set(3.5, 3.5, 1)
+    const moonGroup = new THREE.Group()
+    moonGroup.add(moon)
+    moonGroup.add(moonGlow)
+    scene.add(moonGroup)
+
+    // ——— Stars ———
+    const starCount = reduced ? 300 : 900
+    const starPos = new Float32Array(starCount * 3)
+    for (let i = 0; i < starCount; i++) {
+      const r = 55 + Math.random() * 20
+      const theta = Math.random() * Math.PI * 2
+      const phi = Math.acos(Math.random() * 0.85)
+      starPos[i * 3] = r * Math.sin(phi) * Math.cos(theta)
+      starPos[i * 3 + 1] = r * Math.cos(phi)
+      starPos[i * 3 + 2] = r * Math.sin(phi) * Math.sin(theta)
+    }
+    const starGeo = new THREE.BufferGeometry()
+    starGeo.setAttribute('position', new THREE.BufferAttribute(starPos, 3))
+    const starMat = new THREE.PointsMaterial({
+      map: makeStarTexture(),
+      size: 0.55,
+      transparent: true,
+      opacity: 0,
+      depthWrite: false,
+      blending: THREE.AdditiveBlending,
+      sizeAttenuation: true,
+    })
+    const stars = new THREE.Points(starGeo, starMat)
+    scene.add(stars)
+
+    // ——— Ground / horizon silhouette ———
+    const ground = new THREE.Mesh(
+      new THREE.CircleGeometry(60, 64),
+      new THREE.MeshStandardMaterial({
+        color: 0x0c0a08,
+        roughness: 1,
+        metalness: 0,
+      }),
+    )
+    ground.rotation.x = -Math.PI / 2
+    ground.position.y = -2.6
+    scene.add(ground)
+
+    // Soft mist band
+    const mist = new THREE.Mesh(
+      new THREE.PlaneGeometry(80, 18),
+      new THREE.MeshBasicMaterial({
+        color: 0xffb070,
+        transparent: true,
+        opacity: 0.08,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        side: THREE.DoubleSide,
+      }),
+    )
+    mist.position.set(0, -1.2, -8)
+    mist.rotation.x = 0.15
+    scene.add(mist)
+
+    // Floating pollen / ash
+    const dustN = reduced ? 120 : 320
+    const dustPos = new Float32Array(dustN * 3)
+    for (let i = 0; i < dustN; i++) {
+      dustPos[i * 3] = (Math.random() - 0.5) * 24
+      dustPos[i * 3 + 1] = Math.random() * 10 - 1
+      dustPos[i * 3 + 2] = (Math.random() - 0.5) * 20
     }
     const dustGeo = new THREE.BufferGeometry()
     dustGeo.setAttribute('position', new THREE.BufferAttribute(dustPos, 3))
     const dustMat = new THREE.PointsMaterial({
-      color: 0xc8b090,
-      size: 0.025,
+      color: 0xffe0b0,
+      size: 0.04,
       transparent: true,
-      opacity: 0.28,
+      opacity: 0.35,
       depthWrite: false,
     })
     const dust = new THREE.Points(dustGeo, dustMat)
     scene.add(dust)
 
-    // Single focal plane — crossfade between uploaded images
+    // ——— Film plates (uploaded stills as set pieces) ———
     const loader = new THREE.TextureLoader()
-    const planeGeo = new THREE.PlaneGeometry(4.2, 2.6, 1, 1)
-    const planes: THREE.Mesh[] = []
+    const plateGeo = new THREE.PlaneGeometry(3.6, 2.25, 1, 1)
+    const plates: {
+      mesh: THREE.Mesh
+      base: THREE.Vector3
+      rotY: number
+    }[] = []
 
-    P26_SCENE_IMAGES.forEach((url, i) => {
+    P26_FILM_PLATES.forEach((url, i) => {
       loader.load(
         url,
         (tex) => {
@@ -130,29 +350,43 @@ export default function Scene3D({
           tex.minFilter = THREE.LinearFilter
           const mat = new THREE.MeshStandardMaterial({
             map: tex,
-            roughness: 0.95,
-            metalness: 0,
+            roughness: 0.88,
+            metalness: 0.02,
             transparent: true,
-            opacity: i === 0 ? 0.92 : 0,
-            depthWrite: false,
+            opacity: 0,
+            side: THREE.DoubleSide,
           })
-          const mesh = new THREE.Mesh(planeGeo, mat)
-          mesh.position.set(0.15, 0.15, -1.2)
-          mesh.rotation.y = -0.08
-          mesh.rotation.x = -0.04
+          const mesh = new THREE.Mesh(plateGeo, mat)
+          const side = i % 2 === 0 ? -1 : 1
+          const base = new THREE.Vector3(
+            side * (3.2 + (i % 3) * 0.35),
+            0.2 + (i % 2) * 0.4,
+            -2 - i * 3.5,
+          )
+          mesh.position.copy(base)
+          const rotY = side * -0.45
+          mesh.rotation.y = rotY
           scene.add(mesh)
-          planes[i] = mesh
+          plates.push({ mesh, base, rotY })
         },
         undefined,
-        () => {
-          /* skip missing upload */
-        },
+        () => {},
       )
     })
+
+    // Mouse parallax (subtle)
+    const pointer = { x: 0, y: 0 }
+    const onPointer = (e: PointerEvent) => {
+      pointer.x = (e.clientX / window.innerWidth) * 2 - 1
+      pointer.y = (e.clientY / window.innerHeight) * 2 - 1
+    }
+    window.addEventListener('pointermove', onPointer, { passive: true })
 
     let raf = 0
     let running = true
     const clock = new THREE.Clock()
+    const look = new THREE.Vector3()
+    const camTarget = new THREE.Vector3()
 
     const onResize = () => {
       camera.aspect = window.innerWidth / window.innerHeight
@@ -161,40 +395,125 @@ export default function Scene3D({
     }
     window.addEventListener('resize', onResize)
 
+    const ease = (x: number) => x * x * (3 - 2 * x)
+
     const tick = () => {
       if (!running) return
       const t = clock.getElapsedTime()
       const p = progressRef.current
       const chapter = chapterIndexRef.current
-      const sky = sampleSky(p)
+      const day = ease(p)
 
-      scene.fog = new THREE.FogExp2(sky.fog, 0.045)
-      onSkyRef.current?.({
-        top: sky.top,
-        mid: sky.mid,
-        bottom: sky.bottom,
-        glow: sky.glow,
+      skyUniforms.uDay.value = day
+
+      // Sun arc across sky
+      const sunAngle = Math.PI * (0.08 + Math.min(1, day / 0.58) * 0.88)
+      const sunPos = new THREE.Vector3(
+        Math.cos(sunAngle) * 28,
+        Math.sin(sunAngle) * 16 - 2.5,
+        -18,
+      )
+      sunGroup.position.copy(sunPos)
+      skyUniforms.uSunDir.value.copy(sunPos).normalize()
+      sunLight.position.copy(sunPos)
+      const sunVis = day < 0.62 ? 1 - Math.max(0, (day - 0.5) / 0.12) : 0
+      sunCore.visible = sunVis > 0.02
+      ;(sunCorona.material as THREE.SpriteMaterial).opacity = 0.75 * sunVis
+      sunLight.intensity = 0.35 + sunVis * 1.5
+      sunLight.color.setRGB(1, 0.92 - day * 0.2, 0.78 - day * 0.25)
+      rays.forEach((ray, i) => {
+        ;(ray.material as THREE.MeshBasicMaterial).opacity =
+          0.04 * sunVis * (1 - i * 0.08)
+        ray.lookAt(0, -2, 4)
+      })
+      mist.material.opacity = 0.04 + sunVis * 0.1
+      mist.material.color.setRGB(1, 0.65 + sunVis * 0.1, 0.35)
+
+      // Moon rise as day ends
+      const moonT = Math.max(0, (day - 0.52) / 0.48)
+      const moonAngle = Math.PI * (0.12 + moonT * 0.78)
+      moonGroup.position.set(
+        -Math.cos(moonAngle) * 24,
+        Math.sin(moonAngle) * 14 - 1,
+        -20,
+      )
+      const moonVis = Math.min(1, moonT * 2.4)
+      moonGlow.material.opacity = 0.55 * moonVis
+      moonLight.intensity = moonVis * 2.2
+      moonLight.position.copy(moonGroup.position)
+      starMat.opacity = Math.max(0, (day - 0.55) * 2.4)
+      stars.rotation.y = t * 0.008
+
+      // Atmosphere grade callback for CSS overlays
+      const warmth = Math.max(0, 1 - Math.abs(day - 0.35) * 2.2)
+      const night = Math.max(0, (day - 0.58) * 2.5)
+      onGradeRef.current?.({
+        top:
+          day < 0.25
+            ? '#1a1438'
+            : day < 0.5
+              ? '#2a5080'
+              : day < 0.7
+                ? '#1a1838'
+                : '#060810',
+        mid:
+          day < 0.25
+            ? '#ff7a40'
+            : day < 0.5
+              ? '#6aa0c8'
+              : day < 0.7
+                ? '#d45830'
+                : '#121828',
+        bottom:
+          day < 0.25
+            ? '#ffc878'
+            : day < 0.5
+              ? '#d8e8f0'
+              : day < 0.7
+                ? '#4a2030'
+                : '#0a0c14',
+        warmth,
+        night: Math.min(1, night),
       })
 
-      // Gentle camera drift — smooth, not jittery
-      camera.position.z = 7 - p * 2.2
-      camera.position.y = 0.4 + Math.sin(p * Math.PI) * 0.12
-      camera.position.x = Math.sin(p * Math.PI) * 0.2
-      camera.lookAt(0, 0.1, -2)
+      // Cinematic camera path (dolly + crane + FOV breathe)
+      const dolly = 9.5 - day * 5.5
+      const crane = 1.35 + Math.sin(day * Math.PI) * 0.85 + day * 0.3
+      const drift = Math.sin(day * Math.PI * 1.2) * 1.1
+      camTarget.set(
+        drift + pointer.x * 0.35,
+        crane + pointer.y * -0.2,
+        dolly,
+      )
+      camera.position.lerp(camTarget, 0.06)
+      camera.fov = 40 + Math.sin(day * Math.PI) * 4
+      camera.updateProjectionMatrix()
+      look.set(pointer.x * 0.6, 0.2 + pointer.y * -0.15, -6 - day * 8)
+      camera.lookAt(look)
+      camera.rotation.z = Math.sin(day * Math.PI) * 0.02 + pointer.x * 0.01
 
-      dust.rotation.y = t * 0.015
-      dustMat.opacity = 0.18 + Math.sin(p * Math.PI) * 0.1
+      hemi.intensity = 0.35 + sunVis * 0.35
+      rim.intensity = 0.2 + sunVis * 0.55
+      dust.rotation.y = t * 0.02
+      dustMat.opacity = 0.15 + sunVis * 0.25
 
-      // Crossfade one image per chapter
-      const target = Math.min(planes.length - 1, chapter % Math.max(1, P26_SCENE_IMAGES.length))
-      planes.forEach((mesh, i) => {
-        if (!mesh) return
-        const mat = mesh.material as THREE.MeshStandardMaterial
-        const want = i === target ? 0.9 : 0
-        mat.opacity += (want - mat.opacity) * 0.045
-        mesh.position.y = 0.15 + Math.sin(t * 0.35 + i) * 0.04
-        mesh.rotation.y = -0.08 + Math.sin(t * 0.2) * 0.02
+      // Plates: bring the chapter-matched plate into focus
+      plates.forEach((item, i) => {
+        const mat = item.mesh.material as THREE.MeshStandardMaterial
+        const focus = i === chapter % Math.max(1, plates.length)
+        const want = focus ? 0.95 : 0.18
+        mat.opacity += (want - mat.opacity) * 0.05
+        const pull = focus ? 1.6 : 0
+        const targetZ = item.base.z + pull + day * -1.2
+        item.mesh.position.z += (targetZ - item.mesh.position.z) * 0.05
+        item.mesh.position.y =
+          item.base.y + Math.sin(t * 0.4 + i) * 0.08
+        item.mesh.rotation.y = item.rotY + Math.sin(t * 0.15 + i) * 0.03
+        item.mesh.scale.setScalar(focus ? 1.08 : 0.92)
       })
+
+      ground.position.z = camera.position.z - 18
+      mist.position.z = camera.position.z - 10
 
       renderer.render(scene, camera)
       raf = requestAnimationFrame(tick)
@@ -205,15 +524,33 @@ export default function Scene3D({
       running = false
       cancelAnimationFrame(raf)
       window.removeEventListener('resize', onResize)
-      planes.forEach((mesh) => {
-        if (!mesh) return
+      window.removeEventListener('pointermove', onPointer)
+      plates.forEach(({ mesh }) => {
         const mat = mesh.material as THREE.MeshStandardMaterial
         mat.map?.dispose()
         mat.dispose()
       })
-      planeGeo.dispose()
+      plateGeo.dispose()
+      sky.geometry.dispose()
+      ;(sky.material as THREE.Material).dispose()
+      ground.geometry.dispose()
+      ;(ground.material as THREE.Material).dispose()
+      mist.geometry.dispose()
+      ;(mist.material as THREE.Material).dispose()
+      starGeo.dispose()
+      starMat.map?.dispose()
+      starMat.dispose()
       dustGeo.dispose()
       dustMat.dispose()
+      glowTex.dispose()
+      sunCore.geometry.dispose()
+      ;(sunCore.material as THREE.Material).dispose()
+      moon.geometry.dispose()
+      ;(moon.material as THREE.Material).dispose()
+      rays.forEach((r) => {
+        r.geometry.dispose()
+        ;(r.material as THREE.Material).dispose()
+      })
       renderer.dispose()
       if (renderer.domElement.parentNode === wrap) {
         wrap.removeChild(renderer.domElement)
