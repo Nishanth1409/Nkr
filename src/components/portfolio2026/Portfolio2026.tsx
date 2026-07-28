@@ -134,12 +134,22 @@ export default function Portfolio2026() {
 
       <header className="p26-hud">
         <div className="p26-topbar">
-          <div>
-            <div className="p26-mark">
-              {P26_HANDLE} <span className="p26-year">· {P26_YEAR}</span>
+          <div className="p26-topbar-row">
+            <div>
+              <div className="p26-mark">
+                {P26_HANDLE} <span className="p26-year">· {P26_YEAR}</span>
+              </div>
+              <div className="mt-2">
+                <span className="p26-sky-chip">{skyLabel}</span>
+              </div>
             </div>
-            <div className="mt-2">
-              <span className="p26-sky-chip">{skyLabel}</span>
+
+            <div className="p26-year-links">
+              <Link href="/archive2025" className="is-calm">
+                2025
+              </Link>
+              <Link href="/archive2024">2024</Link>
+              <Link href="/archive2023">2023</Link>
             </div>
           </div>
 
@@ -158,14 +168,6 @@ export default function Portfolio2026() {
               </a>
             ))}
           </nav>
-
-          <div className="p26-year-links">
-            <Link href="/archive2025" className="is-calm">
-              2025
-            </Link>
-            <Link href="/archive2024">2024</Link>
-            <Link href="/archive2023">2023</Link>
-          </div>
         </div>
 
         <div className="flex items-end justify-between gap-4">
