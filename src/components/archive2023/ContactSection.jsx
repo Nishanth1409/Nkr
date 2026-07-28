@@ -62,6 +62,7 @@ const socialLinks = [
 
 const archiveLinks = [
   { name: 'Current Portfolio', href: '/' },
+  { name: '2026 Portfolio', href: '/2026' },
   { name: '2024 Portfolio', href: '/archive2024' },
 ]
 

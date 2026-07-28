@@ -19,6 +19,7 @@ const iconByName: Record<string, React.ComponentType<{ className?: string }>> = 
 }
 
 const archiveLinks = [
+  { name: '2026 Portfolio', href: '/2026' },
   { name: '2024 Portfolio', href: '/archive2024' },
   { name: '2023 Portfolio', href: '/archive2023' },
 ]
