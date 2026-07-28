@@ -56,10 +56,10 @@ const NavLink = memo(
     <a
       href={href}
       onClick={(event) => onClick(href, event)}
-      className={`xs:text-base xs:px-2 xs:py-1 relative px-2 py-2 no-underline transition-all duration-500 ease-in-out sm:px-3 sm:py-2 md:px-4 md:py-2 ${
+      className={`relative px-2 py-2 text-[clamp(0.75rem,2.2vw,1.125rem)] no-underline transition-all duration-500 ease-in-out sm:px-3 sm:py-2 md:px-4 md:py-2 ${
         isActive
-          ? "bg-[url('/resources/static-squarespace.gif')] bg-cover bg-clip-text bg-center text-lg font-semibold text-transparent sm:text-xl"
-          : 'text-base text-white transition-all duration-500 ease-in-out sm:text-lg'
+          ? "bg-[url('/resources/static-squarespace.gif')] bg-cover bg-clip-text bg-center font-semibold text-transparent"
+          : 'text-white transition-all duration-500 ease-in-out'
       }`}
     >
       {label}
@@ -135,7 +135,7 @@ const Header = memo(({ starfieldRef }: HeaderProps) => {
   // ****************
 
   return (
-    <nav className="navbar fixed z-40 flex w-full items-center justify-evenly bg-black/10 p-2 backdrop-blur-lg transition-all duration-500 ease-in-out md:justify-center md:gap-20">
+    <nav className="navbar fixed z-40 flex w-full max-w-[100%] flex-wrap items-center justify-center gap-x-[clamp(0.25rem,2vw,1.25rem)] gap-y-1 bg-black/10 px-[clamp(0.5rem,2vw,1.5rem)] py-2 backdrop-blur-lg transition-all duration-500 ease-in-out">
       {NAV_LINKS.map(({ href, label }) => (
         <NavLink
           key={href}

@@ -32,7 +32,7 @@ export default function Archive2024() {
   const starfieldRef = useRef<StarfieldRef>(null)
 
   return (
-    <div className="relative min-h-screen overflow-x-hidden select-none">
+    <div className="relative min-h-screen max-w-[100%] overflow-x-clip select-none">
       <div className="fixed inset-0 z-0">
         <Starfield
           ref={starfieldRef}

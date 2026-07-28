@@ -30,7 +30,7 @@ const SectionLoader = () => (
 export default function Home() {
   return (
     <LoadingSplash>
-      <div className="font-lora grunge-text relative min-h-screen overflow-x-clip bg-white text-black select-none">
+      <div className="font-lora grunge-text relative min-h-screen w-full max-w-[100%] overflow-x-clip bg-white text-black select-none">
       <PaperTextureBackground />
 
       <div className="relative">

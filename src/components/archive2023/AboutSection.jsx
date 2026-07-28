@@ -63,7 +63,7 @@ const AboutSection = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
-      <div className="container px-6 space-y-0 md:px-16 lg:px-28">
+      <div className="portfolio-shell container space-y-0 !px-[clamp(1rem,4vw,7rem)]">
         <div className="flex flex-col items-center py-20 lg:flex-row">
           <div className="flex flex-col items-center flex-grow mb-10 lg:mb-0">
             <img
@@ -106,8 +106,8 @@ const AboutSection = () => {
               <div className="relative">
                 <span
                   onClick={handleFigmaClick}
-                  className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full outline-4 outline-[#FFB147] p-3 
-             transition-transform duration-300 hover:scale-110 cursor-pointer bg-white shadow-md"
+                  className="flex h-16 w-16 items-center justify-center rounded-full outline-2 outline-[#FFB147] p-2 
+             transition-transform duration-300 hover:scale-105 cursor-pointer bg-white shadow-sm md:h-20 md:w-20 md:p-2.5"
                 >
                   <img
                     src={`${ASSET}/figma.svg`}
@@ -168,8 +168,8 @@ const AboutSection = () => {
                       window.open(item.link, '_blank', 'noopener,noreferrer')
                     }
                   }}
-                  className="w-20 h-20 md:w-24 md:h-24 flex items-center justify-center rounded-full outline-4 outline-[#FFB147] p-3 
-               transition-transform duration-300 hover:scale-110 cursor-pointer"
+                  className="flex h-16 w-16 items-center justify-center rounded-full outline-2 outline-[#FFB147] p-2 
+               transition-transform duration-300 hover:scale-105 cursor-pointer md:h-20 md:w-20 md:p-2.5"
                 >
                   <img
                     src={item.icon}

@@ -60,7 +60,7 @@ export default function Archive2023Layout({
   return (
     <div
       data-archive2023-layout
-      className={`${ibmPlexSans.variable} ${ibmPlexSerif.variable} min-h-screen bg-white text-black [font-family:var(--font-ibm-plex-sans),system-ui,sans-serif] [&_.font-serif]:[font-family:var(--font-ibm-plex-serif),Georgia,serif]`}
+      className={`${ibmPlexSans.variable} ${ibmPlexSerif.variable} min-h-screen max-w-[100%] overflow-x-clip bg-white text-black [font-family:var(--font-ibm-plex-sans),system-ui,sans-serif] [&_.font-serif]:[font-family:var(--font-ibm-plex-serif),Georgia,serif]`}
     >
       {children}
     </div>

@@ -23,7 +23,7 @@ const MyWorks = memo(() => {
   return (
     <section
       id="myworks"
-      className="relative flex min-h-screen snap-start flex-col items-start justify-center gap-16 px-4 py-20 sm:px-8 md:px-16 lg:px-24 xl:px-32"
+      className="portfolio-shell relative flex min-h-screen snap-start flex-col items-start justify-center gap-[clamp(2.5rem,5vh,4rem)]"
     >
       <h1 className="text-3xl font-semibold text-violet-400 sm:text-4xl md:text-5xl">
         Other Works
@@ -46,11 +46,11 @@ const MyWorks = memo(() => {
           .
         </p>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-3">
+        <div className="grid grid-cols-2 gap-[clamp(0.5rem,1.5vw,1rem)] sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {PHOTOGRAPHY_ARCHIVE_FILES.map((file) => (
             <div
               key={file}
-              className="relative aspect-[3/4] overflow-hidden rounded-xl border border-violet-500/25 bg-black/40"
+              className="relative aspect-[3/4] overflow-hidden rounded-lg border border-violet-500/20 bg-black/40"
             >
               <Image
                 src={photoImageUrl(file)}
@@ -66,7 +66,7 @@ const MyWorks = memo(() => {
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex aspect-[3/4] flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-violet-500/40 bg-black p-4 text-center transition-colors hover:border-violet-400/60"
+            className="relative flex aspect-[3/4] flex-col items-center justify-center gap-2.5 overflow-hidden rounded-lg border border-violet-500/30 bg-black p-3 text-center transition-colors hover:border-violet-400/55"
           >
             <Image
               src="/images/Photography/newlogo.jpg"
@@ -91,11 +91,11 @@ const MyWorks = memo(() => {
           Posters, invites, and layouts from my design work.
         </p>
 
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
+        <div className="grid grid-cols-2 gap-[clamp(0.5rem,1.5vw,1rem)] sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {DESIGN_ARCHIVE_FILES.map((file) => (
             <div
               key={file}
-              className="relative aspect-[4/5] overflow-hidden rounded-xl border border-violet-500/25 bg-black/40"
+              className="relative aspect-[4/5] overflow-hidden rounded-lg border border-violet-500/20 bg-black/40"
             >
               <Image
                 src={designImageUrl(file)}
@@ -111,7 +111,7 @@ const MyWorks = memo(() => {
             href={MY_DESIGNS_DRIVE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="relative flex aspect-[4/5] flex-col items-center justify-center gap-3 overflow-hidden rounded-xl border border-violet-500/40 bg-black p-4 text-center transition-colors hover:border-violet-400/60"
+            className="relative flex aspect-[4/5] flex-col items-center justify-center gap-2.5 overflow-hidden rounded-lg border border-violet-500/30 bg-black p-3 text-center transition-colors hover:border-violet-400/55"
           >
             <Image
               src="/images/designs/more-designs.jpg"
@@ -134,7 +134,7 @@ const MyWorks = memo(() => {
             target="_blank"
             rel="noopener noreferrer"
             containerClassName="rounded-full"
-            className="flex items-center gap-2 bg-black px-6 py-2 text-sm text-white"
+            className="flex items-center gap-2 bg-black px-3.5 py-1.5 text-sm text-white"
           >
             <FontAwesomeIcon icon={faExternalLinkAlt} className="h-4 w-4" />
             Open Google Drive folder

@@ -10,18 +10,22 @@ const MyDesigns = () => {
   return (
     <section
       id="my-designs"
-      className="flex relative z-20 flex-col w-full bg-transparent designs-section scroll-mt-4"
+      className="designs-section relative z-20 flex w-full scroll-mt-4 flex-col bg-transparent"
     >
-      <div className="container flex relative z-20 flex-col gap-2 items-start px-8 py-16 w-full designs-section-copy md:px-24 md:pb-8">
-        <span className="no-grunge text-3xl sm:text-4xl md:text-5xl">Designs</span>
-        <span className="no-grunge text-xl sm:text-2xl">Creative templates and visual concepts.</span>
-        <span className="no-grunge max-w-2xl text-lg md:text-xl">
+      <div className="portfolio-shell designs-section-copy relative z-20 flex w-full flex-col items-start gap-2 !pb-8">
+        <span className="no-grunge text-[clamp(1.75rem,5vw+0.5rem,3rem)] leading-tight">
+          Designs
+        </span>
+        <span className="no-grunge text-[clamp(1rem,2.5vw+0.4rem,1.5rem)]">
+          Creative templates and visual concepts.
+        </span>
+        <span className="no-grunge max-w-2xl text-pretty text-lg md:text-xl">
           Scroll to move through posters and invites — last card opens the full{' '}
           <a
             href={MY_DESIGNS_DRIVE_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium underline text-link-hover no-grunge"
+            className="text-link-hover no-grunge font-medium underline"
           >
             Drive folder
           </a>

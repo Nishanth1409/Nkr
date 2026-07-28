@@ -18,11 +18,11 @@ export default function Archive2023App() {
   const mainStyle = isDesktop
     ? {
         marginLeft: sidebarWidthRem,
-        width: `calc(100vw - ${sidebarWidthRem})`,
+        width: `calc(100% - ${sidebarWidthRem})`,
       }
     : {
         marginLeft: 0,
-        width: '100vw',
+        width: '100%',
       }
 
   const scrollToSection = (sectionId) => {
@@ -76,7 +76,7 @@ export default function Archive2023App() {
   }, [isSidebarCollapsed])
 
   return (
-    <div className="flex min-h-screen overflow-x-hidden font-sans text-black bg-white">
+    <div className="flex min-h-screen max-w-[100%] overflow-x-clip bg-white font-sans text-black">
       <div ref={sidebarRef}>
         <Sidebar
           isCollapsed={isSidebarCollapsed}
@@ -88,21 +88,21 @@ export default function Archive2023App() {
       </div>
 
       <div
-        className="flex-1 transition-all duration-300 bg-white"
+        className="min-w-0 flex-1 bg-white transition-all duration-300"
         style={mainStyle}
         onClick={() => setIsSidebarCollapsed(true)}
       >
-        <div className="p-6 space-y-8">
-          <section id="home" className="min-h-screen">
+        <div className="space-y-8 px-[clamp(0.75rem,2vw,1.5rem)] py-[clamp(1rem,2vh,1.5rem)]">
+          <section id="home" className="min-h-screen min-w-0">
             <HomeSection />
           </section>
-          <section id="about" className="min-h-screen">
+          <section id="about" className="min-h-screen min-w-0">
             <AboutSection />
           </section>
-          <section id="works" className="min-h-screen">
+          <section id="works" className="min-h-screen min-w-0 overflow-x-clip">
             <WorksSection />
           </section>
-          <section id="contact" className="min-h-screen">
+          <section id="contact" className="min-h-screen min-w-0">
             <ContactSection />
           </section>
         </div>

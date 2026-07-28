@@ -201,7 +201,7 @@
     display: block;
     position: relative;
     height: 100%;
-    padding: 0 1.5rem;
+    padding: 0 clamp(1rem, 4vw, 1.5rem);
   }
 
   .figma-cube-scene {
@@ -219,10 +219,40 @@
   .figma-cube-active-copy.right {
     position: absolute;
     z-index: 3;
-    bottom: 1.75rem;
-    left: 1.5rem;
-    right: 1.5rem;
+    bottom: max(1rem, env(safe-area-inset-bottom, 0px));
+    left: clamp(1rem, 4vw, 1.5rem);
+    right: clamp(1rem, 4vw, 1.5rem);
     max-width: none;
     text-align: left;
+  }
+}
+
+@media (width <= 24em) {
+  .figma-cube {
+    --figma-cube-s: min(78vw, 38vh, 240px);
+  }
+
+  .figma-cube-copy-title {
+    font-size: clamp(1rem, 4.8vw, 1.25rem);
+  }
+
+  .figma-cube-copy-body {
+    font-size: clamp(0.95rem, 4vw, 1.1rem);
+  }
+}
+
+@media (min-width: 1920px) {
+  .figma-cube-stage {
+    grid-template-columns: minmax(0, 1fr) min(480px, 28vw) minmax(0, 1fr);
+    gap: clamp(2.5rem, 4vw, 4rem);
+    padding: 0 clamp(2rem, 6vw, 6rem);
+  }
+
+  .figma-cube {
+    --figma-cube-s: min(28vw, 48vh, 460px);
+  }
+
+  .figma-cube-active-copy {
+    max-width: 26rem;
   }
 }

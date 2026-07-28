@@ -76,7 +76,7 @@ function ArchiveLinks() {
           <a
             key={link.href}
             href={link.href}
-            className="px-5 py-2 text-sm font-medium text-white rounded-full shadow-md transition-transform hover:scale-105 bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]"
+            className="px-3.5 py-1.5 text-sm font-medium text-white rounded-full shadow-[0_1px_2px_rgba(0,0,0,0.18)] transition-transform hover:scale-[1.03] bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]"
           >
             {link.name}
           </a>
@@ -89,7 +89,7 @@ function ArchiveLinks() {
 export default function ContactSection() {
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-white">
-      <div className="container px-5 py-7 space-y--10 md:px-16 lg:px-28">
+      <div className="portfolio-shell container space-y-0 !px-[clamp(1rem,4vw,7rem)] py-7">
         <div className="mb-8 text-center">
           <span className="text-lg italic font-bold text-gray-700">Contact</span>
           <h2 className="mt-2 text-4xl lg:text-5xl uppercase font-bold bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] bg-clip-text text-transparent">
@@ -108,12 +108,12 @@ export default function ContactSection() {
               href={card.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center gap-4 p-8 transition-transform bg-white border border-gray-200 shadow-xl rounded-2xl hover:scale-105"
+              className="flex flex-col items-center justify-center gap-3 rounded-xl border border-gray-200/90 bg-white p-5 shadow-sm transition-transform hover:scale-[1.02] md:gap-3 md:p-6 lg:gap-4 lg:p-7"
             >
               <div className="w-20 h-20 flex items-center justify-center rounded-full bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]">
                 <card.icon className="w-10 h-10 text-white" />
               </div>
-              <span className="text-2xl font-bold text-gray-800">
+              <span className="break-all text-lg font-bold text-gray-800 sm:text-xl md:text-2xl">
                 {card.value}
               </span>
               <span className="text-gray-500">{card.type}</span>
@@ -128,12 +128,12 @@ export default function ContactSection() {
               href={card.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center gap-3 p-6 transition-transform bg-white border border-gray-200 shadow-lg rounded-xl hover:scale-105"
+              className="flex flex-col items-center justify-center gap-2.5 rounded-xl border border-gray-200/90 bg-white p-5 shadow-sm transition-transform hover:scale-[1.02]"
             >
               <div className="w-16 h-16 flex items-center justify-center rounded-full bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]">
                 <card.icon className="w-8 h-8 text-white" />
               </div>
-              <span className="text-xl font-bold text-gray-800">
+              <span className="break-all text-xl font-bold text-gray-800">
                 {card.value}
               </span>
               <span className="text-gray-500">{card.type}</span>
@@ -152,12 +152,12 @@ export default function ContactSection() {
               href={card.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex flex-col items-center justify-center gap-2 p-4 transition-transform bg-white border border-gray-200 shadow-md rounded-xl hover:scale-105"
+              className="flex flex-col items-center justify-center gap-2 rounded-lg border border-gray-200/90 bg-white p-3.5 shadow-sm transition-transform hover:scale-[1.02]"
             >
               <div className="w-12 h-12 flex items-center justify-center rounded-full bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF]">
                 <card.icon className="w-6 h-6 text-white" />
               </div>
-              <span className="text-lg font-bold text-gray-800">
+              <span className="break-all text-lg font-bold text-gray-800">
                 {card.value}
               </span>
               <span className="text-gray-500">{card.type}</span>
@@ -205,7 +205,8 @@ export default function ContactSection() {
         </div>
       </div>
 
-      <div className="fixed flex-col hidden space-y-4 lg:flex left-4 bottom-8">
+      {/* Desktop socials live in the sidebar — avoid overlap */}
+      <div className="fixed bottom-8 left-20 z-20 hidden flex-col space-y-4 xl:left-[17rem]">
         {socialLinks.map((s, idx) => {
           const IconComp = s.icon
           return (

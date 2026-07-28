@@ -25,12 +25,12 @@ const Button = ({
   size = 'md',
 }: ButtonProps) => {
   const baseClasses =
-    'btn-interactive relative z-30 flex items-center rounded-lg border border-solid border-black bg-white text-black shadow-[3px_3px_0_0_#000]'
+    'btn-interactive relative z-30 inline-flex w-fit max-w-full min-w-0 items-center justify-center gap-2 rounded-md border border-black/90 bg-white text-black shadow-[1.5px_1.5px_0_0_#111]'
 
   const sizeClasses = {
-    sm: 'px-3 py-1 text-sm',
-    md: 'px-4 py-2 text-base sm:text-lg md:text-xl',
-    lg: 'px-6 py-3 text-xl md:text-2xl',
+    sm: 'px-2.5 py-1 text-sm leading-snug',
+    md: 'px-3.5 py-1.5 text-sm sm:text-base md:text-lg leading-snug',
+    lg: 'px-5 py-2.5 text-base md:text-xl leading-snug',
   }
 
   const buttonClasses = `${baseClasses} ${sizeClasses[size]} ${className}`

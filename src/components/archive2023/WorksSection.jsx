@@ -18,15 +18,15 @@ const projects = [
       objectFit: 'contain',
     },
     cardPosition: {
-      desktop: { x: -190, y: 0 },
-      tablet: { x: -100, y: 0 },
+      desktop: { x: 0, y: 0 },
+      tablet: { x: 0, y: 0 },
       mobile: { x: 0, y: 0 },
     },
     textAlign: 'center',
     layout: { desktop: 'vertical', tablet: 'vertical', mobile: 'vertical' },
     cardStyle: {
       rounded: '2rem',
-      shadow: 'shadow-2xl',
+      shadow: 'shadow-md',
       borderGradient: 'linear-gradient(90deg, #FFB147, #FF6C63, #B86ADF)',
       bgColor: 'bg-white',
     },
@@ -47,15 +47,15 @@ const projects = [
       objectFit: 'cover',
     },
     cardPosition: {
-      desktop: { x: 250, y: -200 },
-      tablet: { x: 50, y: -10 },
+      desktop: { x: 0, y: 0 },
+      tablet: { x: 0, y: 0 },
       mobile: { x: 0, y: 0 },
     },
     textAlign: 'center',
     layout: { desktop: 'vertical', tablet: 'vertical', mobile: 'vertical' },
     cardStyle: {
       rounded: '2rem',
-      shadow: 'shadow-2xl',
+      shadow: 'shadow-md',
       borderGradient: 'linear-gradient(90deg, #FFB147, #FF6C63, #B86ADF)',
       bgColor: 'bg-white',
     },
@@ -91,19 +91,19 @@ export default function WorksSection() {
     return (
       <div
         key={project.id}
-        className="flex flex-col items-center justify-center gap-4"
+        className="flex w-full max-w-full flex-col items-center justify-center gap-4"
         style={{
           transform: `translate(${position.x}px, ${position.y}px) scale(${scale})`,
           transition: 'transform 0.3s ease',
         }}
       >
         <div
-          className={`cursor-pointer relative flex flex-col justify-center items-center ${project.cardStyle.bgColor} ${project.cardStyle.shadow}`}
+          className={`relative flex max-w-full cursor-pointer flex-col items-center justify-center ${project.cardStyle.bgColor} ${project.cardStyle.shadow}`}
           style={{
             borderRadius: project.cardStyle.rounded,
             padding: '2px',
             background: project.cardStyle.borderGradient,
-            width: `${20 * scale}rem`,
+            width: 'min(100%, 20rem)',
             height: 'auto',
           }}
           onClick={() => setActiveModal(project)}
@@ -163,41 +163,41 @@ export default function WorksSection() {
   }
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
-      <div className="container px-6 pt-20 pb-8 space-y-0 md:px-16 lg:px-28">
+    <div className="flex min-h-screen max-w-full items-center justify-center overflow-x-clip bg-white">
+      <div className="portfolio-shell !px-[clamp(1rem,4vw,7rem)] space-y-0 pt-20 pb-8">
         <div className="mb-12 text-center">
           <span className="text-lg italic font-bold text-gray-700">Work</span>
-          <h2 className="mt-2 text-3xl md:text-4xl lg:text-5xl uppercase font-bold bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] bg-clip-text text-transparent">
+          <h2 className="mt-2 bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] bg-clip-text text-3xl font-bold text-transparent uppercase md:text-4xl lg:text-5xl">
             Recent Projects
           </h2>
         </div>
 
-        <div className={getContainerClass(projects[0].layout.desktop)}>
+        <div
+          className={`${getContainerClass(projects[0].layout.desktop)} w-full max-w-full items-center overflow-x-clip`}
+        >
           {projects.map((project) => renderProjectCard(project))}
         </div>
 
         {activeModal && (
           <div
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 backdrop-blur-md"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/30 p-4 backdrop-blur-md"
             onClick={() => setActiveModal(null)}
           >
             <div
-              className="relative p-6 bg-white shadow-2xl rounded-3xl md:w-2/3 lg:w-1/2"
+              className="relative w-full max-w-lg rounded-3xl bg-white p-6 shadow-2xl md:w-2/3 md:max-w-none lg:w-1/2"
               onClick={(e) => e.stopPropagation()}
             >
               <button
                 onClick={() => setActiveModal(null)}
-                className="absolute flex items-center justify-center w-10 h-10 text-2xl font-bold 
-                   bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] 
-                   text-white rounded-full top-3 left-4 shadow-lg hover:scale-110 transition"
+                className="absolute top-3 left-4 flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] text-2xl font-bold text-white shadow-lg transition hover:scale-110"
               >
-                <XMarkIcon className="w-5 h-5" />
+                <XMarkIcon className="h-5 w-5" />
               </button>
 
               <img
                 src={activeModal.pageImage.src}
                 alt={activeModal.pageImage.alt}
-                className="w-full max-h-[60vh] rounded-2xl object-contain"
+                className="max-h-[60vh] w-full rounded-2xl object-contain"
               />
 
               <a
@@ -205,10 +205,9 @@ export default function WorksSection() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={() => setActiveModal(null)}
-                className="absolute bottom-4 right-4 bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] 
-             text-white p-3 rounded-full shadow-lg hover:scale-110 transition"
+                className="absolute right-4 bottom-4 rounded-full bg-gradient-to-r from-[#FFB147] via-[#FF6C63] to-[#B86ADF] p-3 text-white shadow-lg transition hover:scale-110"
               >
-                <ArrowRightIcon className="w-6 h-6 -rotate-45" />
+                <ArrowRightIcon className="h-6 w-6 -rotate-45" />
               </a>
             </div>
           </div>

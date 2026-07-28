@@ -32,15 +32,15 @@ const HomeSection = ({
               }}
             />
 
-            <span className="flex flex-col w-full text-4xl text-center uppercase">
+            <span className="flex w-full max-w-full flex-col text-center text-[clamp(1.75rem,6vw,2.25rem)] uppercase">
               <span>My name is</span>
               <span>
-                <span className="font-bold">Nishanth K R</span>
+                <span className="break-words font-bold">Nishanth K R</span>
               </span>
             </span>
           </div>
 
-          <span className="text-lg text-center">
+          <span className="max-w-full px-1 text-center text-[clamp(1rem,3.8vw,1.125rem)] text-pretty">
             A <span className="italic font-bold">creative mind</span> passionate
             about <span className="italic font-bold">UI/UX</span>,{' '}
             <span className="italic font-bold">photo&nbsp;editing</span>, and{' '}

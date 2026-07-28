@@ -72,7 +72,7 @@ const About = memo(() => {
   return (
     <section
       id="about"
-      className="relative flex min-h-screen snap-start flex-col items-center justify-center gap-8 px-4 sm:gap-12 sm:px-8 md:px-16 lg:items-start lg:px-24 xl:px-32"
+      className="portfolio-shell relative flex min-h-screen snap-start flex-col items-center justify-center gap-[clamp(1.5rem,4vh,3rem)] lg:items-start"
     >
       <h1 className="flex text-3xl font-semibold text-violet-400 sm:text-4xl md:text-5xl">
         About Me
@@ -93,7 +93,7 @@ const About = memo(() => {
             {TECH_STACK.map((tech) => (
               <div
                 key={tech.name}
-                className="rounded-lg border border-gray-700 bg-gray-800/50 p-3 backdrop-blur-sm"
+                className="rounded-md border border-gray-700/80 bg-gray-800/50 p-2.5 backdrop-blur-sm"
               >
                 <div className="mb-1 flex items-center gap-2">
                   <span className="flex gap-1 text-lg">{tech.icon}</span>

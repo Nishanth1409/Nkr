@@ -3,8 +3,8 @@ import React from 'react'
 const footer = () => {
   return (
     <div className="flex items-center justify-center bg-transparent">
-      <div className="container flex flex-col items-center justify-center gap-8 bg-transparent px-8 py-4 md:px-24">
-        <span className="no-grunge text-center text-base text-black">
+      <div className="portfolio-shell flex flex-col items-center justify-center gap-8 !py-4 bg-transparent">
+        <span className="no-grunge max-w-4xl text-center text-pretty text-base text-black">
           Loosely designed in{' '}
           <a
             href="https://figma.com/"

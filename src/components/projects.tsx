@@ -50,9 +50,9 @@ type Project = {
 }
 
 const StackChip = ({ tech }: { tech: StackItem }) => (
-  <div className="inline-flex w-fit max-w-full items-center gap-2 rounded-lg border border-solid border-black/20 bg-white/80 px-2.5 py-1.5">
-    <tech.icon className="h-4 w-4 shrink-0" />
-    <span className="no-grunge text-sm text-black">{tech.name}</span>
+  <div className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-md border border-black/15 bg-white/90 px-2 py-1">
+    <tech.icon className="h-3.5 w-3.5 shrink-0" />
+    <span className="no-grunge text-xs text-black sm:text-sm">{tech.name}</span>
   </div>
 )
 
@@ -243,43 +243,47 @@ const projectsByTimeline = [...projectsData].sort(
 )
 
 const ProjectCard = ({ project }: { project: Project }) => (
-  <div className="flex flex-col gap-4">
+  <div className="flex min-w-0 flex-col gap-4">
     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex min-w-0 flex-col items-start">
         <span
-          className={`grunge-text-extended max-w-full break-words text-black ${project.fontSize} ${project.fontClass}`}
+          className={`portfolio-display-title grunge-text-extended text-black ${project.fontSize} ${project.fontClass}`}
           style={project.extraStyle}
         >
           {project.title}
         </span>
-        <span className="flex flex-col gap-0 text-base text-black md:flex-row md:gap-2">
-          <span>{project.subtitle}</span>
+        <span className="flex min-w-0 flex-col gap-0 text-base text-black md:flex-row md:gap-2">
+          <span className="text-pretty">{project.subtitle}</span>
           <span className="hidden md:inline"> • </span>
           <span>{project.time}</span>
         </span>
       </div>
       {project.category && (
-        <span className="hidden z-20 px-3 py-1 text-black rounded-full border border-black no-grunge bg-white/50 md:block">
+        <span className="no-grunge z-20 hidden shrink-0 rounded-full border border-black/70 bg-white/60 px-2.5 py-0.5 text-sm text-black md:block">
           {project.category}
         </span>
       )}
     </div>
 
-    <div className="flex flex-col gap-2">
-      <span className="text-lg text-black md:text-xl">{project.description}</span>
+    <div className="flex min-w-0 flex-col gap-2">
+      <span className="text-pretty text-lg text-black md:text-xl">
+        {project.description}
+      </span>
       {project.details &&
         Array.isArray(project.details) &&
         project.details.length > 0 && (
           <ul className="list-inside list-disc pl-4 text-lg text-black md:text-xl">
             {project.details.map((detail: string, idx: number) => (
-              <li key={idx}>{detail}</li>
+              <li key={idx} className="text-pretty">
+                {detail}
+              </li>
             ))}
           </ul>
         )}
     </div>
 
-    <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
-      <div className="w-full flex-1 lg:pr-10">
+    <div className="flex min-w-0 flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+      <div className="w-full min-w-0 flex-1 lg:pr-10">
         <span className="mb-3 block text-xl text-black">Stack</span>
         <ProjectStack groups={project.stackGroups} />
       </div>
@@ -300,13 +304,15 @@ const ProjectCard = ({ project }: { project: Project }) => (
 
 const Projects = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
-      <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
-        <span className="no-grunge text-3xl text-black sm:text-4xl md:text-5xl">Projects</span>
+    <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="portfolio-shell flex flex-col items-start justify-center gap-6 bg-white sm:gap-8">
+        <span className="no-grunge text-[clamp(1.75rem,5vw+0.5rem,3rem)] leading-tight text-black">
+          Projects
+        </span>
 
-        <div className="flex flex-col">
+        <div className="flex w-full min-w-0 flex-col">
           {projectsByTimeline.map((project, index) => (
-            <div key={project.title}>
+            <div key={project.title} className="min-w-0">
               <ProjectCard project={project} />
               {index < projectsByTimeline.length - 1 && <SectionDivider />}
             </div>

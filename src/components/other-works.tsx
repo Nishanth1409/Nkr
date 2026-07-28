@@ -43,19 +43,22 @@ const OtherWorks = () => {
   return (
     <section
       id="other-works"
-      className="flex relative flex-col gap-8 justify-center items-center py-16 pb-24 w-full min-h-screen bg-white photography-section-inner overflow-x-clip md:gap-12 md:py-32 md:pb-36"
+      className="photography-section-inner relative flex min-h-screen w-full flex-col items-center justify-center gap-8 overflow-x-clip bg-white py-[clamp(2.5rem,6vh,8rem)] pb-[clamp(4rem,8vh,9rem)] md:gap-12"
     >
-      <div className="container flex relative z-20 flex-col gap-2 items-start px-8 pb-4 w-full md:px-24">
-        <span className="no-grunge text-3xl text-black sm:text-4xl md:text-5xl">Photography</span>
-        <span className="no-grunge text-xl text-black sm:text-2xl">Seeing the world through my lens.
+      <div className="portfolio-shell relative z-20 flex w-full flex-col items-start gap-2 !pb-4 !pt-0">
+        <span className="no-grunge text-[clamp(1.75rem,5vw+0.5rem,3rem)] leading-tight text-black">
+          Photography
         </span>
-        <span className="no-grunge max-w-2xl text-lg text-black md:text-xl">
+        <span className="no-grunge text-[clamp(1rem,2.5vw+0.4rem,1.5rem)] text-black">
+          Seeing the world through my lens.
+        </span>
+        <span className="no-grunge max-w-2xl text-pretty text-lg text-black md:text-xl">
           Scroll to move through photos — last card opens the full gallery on{' '}
           <a
             href={INSTAGRAM_URL}
             target="_blank"
             rel="noopener noreferrer"
-            className="font-medium underline text-link-hover no-grunge"
+            className="text-link-hover no-grunge font-medium underline"
           >
             @_n.k.r_creation
           </a>
@@ -63,13 +66,13 @@ const OtherWorks = () => {
         </span>
       </div>
 
-      <div className="pt-10 w-full photo-carousel-bleed md:pt-16">
+      <div className="photo-carousel-bleed w-full pt-10 md:pt-16">
         <PhotographyCarousel slides={photographySlides} />
       </div>
 
       <a
         href="#my-designs"
-        className="btn-interactive no-grunge relative z-20 mx-8 mt-4 inline-flex rounded-lg border border-black bg-white px-4 py-2 text-base text-black shadow-[3px_3px_0_0_#000] sm:text-lg md:mx-24"
+        className="btn-interactive no-grunge relative z-20 mx-[clamp(1rem,4.5vw,6rem)] mt-4 inline-flex w-fit max-w-[calc(100%-2rem)] rounded-md border border-black/90 bg-white px-3.5 py-1.5 text-sm text-black shadow-[1.5px_1.5px_0_0_#111] sm:text-base"
       >
         My template designs ↓
       </a>

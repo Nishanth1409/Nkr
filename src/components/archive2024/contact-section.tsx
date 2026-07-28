@@ -84,22 +84,19 @@ const Footer = memo(() => (
 Footer.displayName = 'Footer'
 
 const ContactLinkButton = memo(({ link }: { link: ContactLink }) => (
-  <div key={link.id}>
-    {/* Explicitly passing <"a"> ensures TS finds 'children' and 'href' through the lazy boundary */}
-    <HoverBorderGradient<'a'>
-      as="a"
-      href={link.href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="flex gap-3 justify-center items-center px-8 py-4 w-full font-medium"
-      style={{
-        backgroundColor: link.color,
-      }}
-    >
-      {link.icon}
-      <span>{link.name}</span>
-    </HoverBorderGradient>
-  </div>
+  <HoverBorderGradient<'a'>
+    as="a"
+    href={link.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    className="flex w-fit items-center justify-center gap-2 px-3.5 py-2 text-sm font-medium sm:text-base"
+    style={{
+      backgroundColor: link.color,
+    }}
+  >
+    {link.icon}
+    <span>{link.name}</span>
+  </HoverBorderGradient>
 ))
 ContactLinkButton.displayName = 'ContactLinkButton'
 
@@ -114,15 +111,15 @@ const Contact = memo(() => {
           Contact Me
         </h1>
 
-        <div className="grid grid-cols-1 gap-6 p-6 mx-auto w-full sm:w-auto sm:p-8 md:grid-cols-2 lg:grid-cols-4">
+        <div className="mx-auto flex w-full max-w-5xl flex-wrap justify-center gap-2.5 p-[clamp(1rem,2.5vw,2rem)]">
           {CONTACT_LINKS.map((link) => (
             <ContactLinkButton key={link.id} link={link} />
           ))}
         </div>
 
-        <div className="mt-10 flex flex-col items-center gap-4 px-6">
+        <div className="mt-10 flex flex-col items-center gap-3 px-6">
           <h2 className="text-xl font-semibold text-violet-300">Archive</h2>
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center gap-2.5">
             {ARCHIVE_PORTFOLIO_LINKS.map((link) => (
               <HoverBorderGradient
                 key={link.href}
@@ -133,7 +130,7 @@ const Contact = memo(() => {
                   link.href.startsWith('http') ? 'noopener noreferrer' : undefined
                 }
                 containerClassName="rounded-full"
-                className="bg-violet-900/40 px-5 py-2 text-sm text-violet-100"
+                className="bg-violet-900/40 px-3.5 py-1.5 text-sm text-violet-100"
               >
                 {link.name}
               </HoverBorderGradient>
@@ -178,11 +175,11 @@ const FigmaPopup = memo(() => {
         <div
           ref={popupRef}
           onMouseLeave={() => setShow(false)}
-          className="absolute bottom-[130%] left-1/2 z-50 hidden aspect-4/3 min-h-[220px] w-[90vw] max-w-[500px] -translate-x-1/2 flex-col items-center justify-center overflow-hidden rounded-3xl border border-violet-500/20 bg-black/80 p-0 shadow-2xl backdrop-blur-md lg:flex"
+          className="absolute bottom-[130%] left-1/2 z-50 hidden aspect-4/3 min-h-[220px] w-[min(90vw,500px)] max-w-[calc(100vw-2rem)] -translate-x-1/2 flex-col items-center justify-center overflow-hidden rounded-3xl border border-violet-500/20 bg-black/80 p-0 shadow-2xl backdrop-blur-md lg:flex"
         >
           {!iframeLoaded ? (
             <button
-              className="px-6 py-3 text-xs font-bold text-white uppercase bg-violet-600 rounded-full"
+              className="px-4 py-2 text-xs font-bold uppercase tracking-wide text-white bg-violet-600 rounded-full"
               onClick={() => setIframeLoaded(true)}
             >
               Load Preview

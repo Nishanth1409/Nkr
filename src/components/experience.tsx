@@ -27,9 +27,9 @@ type ExperienceEntry = {
 }
 
 const StackItemRow = ({ tech }: { tech: StackItem }) => (
-  <div className="inline-flex w-fit max-w-full items-center gap-2 rounded-lg border border-solid border-black/20 bg-white/80 px-2.5 py-1.5">
-    <tech.icon className="h-4 w-4 shrink-0" />
-    <span className="no-grunge text-sm text-black">{tech.name}</span>
+  <div className="inline-flex w-fit max-w-full items-center gap-1.5 rounded-md border border-black/15 bg-white/90 px-2 py-1">
+    <tech.icon className="h-3.5 w-3.5 shrink-0" />
+    <span className="no-grunge text-xs text-black sm:text-sm">{tech.name}</span>
   </div>
 )
 
@@ -132,43 +132,47 @@ const experienceData: ExperienceEntry[] = [
 ]
 
 const ExperienceCard = ({ experience }: { experience: ExperienceEntry }) => (
-  <div className="flex flex-col gap-4">
+  <div className="flex min-w-0 flex-col gap-4">
     <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
       <div className="flex min-w-0 flex-col items-start">
         <span
-          className={`grunge-text-extended max-w-full break-words text-black ${experience.fontSize} ${experience.fontClass}`}
+          className={`portfolio-display-title grunge-text-extended text-black ${experience.fontSize} ${experience.fontClass}`}
         >
           {experience.title}
         </span>
-        <span className="flex flex-col gap-0 text-base text-black md:flex-row md:gap-2">
-          <span>{experience.subtitle}</span>
+        <span className="flex min-w-0 flex-col gap-0 text-base text-black md:flex-row md:gap-2">
+          <span className="text-pretty">{experience.subtitle}</span>
           <span className="hidden md:inline"> • </span>
           <span>{experience.time}</span>
         </span>
       </div>
       {experience.category && (
-        <span className="no-grunge z-20 hidden rounded-full border border-black bg-white/50 px-3 py-1 text-black md:block">
+        <span className="no-grunge z-20 hidden shrink-0 rounded-full border border-black/70 bg-white/60 px-2.5 py-0.5 text-sm text-black md:block">
           {experience.category}
         </span>
       )}
     </div>
 
-    <div className="flex flex-col gap-2">
-      <span className="text-lg text-black md:text-xl">{experience.description}</span>
+    <div className="flex min-w-0 flex-col gap-2">
+      <span className="text-pretty text-lg text-black md:text-xl">
+        {experience.description}
+      </span>
       {experience.details.length > 0 && (
         <ul className="list-inside list-disc pl-4 text-lg text-black md:text-xl">
           {experience.details.map((detail, idx) => (
-            <li key={idx}>{detail}</li>
+            <li key={idx} className="text-pretty">
+              {detail}
+            </li>
           ))}
         </ul>
       )}
     </div>
 
-    <div className="flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <div className="flex min-w-0 flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
       {(experience.stackGroups?.length ||
         experience.frontendStack ||
         experience.backendStack) && (
-        <div className="w-full flex-1 lg:pr-10">
+        <div className="w-full min-w-0 flex-1 lg:pr-10">
           <span className="mb-3 block text-xl text-black">Stack</span>
           <ExperienceStack experience={experience} />
         </div>
@@ -194,15 +198,17 @@ const ExperienceCard = ({ experience }: { experience: ExperienceEntry }) => (
 const Experience = () => {
   return (
     <div className="flex min-h-screen items-center justify-center bg-white">
-      <div className="container flex flex-col items-start justify-center gap-8 bg-white px-8 py-16 md:px-24 md:py-32">
-        <div className="flex w-full flex-col items-start justify-between gap-x-4 md:flex-row md:items-center">
-          <span className="text-3xl text-black sm:text-4xl md:text-5xl">Experience</span>
+      <div className="portfolio-shell flex flex-col items-start justify-center gap-6 bg-white sm:gap-8">
+        <div className="flex w-full min-w-0 flex-col items-start justify-between gap-x-4 gap-y-2 md:flex-row md:items-center">
+          <span className="text-[clamp(1.75rem,5vw+0.5rem,3rem)] leading-tight text-black">
+            Experience
+          </span>
           <span className="text-lg text-black md:text-xl">Remote · 2025 - Present</span>
         </div>
 
-        <div className="flex flex-col">
+        <div className="flex w-full min-w-0 flex-col">
           {experienceData.map((experience, index) => (
-            <div key={index}>
+            <div key={index} className="min-w-0">
               <ExperienceCard experience={experience} />
             </div>
           ))}

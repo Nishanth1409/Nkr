@@ -150,7 +150,7 @@ const Sidebar = ({
           <span className="text-4xl font-bold gradient-text-mobile">NKR.</span>
         </div>
 
-        <div className="fixed bottom-0 left-0 z-50 flex justify-center w-full py-2 space-x-8 border-t shadow-xl backdrop-blur-md bg-white/30 border-white/20 rounded-t-4xl">
+        <div className="fixed bottom-0 left-0 z-50 flex w-full justify-around gap-2 border-t border-white/20 bg-white/30 px-2 py-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] shadow-xl backdrop-blur-md sm:justify-center sm:gap-6 sm:space-x-0 rounded-t-4xl">
           {menuItems.map((item) => {
             const isActive = activeSection === item.id
 
@@ -181,7 +181,7 @@ const Sidebar = ({
 
       <div
         className={`hidden lg:flex bg-gradient-to-b from-[#FFBA5D] via-[#F29993] to-[#7A26A3] duration-700 flex-col items-center py-8 fixed left-0 top-0 h-full z-30 ${
-          isCollapsed ? 'w-16 px-4' : 'w-50 px-8'
+          isCollapsed ? 'w-16 px-4' : 'w-64 px-8'
         }`}
       >
         <button

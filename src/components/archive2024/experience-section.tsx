@@ -14,7 +14,7 @@ const ExperienceSection = memo(() => {
   return (
     <section
       id="experience"
-      className="relative flex min-h-screen snap-start flex-col items-center justify-center gap-8 px-4 py-20 sm:gap-12 sm:px-8 md:px-16 lg:items-start lg:px-24 xl:px-32"
+      className="portfolio-shell relative flex min-h-screen snap-start flex-col items-center justify-center gap-[clamp(1.5rem,4vh,3rem)] lg:items-start"
     >
       <div className="flex w-full flex-col gap-2 lg:flex-row lg:items-center lg:justify-between">
         <h1 className="text-3xl font-semibold text-violet-400 sm:text-4xl md:text-5xl">
@@ -35,7 +35,7 @@ const ExperienceSection = memo(() => {
               {exp.subtitle} · {exp.time}
             </p>
           </div>
-          <span className="mt-2 inline-flex w-fit rounded-full border border-violet-400/30 bg-violet-500/20 px-4 py-1 text-sm text-violet-200 lg:mt-0">
+          <span className="mt-2 inline-flex w-fit rounded-full border border-violet-400/30 bg-violet-500/20 px-2.5 py-0.5 text-sm text-violet-200 lg:mt-0">
             {exp.category}
           </span>
         </div>
@@ -56,10 +56,10 @@ const ExperienceSection = memo(() => {
               Design
             </h3>
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 rounded-lg border border-violet-500/30 bg-black/40 px-3 py-1.5 text-sm text-violet-100">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/25 bg-black/40 px-2.5 py-1 text-sm text-violet-100">
                 <FaFigma className="text-violet-400" /> Figma
               </span>
-              <span className="inline-flex items-center gap-2 rounded-lg border border-violet-500/30 bg-black/40 px-3 py-1.5 text-sm text-violet-100">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/25 bg-black/40 px-2.5 py-1 text-sm text-violet-100">
                 <SiCanva className="text-violet-400" /> Canva
               </span>
             </div>
@@ -69,10 +69,10 @@ const ExperienceSection = memo(() => {
               Frontend
             </h3>
             <div className="flex flex-wrap gap-2">
-              <span className="inline-flex items-center gap-2 rounded-lg border border-violet-500/30 bg-black/40 px-3 py-1.5 text-sm text-violet-100">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/25 bg-black/40 px-2.5 py-1 text-sm text-violet-100">
                 <RiNextjsFill className="text-violet-400" /> Next.js
               </span>
-              <span className="inline-flex items-center gap-2 rounded-lg border border-violet-500/30 bg-black/40 px-3 py-1.5 text-sm text-violet-100">
+              <span className="inline-flex items-center gap-1.5 rounded-md border border-violet-500/25 bg-black/40 px-2.5 py-1 text-sm text-violet-100">
                 <RiTailwindCssFill className="text-violet-400" /> Tailwind CSS
               </span>
             </div>
@@ -88,7 +88,7 @@ const ExperienceSection = memo(() => {
               target="_blank"
               rel="noopener noreferrer"
               containerClassName="rounded-full"
-              className="bg-black px-6 py-2 text-sm text-white"
+              className="bg-black px-3.5 py-1.5 text-sm text-white"
             >
               {link.label}
             </HoverBorderGradient>

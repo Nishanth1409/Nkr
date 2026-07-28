@@ -51,7 +51,7 @@ NavButton.displayName = 'NavButton'
 
 // Memoized technology badge component
 const TechBadge = memo(({ tech }: { tech: string }) => (
-  <span className="rounded-full border border-violet-500/20 bg-violet-500/10 px-3 py-1 text-sm font-medium text-violet-300">
+  <span className="rounded-full border border-violet-500/20 bg-violet-500/10 px-2.5 py-0.5 text-sm font-medium text-violet-300">
     {tech}
   </span>
 ))
@@ -76,7 +76,7 @@ const ProjectSelector = memo(
         <button
           key={project.id}
           onClick={() => onProjectChange(index)}
-          className={`flex w-full items-center gap-2 rounded-lg px-4 py-2 whitespace-nowrap transition-colors duration-300 ${
+          className={`flex w-full min-w-0 items-center gap-2 rounded-lg px-4 py-2 text-left transition-colors duration-300 ${
             activeProject === index
               ? 'border border-violet-500/30 bg-violet-500/20'
               : 'hover:bg-violet-500/10'
@@ -152,13 +152,13 @@ const Projects = memo(() => {
     <section
       ref={elementRef}
       id="projects"
-      className="relative flex min-h-screen snap-start flex-col items-center justify-center gap-8 px-4 py-20 sm:gap-12 sm:px-8 md:px-16 lg:items-start lg:px-24 xl:px-32"
+      className="portfolio-shell relative flex min-h-screen snap-start flex-col items-center justify-center gap-[clamp(1.5rem,4vh,3rem)] lg:items-start"
     >
       <h1 className="flex text-3xl font-semibold text-violet-400 sm:text-4xl md:text-5xl">
         My Projects
       </h1>
 
-      <div className="flex w-full flex-col items-center justify-around gap-4 lg:flex-row lg:items-start">
+      <div className="flex w-full min-w-0 flex-col items-center justify-around gap-4 lg:flex-row lg:items-start lg:gap-8">
         <ProjectSelector
           projects={PROJECTS}
           activeProject={activeProject}
@@ -188,8 +188,8 @@ const Projects = memo(() => {
 
         {/* Project Content */}
         <div className="relative w-full">
-          <div className="flex w-full flex-col items-center justify-center space-y-6 transition-opacity duration-300">
-            <div className="group relative aspect-video w-full overflow-hidden rounded-lg lg:w-[60vw]">
+          <div className="relative flex w-full min-w-0 flex-1 flex-col items-center justify-center space-y-6 transition-opacity duration-300">
+            <div className="group relative aspect-video w-full max-w-full overflow-hidden rounded-lg lg:max-w-[min(100%,48rem)] xl:max-w-[56rem]">
               <Image
                 src={currentImage}
                 alt={currentProject.title}
@@ -228,7 +228,7 @@ const Projects = memo(() => {
               </div>
             </div>
 
-            <div className="space-y-4 lg:max-w-[60vw]">
+            <div className="w-full min-w-0 space-y-4 lg:max-w-[min(100%,48rem)] xl:max-w-[56rem]">
               <p className="font-lora text-lg leading-relaxed text-violet-300">
                 {currentProject.description}
               </p>
@@ -244,7 +244,7 @@ const Projects = memo(() => {
                   href={currentProject.link}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex w-fit items-center gap-2 rounded-full border-2 border-white/20 bg-gray-200 px-6 py-3 text-sm font-medium tracking-wider text-violet-700 uppercase transition-all duration-200 hover:bg-gray-300"
+                  className="inline-flex w-fit items-center gap-2 rounded-full border border-white/25 bg-gray-200 px-4 py-2 text-xs font-medium tracking-wider text-violet-700 uppercase transition-all duration-200 hover:bg-gray-300 sm:text-sm"
                 >
                   <svg
                     viewBox="0 0 24 24"

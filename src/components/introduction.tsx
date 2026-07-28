@@ -32,37 +32,50 @@ const technologies: Technology[] = [
 
 const Introduction = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-white">
-      <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
-        <div className="flex flex-col gap-4">
-          <span className="text-3xl text-black sm:text-4xl md:text-5xl">{PORTFOLIO_NAME}</span>
-          <span className="text-xl text-black sm:text-2xl">{PORTFOLIO_TAGLINE}</span>
+    <div className="flex min-h-screen items-center justify-center bg-white">
+      <div className="portfolio-shell flex flex-col items-start justify-center gap-6 bg-white sm:gap-8">
+        <div className="flex min-w-0 flex-col gap-3 sm:gap-4">
+          <span className="text-[clamp(1.75rem,5vw+0.5rem,3rem)] leading-tight text-black">
+            {PORTFOLIO_NAME}
+          </span>
+          <span className="text-[clamp(1rem,2.5vw+0.4rem,1.5rem)] leading-snug text-pretty text-black">
+            {PORTFOLIO_TAGLINE}
+          </span>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex min-w-0 flex-col gap-2">
           {PORTFOLIO_INTRO_PARAGRAPHS.map((paragraph) => (
-            <span key={paragraph} className="text-lg text-black md:text-xl">
+            <span
+              key={paragraph}
+              className="text-[clamp(1rem,1.5vw+0.65rem,1.25rem)] leading-relaxed text-pretty text-black"
+            >
               {paragraph}
             </span>
           ))}
         </div>
 
-        <div className="flex flex-col items-start gap-[9px] self-stretch">
-          <span className="text-lg text-black md:text-xl">Technologies I work with</span>
-          <div className="grid grid-cols-1 gap-3 min-[420px]:grid-cols-2 md:grid-cols-3">
+        <div className="flex w-full min-w-0 flex-col items-start gap-[9px] self-stretch">
+          <span className="text-[clamp(1rem,1.5vw+0.65rem,1.25rem)] text-black">
+            Technologies I work with
+          </span>
+          <div className="grid w-full grid-cols-1 gap-3 min-[380px]:grid-cols-2 md:grid-cols-3 xl:grid-cols-3">
             {technologies.map((tech, index) => (
-              <div key={index} className="tech-card-border">
-                <div className="tech-card-inner flex items-center gap-2 p-2.5">
+              <div key={index} className="tech-card-border min-w-0">
+                <div className="tech-card-inner flex min-w-0 items-center gap-2 px-2.5 py-1.5">
                   {tech.icons ? (
                     <div className="no-grunge flex shrink-0 items-center gap-1">
                       {tech.icons.map((Icon, iconIndex) => (
-                        <Icon key={iconIndex} className="h-6 w-6 shrink-0" />
+                        <Icon key={iconIndex} className="h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
                       ))}
                     </div>
                   ) : (
-                    tech.icon && <tech.icon className="no-grunge h-6 w-6 shrink-0" />
+                    tech.icon && (
+                      <tech.icon className="no-grunge h-4 w-4 shrink-0 sm:h-5 sm:w-5" />
+                    )
                   )}
-                  <span className="no-grunge text-base text-black">{tech.name}</span>
+                  <span className="no-grunge min-w-0 text-sm text-black sm:text-base">
+                    {tech.name}
+                  </span>
                 </div>
               </div>
             ))}
