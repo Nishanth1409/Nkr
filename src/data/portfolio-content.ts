@@ -3,10 +3,11 @@
 export const PORTFOLIO_NAME = 'NISHANTH K R'
 
 export const PORTFOLIO_TAGLINE =
-  'UI/UX · Logos · Templates · Invitation cards · Frontend · Photography'
+  'Son of a farmer · Always a farmer · UI/UX · Logos · Templates · Invites · Frontend'
 
 export const PORTFOLIO_INTRO_PARAGRAPHS = [
-  "I'm a Computer Science and Design student from Karnataka, India.",
+  'Son of a farmer. Always a farmer.',
+  "I'm a Computer Science and Design student from Karnataka, India — rooted in the land, building in design and code.",
   'I design across UI/UX, brand and visual identity — logos, templates, invitation cards (print and digital) — plus frontend with React and Next.js. Photography is part of how I see and shape stories.',
   'Open for client edits and commissions at affordable rates. Feel free to ask anytime — email or DM.',
 ] as const

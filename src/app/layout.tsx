@@ -34,9 +34,10 @@ const berkshireSwash = Berkshire_Swash({
 export const metadata: Metadata = {
   title: 'NKR · Portfolio',
   description:
-    'NISHANTH K R — UI/UX, logos, templates, invitation cards, digital invites, and frontend. Open for affordable client edits. Portfolio at nkrportfolio.vercel.app.',
+    'Son of a farmer · Always a farmer. NISHANTH K R — UI/UX, logos, templates, invitation cards, and frontend. Open for affordable client edits.',
   keywords: [
     'NISHANTH K R',
+    'farmer',
     'UI/UX design',
     'logo design',
     'invitation cards',
@@ -58,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'UI/UX · logos · templates · invitation cards · frontend. Open for client edits — feel free to ask.',
+      'Son of a farmer · Always a farmer. UI/UX · logos · templates · invites · frontend. Open for client edits.',
     type: 'website',
     url: 'https://nkrportfolio.vercel.app',
   },
@@ -66,7 +67,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'UI/UX · logos · templates · invitation cards · frontend. Open for client edits — feel free to ask.',
+      'Son of a farmer · Always a farmer. UI/UX · logos · templates · invites · frontend. Open for client edits.',
   },
 }
 
