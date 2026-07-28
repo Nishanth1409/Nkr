@@ -6,6 +6,12 @@ import { IoLogoJavascript } from 'react-icons/io5'
 import { RiTailwindCssFill } from 'react-icons/ri'
 import { SiCanva, SiFirebase, SiHtml5, SiNextdotjs, SiSupabase } from 'react-icons/si'
 
+import {
+  PORTFOLIO_INTRO_PARAGRAPHS,
+  PORTFOLIO_NAME,
+  PORTFOLIO_TAGLINE,
+} from '../data/portfolio-content'
+
 type Technology = {
   name: string
   icon?: IconType
@@ -29,24 +35,16 @@ const Introduction = () => {
     <div className="flex justify-center items-center min-h-screen bg-white">
       <div className="container flex flex-col gap-8 justify-center items-start px-8 py-16 bg-white md:px-24 md:py-32">
         <div className="flex flex-col gap-4">
-          <span className="text-3xl text-black sm:text-4xl md:text-5xl">NISHANTH K R</span>
-          <span className="text-xl text-black sm:text-2xl">
-            A creator who captures moments and admires good design 📸✨
-          </span>
+          <span className="text-3xl text-black sm:text-4xl md:text-5xl">{PORTFOLIO_NAME}</span>
+          <span className="text-xl text-black sm:text-2xl">{PORTFOLIO_TAGLINE}</span>
         </div>
 
         <div className="flex flex-col gap-2">
-          <span className="text-lg text-black md:text-xl">
-            I&apos;m a <strong>Computer Science</strong> student from Karnataka,
-            India.
-          </span>
-          <span className="text-lg text-black md:text-xl">
-          Passionate about <strong>photography</strong>, <strong>UI/UX design</strong> , <strong>frontend development</strong> and creating clean digital experiences {' '} 
-            with React and Next.js and am also learning backend development.
-          </span>
-          <span className="text-lg text-black md:text-xl">
-            When I&apos;m not designing or coding, I enjoy photography, music and capturing moments that tell stories.
-          </span>
+          {PORTFOLIO_INTRO_PARAGRAPHS.map((paragraph) => (
+            <span key={paragraph} className="text-lg text-black md:text-xl">
+              {paragraph}
+            </span>
+          ))}
         </div>
 
         <div className="flex flex-col items-start gap-[9px] self-stretch">

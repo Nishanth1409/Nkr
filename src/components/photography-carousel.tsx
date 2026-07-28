@@ -12,7 +12,7 @@ import {
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
-const INSTAGRAM_URL = 'https://www.instagram.com/_n.k.r_creation'
+const INSTAGRAM_URL = 'https://www.instagram.com/_mr.nishanth.k.r'
 
 export type PhotographySlide =
   | {

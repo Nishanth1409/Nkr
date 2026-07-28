@@ -89,14 +89,14 @@ const ExperienceStack = ({ experience }: { experience: ExperienceEntry }) => {
 const experienceData: ExperienceEntry[] = [
   {
     title: 'ProtoRev Digital & ProtoRev 3D',
-    subtitle: 'Frontend Design · Branding · Social Media',
+    subtitle: 'Frontend · Brand Design · Logos · Templates · Social',
     time: '2025 - Present',
     category: 'Design & Frontend',
     description:
-      'Contributing to two related brands—ProtoRev Digital and ProtoRev 3D—across web presence, visual identity, and social content. Work spans frontend layout planning, logo and template design, and consistent brand execution for digital services and 3D printing.',
+      'Contributing to ProtoRev Digital and ProtoRev 3D across web presence, visual identity, and social content — frontend layouts, logos, templates, invitation-style creatives, and consistent brand execution for digital services and 3D printing.',
     details: [
       'Plan and design frontend layouts for protorevdigital.com and protorev3d.com, aligning structure, typography, and UI flow with each brand’s goals.',
-      'Create logos, reusable social templates, and marketing visuals used across Instagram and other channels.',
+      'Create logos, reusable templates, invitation-style graphics, and marketing visuals used across Instagram and other channels.',
       'Handle social media planning and posting—coordinating content calendars, captions, and on-brand graphics for both companies.',
       'Produce design templates and asset kits so the teams can ship campaigns and web updates faster with a unified look.',
     ],

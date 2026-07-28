@@ -1,7 +1,12 @@
 'use client'
 
 import React, { memo, useRef, useState } from 'react'
-import { faGithub, faLinkedin } from '@fortawesome/free-brands-svg-icons'
+import {
+  faGithub,
+  faInstagram,
+  faLinkedin,
+  faXTwitter,
+} from '@fortawesome/free-brands-svg-icons'
 import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import styled from 'styled-components'
@@ -31,6 +36,8 @@ interface ContactLink {
 const LINK_COLORS: Record<string, string> = {
   LinkedIn: '#0A66C2',
   GitHub: '#24292e',
+  X: '#000000',
+  Instagram: '#E4405F',
   Linktree: '#1a1a1a',
   Email: '#ea4335',
 }
@@ -38,6 +45,8 @@ const LINK_COLORS: Record<string, string> = {
 const LINK_ICONS: Record<string, React.ReactNode> = {
   LinkedIn: <FontAwesomeIcon icon={faLinkedin} size="lg" />,
   GitHub: <FontAwesomeIcon icon={faGithub} size="lg" />,
+  X: <FontAwesomeIcon icon={faXTwitter} size="lg" />,
+  Instagram: <FontAwesomeIcon icon={faInstagram} size="lg" />,
   Linktree: (
     <svg
       xmlns="http://www.w3.org/2000/svg"

@@ -34,16 +34,19 @@ const berkshireSwash = Berkshire_Swash({
 export const metadata: Metadata = {
   title: 'NKR · Portfolio',
   description:
-    'NISHANTH K R - Computer Science and Design student specializing in web development. Portfolio showcasing projects in full-stack development, and software engineering.',
+    'NISHANTH K R — UI/UX, logos, templates, invitation cards, digital invites, and frontend. Open for affordable client edits. Portfolio at nkrportfolio.vercel.app.',
   keywords: [
     'NISHANTH K R',
-    'web developer',
-    'computer science',
     'UI/UX design',
+    'logo design',
+    'invitation cards',
+    'digital invites',
+    'templates',
+    'brand design',
+    'frontend',
     'portfolio',
     'Karnataka',
     'India',
-    'full-stack developer',
   ],
   authors: [{ name: 'NISHANTH K R' }],
   icons: {
@@ -55,7 +58,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
+      'UI/UX · logos · templates · invitation cards · frontend. Open for client edits — feel free to ask.',
     type: 'website',
     url: 'https://nkrportfolio.vercel.app',
   },
@@ -63,7 +66,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'NKR · Portfolio — Nishanth K R',
     description:
-      'Computer Science and Design student specializing in web development. View my projects and get in touch for collaborations.',
+      'UI/UX · logos · templates · invitation cards · frontend. Open for client edits — feel free to ask.',
   },
 }
 
