@@ -271,17 +271,19 @@ export default function Scene3D({
     const stars = new THREE.Points(starGeo, starMat)
     scene.add(stars)
 
-    // ——— Ground / horizon silhouette ———
+    // Soft horizon shelf — not a hard cut across the frame
     const ground = new THREE.Mesh(
-      new THREE.CircleGeometry(60, 64),
+      new THREE.CircleGeometry(48, 64),
       new THREE.MeshStandardMaterial({
-        color: 0x0c0a08,
+        color: 0x120e0a,
         roughness: 1,
         metalness: 0,
+        transparent: true,
+        opacity: 0.92,
       }),
     )
     ground.rotation.x = -Math.PI / 2
-    ground.position.y = -2.6
+    ground.position.y = -3.4
     scene.add(ground)
 
     // Soft mist band
