@@ -105,7 +105,7 @@ const projectsData: Project[] = [
       },
     ],
     link: 'Visit Website',
-    address: 'https://happy-journy.vercel.app/',
+    address: 'https://happy-journy-two.vercel.app/',
   },
   {
     title: 'NyayaSakhi AI',
