@@ -45,3 +45,7 @@ next-env.d.ts
 
 docs/mockup/
 
+# 2026 portfolio — still in development, stays on this machine only
+src/components/portfolio2026/
+src/app/2026/
+

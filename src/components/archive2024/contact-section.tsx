@@ -129,14 +129,8 @@ const Contact = memo(() => {
                 rel={
                   link.href.startsWith('http') ? 'noopener noreferrer' : undefined
                 }
-                containerClassName={
-                  link.calm ? 'rounded-full opacity-70' : 'rounded-full'
-                }
-                className={
-                  link.calm
-                    ? 'bg-transparent px-3.5 py-1.5 text-sm text-violet-200/55 border border-violet-400/20 shadow-none'
-                    : 'bg-violet-900/40 px-3.5 py-1.5 text-sm text-violet-100'
-                }
+                containerClassName="rounded-full"
+                className="bg-violet-900/40 px-3.5 py-1.5 text-sm text-violet-100"
               >
                 {link.name}
               </HoverBorderGradient>

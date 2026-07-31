@@ -32,9 +32,9 @@ const berkshireSwash = Berkshire_Swash({
 })
 
 export const metadata: Metadata = {
-  title: 'NKR · 2026 Portfolio',
+  title: 'NKR · Portfolio',
   description:
-    'Son of a farmer · Always a farmer. NISHANTH K R — 2026 cinematic portfolio. Brand, UI/UX, logos, templates, invites, and frontend.',
+    'Son of a farmer · Always a farmer. NISHANTH K R — UI/UX, logos, templates, invitation cards, and frontend. Open for affordable client edits.',
   keywords: [
     'NISHANTH K R',
     'farmer',
@@ -46,7 +46,6 @@ export const metadata: Metadata = {
     'brand design',
     'frontend',
     'portfolio',
-    '2026',
     'Karnataka',
     'India',
   ],
@@ -58,17 +57,17 @@ export const metadata: Metadata = {
   },
   manifest: '/manifest.json',
   openGraph: {
-    title: 'NKR · 2026 Portfolio — Nishanth K R',
+    title: 'NKR · Portfolio — Nishanth K R',
     description:
-      '3D scroll portfolio · Launch → Success. Son of a farmer · Always a farmer.',
+      'Son of a farmer · Always a farmer. UI/UX · logos · templates · invites · frontend. Open for client edits.',
     type: 'website',
     url: 'https://nkrportfolio.vercel.app',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'NKR · 2026 Portfolio — Nishanth K R',
+    title: 'NKR · Portfolio — Nishanth K R',
     description:
-      '3D scroll portfolio · Launch → Success. Son of a farmer · Always a farmer.',
+      'Son of a farmer · Always a farmer. UI/UX · logos · templates · invites · frontend. Open for client edits.',
   },
 }
 

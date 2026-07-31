@@ -132,7 +132,7 @@ export const CONTACT_AVAILABILITY =
   'Open for client edits & commissions (logos, templates, invitation cards, UI/UX, digital invites) at affordable rates. Feel free to ask — email or Instagram DM.'
 
 export const ARCHIVE_PORTFOLIO_LINKS = [
-  { name: 'Current Portfolio', href: '/', calm: false },
-  { name: '2025 Portfolio', href: '/archive2025', calm: true },
-  { name: '2023 Portfolio', href: '/archive2023', calm: false },
+  { name: 'Current Portfolio', href: '/' },
+  { name: '2026 Portfolio', href: '/2026' },
+  { name: '2023 Portfolio', href: '/archive2023' },
 ] as const
