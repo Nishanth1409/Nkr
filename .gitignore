@@ -49,3 +49,7 @@ docs/mockup/
 src/components/portfolio2026/
 src/app/2026/
 
+
+# pnpm is the package manager — npm's lockfile must not reappear
+package-lock.json
+

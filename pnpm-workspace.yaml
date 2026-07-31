@@ -2,7 +2,7 @@
 # instead of the ignored package.json "pnpm" field.
 overrides:
   minimatch: "^10.2.1"
-  brace-expansion: "^5.0.7"
+  brace-expansion: "^5.0.9"
   flatted: "^3.4.2"
   js-yaml: "^4.3.0"
   picomatch: "^4.0.4"
